@@ -1,0 +1,37 @@
+changing python version
+
+
+Check your existing python version by running:
+
+python -V
+
+or
+
+python --version
+
+List all the available items by running:
+
+ls /usr/bin/python
+
+Now, set your version priorities by issuing the following commands:
+
+update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
+
+update-alternatives --install /usr/bin/python python /usr/bin/python3.8 2
+
+You can then list the python priorities by:
+
+update-alternatives --config python
+
+
+
+installing python 2 pip
+
+
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py
+
+wget https://bootstrap.pypa.io/get-pip.py
+sudo python2.7 get-pip.py
+
+https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py
