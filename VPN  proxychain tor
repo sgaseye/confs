@@ -1,0 +1,65 @@
+Vpn
+
+OpenDns.com
+go to opendns ip addresses >> Copy the IP addresses from the site 
+
+Now open the file : nano etc/dhcp/dhclient.conf
+		    uncommon prepend domain name servers <remove 127.0.0.1 and paste copied addresses seperated with comma>;
+		    
+		    https://www.allconnect.com/blog/best-free-dns-servers
+		    
+service network-manager restart 
+Recheck the file cat /etc/resolv.conf : you will see updated nmaserver list and dont bother your isp nameserver since it is not going to be used
+
+Installation
+
+wget http://myiphide.com/mih
+sh mih
+
+
+Uninstallation
+
+Just run those commands again in your Terminal to uninstall My IP Hide. It will check whether you installed My IP Hide. If so, it will do the uninstallation for you.
+
+wget -N http://myiphide.com/mih
+sh mih
+
+* It will ask your Linux password for uninstallation.
+
+
+Update
+
+Run these commands in your Terminal to update My IP Hide. You need to run the sh mih command twice. The first one is to uninstall the old version. The second one is to install the new version.
+
+wget -N http://myiphide.com/mih
+sh mih
+sh mih
+
+nivibov589@noobf.com- email
+pass - ddnn99
+
+
+
+
+Tor 
+apt-get install tor
+service tor start/status/stop 
+
+
+
+Proxychain
+nano etc/proxychain4.conf
+
+commont the strict chain and uncommon the dynamic chain
+
+#strict chains
+roundrobin(dynamic chain)
+
+Add socks5  127.0.0.1 9050 at the end, below "default set to tor" 
+you can add proxies copied from socksproxy.net int the end after socks 5
+ctrl+o enter ctrl+x
+
+now 
+service tor start
+proxychains firefox www.duckduckgo.com
+open browser after all processe done in terminal
