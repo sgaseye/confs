@@ -1,0 +1,102 @@
+How to Extract (Unzip) Tar Gz File
+
+Updated  Sep 24, 2019
+•
+
+4 min read
+Unzip Tar Gz File
+
+If you are roaming the open-source world, chances are you encounter .tar.gz files on a regular basis. Open-source packages are generally available to download in .tar.gz and .zip formats.
+
+The tar command is used to create tar archives by converting a group of files into an archive. It supports a vast range of compression programs such as gzip, bzip2, lzip, lzma, lzop, xz and compress. Tar was originally designed for creating archives to store files on magnetic tape which is why it has its name “Tape ARchive”.
+
+Gzip is the most popular algorithm for compressing tar files. By convention, the name of a tar archive compressed with gzip should end with either .tar.gz or .tgz.
+
+In short, a file that ends in .tar.gz is a .tar archive compressed with gzip.
+
+The tar command can also be used to extract tar archives, display a list of the files included in the archive, add additional files to an existing archive, as well as various other kinds of operations.
+
+In this tutorial, we will show you how to extract (or unzip) tar.gz and tgz archives.
+Extracting tar.gz File
+
+Most Linux distributions and macOS comes with tar command pre-installed by default.
+
+To extract a tar.gz file, use the --extract (-x) option and specify the archive file name after the f option:
+
+tar -xf archive.tar.gz
+
+The tar command will auto-detect compression type and will extract the archive. The same command can be used to extract tar archives compressed with other algorithms such as .tar.bz2 .
+
+If you are a Desktop user and the command-line is not your thing you can use your File manager. To extract (unzip) a tar.gz file simply right-click on the file you want to extract and select “Extract”. Windows users will need a tool named 7zip to extract tar.gz files.
+
+The -v option will make the tar command more visible and print the names of the files being extracted on the terminal.
+
+tar -xvf archive.tar.gz
+
+By default, tar will extract the archive contents in the current working directory . Use the --directory (-C) to extract archive files in a specific directory:
+
+For example, to extract the archive contents to the /home/linuxize/files directory, you can use:
+
+tar -xf archive.tar.gz -C /home/linuxize/files
+
+Extracting Specific Files from a tar.gz File
+
+To extract a specific file(s) from a tar.gz file, append a space-separated list of file names to be extracted after the archive name:
+
+tar -xf archive.tar.gz file1 file2
+
+When extracting files, you must provide their exact names including the path, as printed by --list (-t).
+
+Extracting one or more directories from an archive is the same as extracting files:
+
+tar -xf archive.tar.gz dir1 dir2
+
+If you try to extract a file that doesn’t exist, an error message similar to the following will be displayed:
+
+tar -xf archive.tar.gz README
+
+tar: README: Not found in archive
+tar: Exiting with failure status due to previous errors
+
+You can also extract files from a tar.gz file based on a wildcard pattern, by using the --wildcards option and quoting the pattern to prevent the shell from interpreting it.
+
+For example, to extract files whose names end in .js (Javascript files), you would use:
+
+tar -xf archive.tar.gz --wildcards '*.js'
+
+Extracting tar.gz File from stdin
+
+If you are extracting a compressed tar.gz file by reading the archive from stdin (usually through a pipe), you need to specify the decompression option. The option that tells tar to read the archives through gzip is -z.
+
+In the following example we are downloading the Blender sources using the wget command and pipe its output to the tar command:
+
+wget -c https://download.blender.org/source/blender-2.80.tar.gz -O - | sudo tar -xz
+
+If you don’t specify a decompression option, tar will indicate which option you should use:
+
+tar: Archive is compressed. Use -z option
+tar: Error is not recoverable: exiting now
+
+Listing tar.gz file
+
+To list the content of a tar.gz file, use the --list (-t) option:
+
+tar -tf archive.tar.gz
+
+The output will look something like this:
+
+file1
+file2
+file3
+
+If you add the --verbose (-v) option, tar will print more information, such as owner, file size, timestamp ..etc:
+
+tar -tvf archive.tar.gz
+
+-rw-r--r-- linuxize/users       0 2019-02-15 01:19 file1
+-rw-r--r-- linuxize/users       0 2019-02-15 01:19 file2
+-rw-r--r-- linuxize/users       0 2019-02-15 01:19 file3
+
+Conclusion
+
+tar.gz file is a Tar archive compressed with Gzip. To extract a tar.gz file, use the tar -xf command followed by the archive name.

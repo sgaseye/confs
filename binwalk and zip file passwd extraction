@@ -1,0 +1,169 @@
+└─# binwalk cutie.png  
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             PNG image, 528 x 528, 8-bit colormap, non-interlaced
+869           0x365           Zlib compressed data, best compression
+34562         0x8702          Zip archive data, encrypted compressed size: 98, uncompressed size: 86, name: To_agentR.txt
+34820         0x8804          End of Zip archive, footer length: 22
+
+                                                                                                                                                              
+┌──(root💀kali)-[~]
+└─# binwalk cutie.png -e
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+0             0x0             PNG image, 528 x 528, 8-bit colormap, non-interlaced
+869           0x365           Zlib compressed data, best compression
+34562         0x8702          Zip archive data, encrypted compressed size: 98, uncompressed size: 86, name: To_agentR.txt
+34820         0x8804          End of Zip archive, footer length: 22
+
+                                                                                                                                                              
+┌──(root💀kali)-[~]
+└─# ls                 
+45233.py  5720.py  cute-alien.jpg  cutie.png  _cutie.png.extracted  DefaultCreds-cheat-sheet  hydra.restore  To_agentJ.txt
+                                                                                                                                                              
+┌──(root💀kali)-[~]
+└─# cd _cutie.png.extracted 
+                                                                                                                                                              
+┌──(root💀kali)-[~/_cutie.png.extracted]
+└─# ls
+365  365.zlib  8702.zip  To_agentR.txt
+                                                                                                                                                              
+┌──(root💀kali)-[~/_cutie.png.extracted]
+└─# ./zip2john 8702.zip > Output.txt
+zsh: no such file or directory: ./zip2john
+                                                                                                                                                              
+┌──(root💀kali)-[~/_cutie.png.extracted]
+└─# apt install zip2johnl                                                                                                                               127 ⨯
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+E: Unable to locate package zip2johnl
+                                                                                                                                                              
+┌──(root💀kali)-[~/_cutie.png.extracted]
+└─# apt install zip2john                                                                                                                                100 ⨯
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+E: Unable to locate package zip2john
+                                                                                                                                                              
+┌──(root💀kali)-[~/_cutie.png.extracted]
+└─# zip2john 8702.zip > Output.txt                                                                                                                      100 ⨯
+Created directory: /root/.john
+ver 81.9 8702.zip/To_agentR.txt is not encrypted, or stored with non-handled compression type
+                                                                                                                                                              
+┌──(root💀kali)-[~/_cutie.png.extracted]
+└─# ls
+365  365.zlib  8702.zip  Output.txt  To_agentR.txt
+                                                                                                                                                              
+┌──(root💀kali)-[~/_cutie.png.extracted]
+└─# cat Output.txt         
+8702.zip/To_agentR.txt:$zip2$*0*1*0*4673cae714579045*67aa*4e*61c4cf3af94e649f827e5964ce575c5f7a239c48fb992c8ea8cbffe51d03755e0ca861a5a3dcbabfa618784b85075f0ef476c6da8261805bd0a4309db38835ad32613e3dc5d7e87c0f91c0b5e64e*4969f382486cb6767ae6*$/zip2$:To_agentR.txt:8702.zip:8702.zip
+                                                                                                                                                              
+┌──(root💀kali)-[~/_cutie.png.extracted]
+└─# john Output.txt 
+Using default input encoding: UTF-8
+Loaded 1 password hash (ZIP, WinZip [PBKDF2-SHA1 128/128 AVX 4x])
+Will run 4 OpenMP threads
+Proceeding with single, rules:Single
+Press 'q' or Ctrl-C to abort, almost any other key for status
+Almost done: Processing the remaining buffered candidate passwords, if any.
+Warning: Only 10 candidates buffered for the current salt, minimum 16 needed for performance.
+Proceeding with wordlist:/usr/share/john/password.lst, rules:Wordlist
+alien            (8702.zip/To_agentR.txt)
+1g 0:00:00:05 DONE 2/3 (2021-09-12 22:56) 0.1923g/s 8459p/s 8459c/s 8459C/s 123456..Peter
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed
+                                                                                                                                                              
+┌──(root💀kali)-[~/_cutie.png.extracted]
+└─# unzip 8702.zip                                                           
+Archive:  8702.zip
+   skipping: To_agentR.txt           need PK compat. v5.1 (can do v4.6)
+                                                                                                                                                              
+┌──(root💀kali)-[~/_cutie.png.extracted]
+└─# 7z x 8702.zip                                                                                                                                        81 ⨯
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,4 CPUs Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz (806EA),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 280 bytes (1 KiB)
+
+Extracting archive: 8702.zip
+--
+Path = 8702.zip
+Type = zip
+Physical Size = 280
+
+    
+Would you like to replace the existing file:
+  Path:     ./To_agentR.txt
+  Size:     0 bytes
+  Modified: 2019-10-29 08:29:11
+with the file from archive:
+  Path:     To_agentR.txt
+  Size:     86 bytes (1 KiB)
+  Modified: 2019-10-29 08:29:11
+? (Y)es / (N)o / (A)lways / (S)kip all / A(u)to rename all / (Q)uit? yes
+
+                    
+Enter password (will not be echoed):
+Everything is Ok    
+
+Size:       86
+Compressed: 280
+                                                                                                                                                              
+┌──(root💀kali)-[~/_cutie.png.extracted]
+└─# ls
+365  365.zlib  8702.zip  Output.txt  To_agentR.txt
+                                                                                                                                                              
+┌──(root💀kali)-[~/_cutie.png.extracted]
+└─# cat To_agentR.txt 
+Agent C,
+
+We need to send the picture to 'QXJlYTUx' as soon as possible!
+
+By,
+Agent R
+                                                                                                                                                              
+┌──(root💀kali)-[~/_cutie.png.extracted]
+└─# 
+                                                                                                                                    
+
+after using cyberchef we get code Ares51
+
+
+┌──(root💀kali)-[~/_cutie.png.extracted]
+└─# ls                                                                                                                                                  
+365  365.zlib  8702.zip  Output.txt  To_agentR.txt
+                                                                                                                                                              
+┌──(root💀kali)-[~/_cutie.png.extracted]
+└─# cd ..                  
+                                                                                                                                                              
+┌──(root💀kali)-[~]
+└─# steghide cute-alien.jpg   
+steghide: unknown command "cute-alien.jpg".
+steghide: type "steghide --help" for help.
+                                                                                                                                                              
+┌──(root💀kali)-[~]
+└─# ls                                                                                                                                                    1 ⨯
+45233.py  5720.py  cute-alien.jpg  cutie.png  _cutie.png.extracted  DefaultCreds-cheat-sheet  hydra.restore  To_agentJ.txt
+                                                                                                                                                              
+┌──(root💀kali)-[~]
+└─# steghide -sf cute-alien.jpg
+steghide: unknown command "-sf".
+steghide: type "steghide --help" for help.
+                                                                                                                                                              
+┌──(root💀kali)-[~]
+└─# steghide extract -sf cute-alien.jpg                                                                                                                   1 ⨯
+Enter passphrase: 
+steghide: could not extract any data with that passphrase!
+                                                                                                                                                              
+┌──(root💀kali)-[~]
+└─# steghide extract -sf cute-alien.jpg                                                                                                                   1 ⨯
+Enter passphrase: 
+wrote extracted data to "message.txt".
+                                                                                                                                                              
+┌──(root💀kali)-[~]
+└─# 

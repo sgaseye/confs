@@ -1,0 +1,33 @@
+In order to read the password backup file we have to escalate the privileges. After exploring a bit more Kay’s directories we found ssh keys as shown in figure 1.15 below:
+Figure 1.15
+
+Save the keys on your machine in a file either using nano or editor you like.
+
+Now run ssh2john tool to get the hash of the keys.
+
+    python /usr/share/john/ssh2john.py sshkeys.txt > sshkeyshash.txt
+
+Figure 1.16
+
+Now run John the ripper tool to crack the passphrase for the account of Kay.
+
+    john --wordlist=rockyou.txt sshkeyshash.txt
+
+I have copied rockyou.txt file in my desktop directory just to idnore writing full path.
+Figure 1.17
+
+Now access the Kay’s ssh using the public keys of Kay account.
+
+    ssh -i /home/kay/.ssh/id_rsa kay@10.10.83.60
+
+Figure 1.18
+
+We tried to access Kay’s ssh directly but unsuccessful. Let’s try to access from Jan’s account. First login ssh of jan account then type same command:
+Figure 1.19
+
+Here we go we have successfully logged in into Kay’s ssh, now lets go to that password backup file and read the content of it.
+Figure 1.20
+
+We have finally got the password and here the challenge is completed.
+
+Lets try to escalate the privilege from kay’s account. First we have to check what privileges Kay have by using command:

