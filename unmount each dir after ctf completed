@@ -1,0 +1,60 @@
+
+
+You have several directories that are mounted over other directories (the second mount on /mnt/arcserver shadows the first one and so on, and the mounts on /mnt shadow the prior mounts on /mnt/arcserver). This is confusing both for humans and to the umount command. Unmount them from the bottom up:
+
+umount //10.49.4.20/Released
+umount //10.49.4.20/released
+umount //10.49.4.20/released
+umount //metro/released
+umount //metro/released
+umount //metro/released
+
+If even that fails because umount is tripping on the multiple identical mounts, in desperation, unmount all cifs mounts:
+
+umount -a -t cifs
+
+On Linux, you can unconfuse the situation by moving mounts so that each has its unique, non-overlapping mount point.
+
+mkdir /TMPMNT/{Released,released{1,2},arcserver{1,2,3,4}}
+mount --move //10.49.4.20/Released /TMPMNT/Released
+mount --move //10.49.4.20/released /TMPMNT/released1
+mount --move //10.49.4.20/released /TMPMNT/released2
+mount --move //metro/released /TMPMNT/arcserver1
+mount --move //metro/released /TMPMNT/arcserver2
+mount --move //metro/released /TMPMNT/arcserver3
+mount --move //metro/released /TMPMNT/arcserver4
+
+After this you'll have separate directories for each mounted filesystem, which you can explore and unmount at your leasure.
+
+
+
+
+
+maybe with umount -f ?
+
+    -f Force unmount (in case of an unreachable NFS system). (Requires kernel 2.1.116 or later.)
+
+Or maybe you can do it with umount -l
+
+    -l Lazy unmount. Detach the filesystem from the filesystem hierar- chy now, and cleanup all references to the filesystem as soon as it is not busy anymore. (Requires kernel 2.4.11 or later.)
+
+from: http://linux.die.net/man/8/mount
+
+but looking around I found something here.
+
+$ umount.cifs /folder
+
+UPDATE Check the manual of umount.cifs... maybe it could give you an extra hand:
+
+http://www.samba.org/samba/docs/man/manpages-3/umount.cifs.8.html
+
+    umount.cifs unmounts a Linux CIFS filesystem. It can be invoked indirectly by the umount(8) command when umount.cifs is in /sbin directory, unless you specify the "-i" option to umount. Specifying -i to umount avoids execution of umount helpers such as umount.cifs. The umount.cifs command only works in Linux, and the kernel must support the cifs filesystem. The CIFS protocol is the successor to the SMB protocol and is supported by most Windows servers and many other commercial servers and Network Attached Storage appliances as well as by the popular Open Source server Samba.
+
+
+
+
+try umount.
+
+umount /mnt/systemfolder
+
+
