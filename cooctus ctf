@@ -1,0 +1,90 @@
+Discovered open port 8080/tcp on 10.10.23.164
+Discovered open port 22/tcp on 10.10.23.164
+Discovered open port 111/tcp on 10.10.23.164
+Discovered open port 2049/tcp on 10.10.23.164
+Discovered open port 43213/tcp on 10.10.23.164
+Discovered open port 48491/tcp on 10.10.23.164
+Discovered open port 47195/tcp on 10.10.23.164
+Discovered open port 52631/tcp on 10.10.23.164
+
+PORT      STATE SERVICE  REASON         VERSION
+22/tcp    open  ssh      syn-ack ttl 60 OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 e5:44:62:91:90:08:99:5d:e8:55:4f:69:ca:02:1c:10 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDbRN8GvRSpA+ku5hqrPnyaobOvwYc4jddRGBHo91dNlIjNdX4LIRLCLdJkpMlW64MVwHV8QIjTFNxPqLQvOkbIn3yX+MQByFziSNf7h5+/tqrXDwZDMMqFAmZ7yeXoopcRY1cfumkYUHbjRxdrNj8Hpd8ol6xnIo9y+qiZx1HPpY3P9HsRpZ6XBq0bE3J68gBozFQmXa8gIU5aX+l0PHOdctWRo4vXa/oQteObsn9Rx+69WpatoDx1TdP4T3fGa3f1dMFIohCzlTUPJgzyGuRZq6JjaBvItUIGPg+isvkg7+diSLDCIo/U7vixeJNLrnvETMnRlwn0jOKxUFrtIwB7
+|   256 e5:a7:b0:14:52:e1:c9:4e:0d:b8:1a:db:c5:d6:7e:f0 (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBNz3AD3vWNpd2P1sXPm9tHrr6RQjBiCsXT0U/6euW2oK1RqQvipuiKTlcpNRRsXOxcIpscn+7M3nwW5Cgq0ipiA=
+|   256 02:97:18:d6:cd:32:58:17:50:43:dd:d2:2f:ba:15:53 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAv5Jlh5/zgLa5D73WCXKa44htAWA67kUp4x5pGWgXri
+111/tcp   open  rpcbind  syn-ack ttl 60 2-4 (RPC #100000)
+| rpcinfo: 
+|   program version    port/proto  service
+|   100000  2,3,4        111/tcp   rpcbind
+|   100000  2,3,4        111/udp   rpcbind
+|   100000  3,4          111/tcp6  rpcbind
+|   100000  3,4          111/udp6  rpcbind
+|   100003  3           2049/udp   nfs
+|   100003  3           2049/udp6  nfs
+|   100003  3,4         2049/tcp   nfs
+|   100003  3,4         2049/tcp6  nfs
+|   100005  1,2,3      33349/tcp6  mountd
+|   100005  1,2,3      47195/tcp   mountd
+|   100005  1,2,3      59384/udp6  mountd
+|   100005  1,2,3      59501/udp   mountd
+|   100021  1,3,4      41967/tcp6  nlockmgr
+|   100021  1,3,4      43213/tcp   nlockmgr
+|   100021  1,3,4      52107/udp6  nlockmgr
+|   100021  1,3,4      58401/udp   nlockmgr
+|   100227  3           2049/tcp   nfs_acl
+|   100227  3           2049/tcp6  nfs_acl
+|   100227  3           2049/udp   nfs_acl
+|_  100227  3           2049/udp6  nfs_acl
+2049/tcp  open  nfs_acl  syn-ack ttl 60 3 (RPC #100227)
+8080/tcp  open  http     syn-ack ttl 60 Werkzeug httpd 0.14.1 (Python 3.6.9)
+| http-methods: 
+|_  Supported Methods: OPTIONS HEAD GET
+|_http-server-header: Werkzeug/0.14.1 Python/3.6.9
+|_http-title: CCHQ
+43213/tcp open  nlockmgr syn-ack ttl 60 1-4 (RPC #100021)
+47195/tcp open  mountd   syn-ack ttl 60 1-3 (RPC #100005)
+48491/tcp open  mountd   syn-ack ttl 60 1-3 (RPC #100005)
+52631/tcp open  mountd   syn-ack ttl 60 1-3 (RPC #100005)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.91%E=4%D=10/28%OT=22%CT=1%CU=44087%PV=Y%DS=5%DC=T%G=Y%TM=617AE2
+OS:56%P=x86_64-pc-linux-gnu)SEQ(SP=103%GCD=1%ISR=104%TI=Z%CI=Z%II=I%TS=A)SE
+OS:Q(SP=103%GCD=1%ISR=104%TI=Z%CI=Z%TS=A)OPS(O1=M506ST11NW6%O2=M506ST11NW6%
+OS:O3=M506NNT11NW6%O4=M506ST11NW6%O5=M506ST11NW6%O6=M506ST11)WIN(W1=F4B3%W2
+OS:=F4B3%W3=F4B3%W4=F4B3%W5=F4B3%W6=F4B3)ECN(R=Y%DF=Y%T=40%W=F507%O=M506NNS
+OS:NW6%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%
+OS:DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%
+OS:O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%
+OS:W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%
+OS:RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Uptime guess: 10.135 days (since Mon Oct 18 20:04:09 2021)
+Network Distance: 5 hops
+TCP Sequence Prediction: Difficulty=259 (Good luck!)
+IP ID Sequence Generation: All zeros
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+TRACEROUTE (using port 1025/tcp)
+HOP RTT       ADDRESS
+1   40.37 ms  10.17.0.1
+2   ... 4
+5   241.47 ms 10.10.23.164
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 23:18
+Completed NSE at 23:18, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 23:18
+Completed NSE at 23:18, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 23:18
+Completed NSE at 23:18, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 1691.41 seconds
+           Raw packets sent: 72586 (3.200MB) | Rcvd: 93697 (5.920MB

