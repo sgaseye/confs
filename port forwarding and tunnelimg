@@ -1,0 +1,96 @@
+
+How to Create SSH Tunneling or Port Forwarding in Linux
+Aaron KiliMay 31, 2021 Categories SSH 2 Comments
+
+SSH tunneling (also referred to as SSH port forwarding) is simply routing the local network traffic through SSH to remote hosts. This implies that all your connections are secured using encryption. It provides an easy way of setting up a basic VPN (Virtual Private Network), useful for connecting to private networks over unsecure public networks like the Internet.
+
+You may also be used to expose local servers behind NATs and firewalls to the Internet over secure tunnels, as implemented in ngrok.
+
+[ You might also like: How to Secure and Harden OpenSSH Server ]
+
+SSH sessions permit tunneling network connections by default and there are three types of SSH port forwarding: local, remote and dynamic port forwarding.
+
+In this article, we will demonstrate how to quickly and easily set up SSH tunneling or the different types of port forwarding in Linux.
+Testing Environment:
+
+For the purpose of this article, we are using the following setup:
+
+    Local Host: 192.168.43.31
+    Remote Host: Linode CentOS 7 VPS with hostname server1.example.com.
+
+Usually, you can securely connect to a remote server using SSH as follows. In this example, I have configured passwordless SSH login between my local and remote hosts, so it has not asked for user admin’s password.
+
+$ ssh admin@server1.example.com  
+
+Connect Remote SSH Without Password
+Connect Remote SSH Without Password
+Local SSH Port Forwarding
+
+This type of port forwarding lets you connect from your local computer to a remote server. Assuming you are behind a restrictive firewall or blocked by an outgoing firewall from accessing an application running on port 3000 on your remote server.
+
+You can forward a local port (e.g 8080) which you can then use to access the application locally as follows. The -L flag defines the port forwarded to the remote host and remote port.
+
+$ ssh admin@server1.example.com -L 8080:server1.example.com:3000
+
+Adding the -N flag means do not execute a remote command, you will not get a shell in this case.
+
+$ ssh -N admin@server1.example.com -L 8080:server1.example.com:3000
+
+The -f switch instructs ssh to run in the background.
+
+$ ssh -f -N admin@server1.example.com -L 8080:server1.example.com:3000
+
+Now, on your local machine, open a browser, instead of accessing the remote application using the address server1.example.com:3000, you can simply use localhost:8080 or 192.168.43.31:8080, as shown in the screenshot below.
+
+
+
+
+Remote SSH Port Forwarding
+
+Remote port forwarding allows you to connect from your remote machine to the local computer. By default, SSH does not permit remote port forwarding. You can enable this using the GatewayPorts directive in your SSHD main configuration file /etc/ssh/sshd_config on the remote host.
+
+Open the file for editing using your favorite command-line editor.
+
+😘️$ sudo vim /etc/ssh/sshd_config 
+
+Look for the required directive, uncomment it, and set its value to yes, as shown in the screenshot.
+
+GatewayPorts😉️ yes
+
+Enable Remote SSH Port Forwarding
+Enable Remote SSH Port Forwarding
+
+Save the changes and exit. Next, you need to restart sshd to apply the recent change you made.
+
+$ sudo systemctl restart sshd
+OR
+$ sudo service sshd restart 
+
+Next run the following command to forward port 5000 on the remote machine to port 3000 on the local machine.
+
+$ ssh -f -N admin@server1.example.com -R 5000:localhost:3000
+
+Once you understand this method of tunneling, you can easily and securely expose a local development server, especially behind NATs and firewalls to the Internet over secure tunnels. Tunnels such as Ngrok, pagekite, localtunnel, and many others work in a similar way.
+Dynamic SSH Port Forwarding
+
+This is the third type of port forwarding. Unlike local and remote port forwarding which allows communication with a single port, it makes possible, a full range of TCP communications across a range of ports. Dynamic port forwarding sets up your machine as a SOCKS proxy server that listens on port 1080, by default.
+
+For starters, SOCKS is an Internet protocol that defines how a client can connect to a server via a proxy server (SSH in this case). You can enable dynamic port forwarding using the -D option.
+
+The following command will start a SOCKS proxy on port 1080 allowing you to connect to the remote host.
+
+$ ssh -f -N -D 1080 admin@server1.example.com
+
+From now on, you can make applications on your machine use this SSH proxy server by editing their settings and configuring them to use it, to connect to your remote server. Note that the SOCKS proxy will stop working after you close your SSH session.
+
+Read Also: 5 Ways to Keep Remote SSH Sessions Running After Closing SSH
+Summary
+
+In this article, we explained the various types of port forwarding from one machine to another, for tunneling traffic through the secure SSH connection. This is one of the very many uses of SSH. You can add your voice to this guide via the feedback form below.
+
+Attention: SSH port forwarding has some considerable disadvantages, it can be abused: it can be used to bypass network monitoring and traffic filtering programs (or firewalls). Attackers can use it for malicious activities. In our next article, we will show how to disable SSH local port forwarding. Stay connected!
+
+
+
+Labr4d0rs4L1f3
+

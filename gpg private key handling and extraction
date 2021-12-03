@@ -1,0 +1,3 @@
+file /media/tuxling_2/private.key
+gpg --import /media/tuxling_2/private.key
+gpg --decrypt /media/tuxling_2/fragment.asc

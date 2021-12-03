@@ -1,0 +1,77 @@
+start script at boot for kali linux
+
+I'm running Kali Linux 2018.1 on a VM. I want to run a bunch of commands that I have stored in the file start.sh at startup. I know how to do this on a normal distro by going into /etc/rc.local, but that doesn't exist in Kali.
+
+Here are some of the commands I want to run.
+
+apt-get clean && apt-get update && apt-get upgrade -y
+openvas-start
+/etc/init.d/nessusd start
+
+Any suggestions?
+
+
+You can add this script to /etc/crontab:
+
+@reboot /path/to/your/start.sh
+
+From man 5 crontab:
+
+@reboot    :    Run once after reboot.
+
+
+    I'm in the file /etc/crontab. Do I add "@reboot/path/start.sh" to the end of the file and then add "@reboot : Run once after reboot" after that? – 
+
+    Yes, add script in format that I've written. – 
+    Yurij Goncharuk
+
+    This is great-- I personally never knew crontab had support for scheduled tasks on reboot. – 
+
+
+
+
+
+
+
+Had the same problem, found a solution in this post elsewhere.
+
+Summary:
+
+sudo vim /etc/systemd/system/rc-local.service
+
+Then add the following content to it.
+
+[Unit]
+ Description=/etc/rc.local Compatibility
+ ConditionPathExists=/etc/rc.local
+
+[Service]
+ Type=forking
+ ExecStart=/etc/rc.local start
+ TimeoutSec=0
+ StandardOutput=tty
+ RemainAfterExit=yes
+ SysVStartPriority=99
+
+[Install]
+ WantedBy=multi-user.target
+
+Note: Starting with 16.10, Ubuntu doesn’t ship with /etc/rc.local file anymore. Same thing for other distributions like Kali. You can create the file by executing this command.
+
+printf '%s\n' '#!/bin/bash' 'exit 0' | sudo tee -a /etc/rc.local
+
+Then add execute permission to /etc/rc.local file.
+
+sudo chmod +x /etc/rc.local
+
+After that, enable the service on system boot:
+
+sudo systemctl enable rc-local
+
+Finally, start the service and check its status:
+
+sudo systemctl start rc-local.service
+sudo systemctl status rc-local.service
+
+The complete post in https://www.linuxbabe.com/linux-server/how-to-enable-etcrc-local-with-systemd
+
