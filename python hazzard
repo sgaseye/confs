@@ -1,0 +1,183 @@
+┌──(root💀kali)-[~]
+└─# update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
+                                                                                                                                 
+┌──(root💀kali)-[~]
+└─# python --version                                                         
+Python 3.9.2
+                                                                                                                                 
+┌──(root💀kali)-[~]
+└─# update-alternatives --install /usr/bin/python python /usr/bin/python2.7 0
+                                                                                                                                 
+┌──(root💀kali)-[~]
+└─# python --version                                                         
+Python 3.9.2
+                                                                                                                                 
+┌──(root💀kali)-[~]
+└─# update-alternatives --install /usr/bin/python python /usr/bin/python2.7 2
+update-alternatives: using /usr/bin/python2.7 to provide /usr/bin/python (python) in auto mode
+                       
+First set previous python version 0 then  set new python version 1
+                                                                                                          
+┌──(root💀kali)-[~]
+└─# python --version                                                         
+Python 2.7.18
+                                                                                                                                 
+┌──(root💀kali)-[~]
+└─# pip --version   
+Traceback (most recent call last):
+  File "/usr/local/bin/pip", line 5, in <module>
+    from pip._internal.cli.main import main
+ImportError: No module named pip._internal.cli.main
+                                                                                                                                 
+┌──(root💀kali)-[~]
+└─# apt-get install pip
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Note, selecting 'python3-pip' instead of 'pip'
+python3-pip is already the newest version (20.3.4-4).
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+                                                                                                                                 
+┌──(root💀kali)-[~]
+└─# pip --version      
+Traceback (most recent call last):
+  File "/usr/local/bin/pip", line 5, in <module>
+    from pip._internal.cli.main import main
+ImportError: No module named pip._internal.cli.main
+                                                                                                                                 
+┌──(root💀kali)-[~]
+└─# python --version
+                                                                                                        
+Python 2.7.18
+                    
+                    Download Pip for python 2 now
+                                                                                                                                 
+┌──(root💀kali)-[~]
+└─# curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 1892k  100 1892k    0     0   399k      0  0:00:04  0:00:04 --:--:--  425k
+                                                                                                                                 
+┌──(root💀kali)-[~]
+└─# python get-pip.py
+ERROR: This script does not work on Python 2.7 The minimum supported Python version is 3.6. Please use https://bootstrap.pypa.io/pip/2.7/get-pip.py instead.
+                                                 
+                                                 
+                    pip 2 -get command                             
+                                                                                                                                
+┌──(root💀kali)-[~]
+└─# curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py                                                          1 ⨯
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 1863k  100 1863k    0     0  1805k      0  0:00:01  0:00:01 --:--:-- 1805k
+                                                                                                                                 
+┌──(root💀kali)-[~]
+└─# python get-pip.py                                              
+DEPRECATION: Python 2.7 reached the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 is no longer maintained. pip 21.0 will drop support for Python 2.7 in January 2021. More details about Python 2 support in pip can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support pip 21.0 will remove support for this functionality. 
+Collecting pip<21.0
+  Downloading pip-20.3.4-py2.py3-none-any.whl (1.5 MB)
+     |████████████████████████████████| 1.5 MB 2.6 MB/s 
+Collecting wheel
+  Downloading wheel-0.36.2-py2.py3-none-any.whl (35 kB)
+Installing collected packages: pip, wheel
+Successfully installed pip-20.3.4 wheel-0.36.2
+WARNING: You are using pip version 20.3.4; however, version 21.2.2 is available.
+You should consider upgrading via the '/usr/bin/python -m pip install --upgrade pip' command.                                    
+                                                                                                                                 
+┌──(root💀kali)-[~]
+└─# pip --version                                                  
+pip 20.3.4 from /usr/local/lib/python2.7/dist-packages/pip (python 2.7)
+                                                                                                                                 
+┌──(root💀kali)-[~]
+└─# pip install NetfilterQueue                                     
+DEPRECATION: Python 2.7 reached the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 is no longer maintained. pip 21.0 will drop support for Python 2.7 in January 2021. More details about Python 2 support in pip can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support pip 21.0 will remove support for this functionality. 
+Requirement already satisfied: NetfilterQueue in /usr/local/lib/python2.7/dist-packages (0.8.1)
+WARNING: You are using pip version 20.3.4; however, version 21.2.2 is available.
+You should consider upgrading via the '/usr/bin/python -m pip install --upgrade pip' command.                                    
+                                                                                                                                 
+┌──(root💀kali)-[~]
+└─# pip install scapy                                              
+DEPRECATION: Python 2.7 reached the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 is no longer maintained. pip 21.0 will drop support for Python 2.7 in January 2021. More details about Python 2 support in pip can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support pip 21.0 will remove support for this functionality. 
+Collecting scapy
+  Downloading scapy-2.4.5.tar.gz (1.1 MB)
+     |████████████████████████████████| 1.1 MB 3.7 MB/s 
+    ERROR: Command errored out with exit status 1:
+     command: /usr/bin/python -c 'import sys, setuptools, tokenize; sys.argv[0] = '"'"'/tmp/pip-install-kKWNH3/scapy/setup.py'"'"'; __file__='"'"'/tmp/pip-install-kKWNH3/scapy/setup.py'"'"';f=getattr(tokenize, '"'"'open'"'"', open)(__file__);code=f.read().replace('"'"'\r\n'"'"', '"'"'\n'"'"');f.close();exec(compile(code, __file__, '"'"'exec'"'"'))' egg_info --egg-base /tmp/pip-pip-egg-info-Cwyixk                                                                                                                     
+         cwd: /tmp/pip-install-kKWNH3/scapy/                                                                                     
+    Complete output (14 lines):                                                                                                  
+    /usr/lib/python2.7/distutils/dist.py:267: UserWarning: Unknown distribution option: 'entry_points'                           
+      warnings.warn(msg)                                                                                                         
+    /usr/lib/python2.7/distutils/dist.py:267: UserWarning: Unknown distribution option: 'extras_require'                         
+      warnings.warn(msg)                                                                                                         
+    /usr/lib/python2.7/distutils/dist.py:267: UserWarning: Unknown distribution option: 'python_requires'                        
+      warnings.warn(msg)                                                                                                         
+    /usr/lib/python2.7/distutils/dist.py:267: UserWarning: Unknown distribution option: 'zip_safe'                               
+      warnings.warn(msg)                                                                                                         
+    usage: setup.py [global_opts] cmd1 [cmd1_opts] [cmd2 [cmd2_opts] ...]                                                        
+       or: setup.py --help [cmd1 cmd2 ...]                                                                                       
+       or: setup.py --help-commands                                                                                              
+       or: setup.py cmd --help                                                                                                   
+                                                                                                                                 
+    error: invalid command 'egg_info'                                                                                            
+    ----------------------------------------                                                                                     
+ERROR: Command errored out with exit status 1: python setup.py egg_info Check the logs for full command output.
+WARNING: You are using pip version 20.3.4; however, version 21.2.2 is available.
+You should consider upgrading via the '/usr/bin/python -m pip install --upgrade pip' command.                                    
+                                                                                                                                 
+┌──(root💀kali)-[~]
+└─# pip install --pre scapy                                                                                                  1 ⨯
+DEPRECATION: Python 2.7 reached the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 is no longer maintained. pip 21.0 will drop support for Python 2.7 in January 2021. More details about Python 2 support in pip can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support pip 21.0 will remove support for this functionality. 
+Collecting scapy
+  Using cached scapy-2.4.5.tar.gz (1.1 MB)
+    ERROR: Command errored out with exit status 1:
+     command: /usr/bin/python -c 'import sys, setuptools, tokenize; sys.argv[0] = '"'"'/tmp/pip-install-2LMeGe/scapy/setup.py'"'"'; __file__='"'"'/tmp/pip-install-2LMeGe/scapy/setup.py'"'"';f=getattr(tokenize, '"'"'open'"'"', open)(__file__);code=f.read().replace('"'"'\r\n'"'"', '"'"'\n'"'"');f.close();exec(compile(code, __file__, '"'"'exec'"'"'))' egg_info --egg-base /tmp/pip-pip-egg-info-7UjaB1                                                                                                                     
+         cwd: /tmp/pip-install-2LMeGe/scapy/                                                                                     
+    Complete output (14 lines):                                                                                                  
+    /usr/lib/python2.7/distutils/dist.py:267: UserWarning: Unknown distribution option: 'entry_points'                           
+      warnings.warn(msg)                                                                                                         
+    /usr/lib/python2.7/distutils/dist.py:267: UserWarning: Unknown distribution option: 'extras_require'                         
+      warnings.warn(msg)                                                                                                         
+    /usr/lib/python2.7/distutils/dist.py:267: UserWarning: Unknown distribution option: 'python_requires'                        
+      warnings.warn(msg)                                                                                                         
+    /usr/lib/python2.7/distutils/dist.py:267: UserWarning: Unknown distribution option: 'zip_safe'                               
+      warnings.warn(msg)                                                                                                         
+    usage: setup.py [global_opts] cmd1 [cmd1_opts] [cmd2 [cmd2_opts] ...]                                                        
+       or: setup.py --help [cmd1 cmd2 ...]                                                                                       
+       or: setup.py --help-commands                                                                                              
+       or: setup.py cmd --help                                                                                                   
+                                                                                                                                 
+    error: invalid command 'egg_info'                                                                                            
+    ----------------------------------------                                                                                     
+ERROR: Command errored out with exit status 1: python setup.py egg_info Check the logs for full command output.
+WARNING: You are using pip version 20.3.4; however, version 21.2.2 is available.
+You should consider upgrading via the '/usr/bin/python -m pip install --upgrade pip' command.                                    
+                
+       Since scapy give error of egg_info  we need to install setuptool
+                                                                                                                                 
+┌──(root💀kali)-[~]
+└─# pip install --upgrade setuptools                      
+DEPRECATION: Python 2.7 reached the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 is no longer maintained. pip 21.0 will drop support for Python 2.7 in January 2021. More details about Python 2 support in pip can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support pip 21.0 will remove support for this functionality. 
+Collecting setuptools
+  Downloading setuptools-44.1.1-py2.py3-none-any.whl (583 kB)
+     |████████████████████████████████| 583 kB 1.4 MB/s 
+Installing collected packages: setuptools
+Successfully installed setuptools-44.1.1
+WARNING: You are using pip version 20.3.4; however, version 21.2.2 is available.
+You should consider upgrading via the '/usr/bin/python -m pip install --upgrade pip' command.                                    
+                                                                                                                                 
+┌──(root💀kali)-[~]
+└─# pip install scapy               
+DEPRECATION: Python 2.7 reached the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 is no longer maintained. pip 21.0 will drop support for Python 2.7 in January 2021. More details about Python 2 support in pip can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support pip 21.0 will remove support for this functionality. 
+Collecting scapy
+  Using cached scapy-2.4.5.tar.gz (1.1 MB)
+Building wheels for collected packages: scapy
+  Building wheel for scapy (setup.py) ... done
+  Created wheel for scapy: filename=scapy-2.4.5-py2.py3-none-any.whl size=1261540 sha256=11fcfb29d581c2df9239cb8d7a71f69ac5ac84be9f7c9481fda44e80dda2337a
+  Stored in directory: /root/.cache/pip/wheels/97/5d/00/d6140a59f92d1c64e84ba60e2bea883d71602ae2e45b132689
+Successfully built scapy
+Installing collected packages: scapy
+Successfully installed scapy-2.4.5
+WARNING: You are using pip version 20.3.4; however, version 21.2.2 is available.
+You should consider upgrading via the '/usr/bin/python -m pip install --upgrade pip' command.                                    
+                                                                                                                                 
+                                                                                 

@@ -1,0 +1,58 @@
+https://docs.microsoft.com/en-us/answers/questions/65182/how-to-find-all-possible-dns-records-for-a-server.html
+
+
+How to find all possible DNS records for a server
+
+Hi,
+
+    I have decommissioned a Windows 2012 domain controller naming USDC-01.
+
+    I want to find out each and every possible records (any records) for USDC-01 from all the forward, reverse lookup zones or conditional forwarder so that I can delete them.
+
+    Currently I have 18 forward lookup zones, one reverse lookup zone for that IP range and 11 conditional forwarding.
+
+Is there any command to get that?
+
+
+
+
+
+windows-active-directory
+windows-dhcp-dns
+
+
+1 Answers
+For searching records in DNS you could use 2 tools - nslookup and Resove-DNSName (newer). Look at A, PTR and SRV records relating to former domain controller.
+
+For DNS Forwarders try to get all records (in all zones) using Get-DnsServerForwarder
+
+
+2 Answer
+You may find the need to check the status of your domains DNS records, or check the Name Servers to see which records the servers are pulling.
+
+Launch Windows Command Prompt by navigating to Start > Command Prompt or via Run > CMD.
+
+Type NSLOOKUP and hit Enter. The default Server is set to your local DNS, the Address will be your local IP.
+
+Set the DNS Record type you wish to lookup by typing set type=## where ## is the record type, then hit Enter. You may use ANY, A, AAAA, A+AAAA, CNAME, MX, NS, PTR, SOA, or SRV as the record type.
+
+Now enter the domain name you wish to query then hit Enter.. In this example, we will use Managed.com.
+
+NSLOOKUP will now return the record entries for the domain you entered.
+
+You can also change the Name Servers which you are querying. This is useful if you are checking the records before DNS has fully propagated. To change the Name Server type server [name server]. Replace [name server] with the Name Servers you wish to use. In this example, we will set these as NSA.managed.com.
+
+Once changed, change the query type (Step 3) if needed then enter new a new domain (Step 4.)
+
+For Linux:
+
+1) Check DNS Records Using Dig Command Dig stands for domain information groper is a flexible tool for interrogating DNS name servers. It performs DNS lookups and displays the answers that are returned from the name server(s) that were queried. Most DNS administrators use dig to troubleshoot DNS problems because of its flexibility, ease of use and clarity of output. Other lookup tools tend to have less functionality than dig.
+
+2) Check DNS Records Using NSlookup Command Nslookup is a program to query Internet domain name servers. Nslookup has two modes interactive and non-interactive.
+
+Interactive mode allows the user to query name servers for information about various hosts and domains or to print a list of hosts in a domain.
+
+Non-interactive mode is used to print just the name and requested information for a host or domain. It’s network administration tool which will help them to check and troubleshoot DNS related issues.
+
+3) Check DNS Records Using Host Command host is a simple utility for performing DNS lookups. It is normally used to convert names to IP addresses and vice versa. When no arguments or options are given, host prints a short summary of its command line arguments and options.
+

@@ -1,0 +1,2 @@
+/bin/systemctl start nessusd.service
+https://kali:8834/

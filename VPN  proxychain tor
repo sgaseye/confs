@@ -8,8 +8,46 @@ Now open the file : nano etc/dhcp/dhclient.conf
 		    
 		    https://www.allconnect.com/blog/best-free-dns-servers
 		    
+		    139.5.241.0/24 - PIYUSHNETWORKS my local
+		    https://ipinfo.io/AS133982/139.5.241.0/24
+		    
 service network-manager restart 
 Recheck the file cat /etc/resolv.conf : you will see updated nmaserver list and dont bother your isp nameserver since it is not going to be used
+
+if resolv.conf is not updated >> Go to utilities advanced network connection >> Go to connection you want this DNS to be updated for like kus5g, kush2g  >> Double click >> IPV4 settings tab >> DHCP adresses only>> In Dns field fill all dns server comma seperated >> check the box at the end >> save and exit 
+
+service NetworkManager restart 
+check again
+
+
+
+[(ON YOUR ROUTER. YOU MAY HAVE TO PAY FOR DOMAIN REGISTRATION, AND RENT A STATIC IP ADDRESS OR USE A DYNAMIC DNS SERVICE. OR RENT A VM IN A DATACENTER.
+THE HOSTNAME IS SET LOCALLY. THAT'S ABOUT IT.
+OF ARE YOU DOING WEB DEVELOPMENT? SO WANTING SITES HOSTED TO THINK THEY HAVE DIFFERENT FQDNS. USE THE HOSTS FILE. USE ANOTHER DISTRO.
+IF YOU WANT TO CHANGE YOUR NETWORK SETTINGS, NMTUI WORKS FOR ME, AS I HAVE NETWORK MANAGER INSTALLED.)
+(REQUEST STATIC IP ADDRESS FROM DHCP SERVER
+RECENTLY I GOT A NEW INTERNET CONNECTION. THE OLD MODEM/ROUTER DID ALLOW THE USE OF STATIC IP ADDRESSES. THE NEW ONE DOESN'T. AND BY THAT I MEAN, NOT ONLY THE SETTINGS. IT DOESN'T EVEN ACCEPT IP ADDRESSES GIVEN BY THE HOST SETTINGS. AND DISABLING THE DHCP SERVER RESULTS IN NO DEVICE BEING ABLE TO CONNECT AT ALL. AFTER TESTING A NUMBER OF OPTIONS, I'VE FOUND THIS SOLUTION.
+WHAT IT DOES?
+EVEN THOUGH THE DHCP SERVER DOESN'T ACCEPT ANY SETTINGS, THE SCRIPT JUST ASKS NICELY FOR THE IP ADDRESS YOU WANT FOR THE HOST. AND IN MY CASE THE ROUTER DOES ACCEPT THE REQUEST AND ASSIGNS THE REQUESTED IP ADDRESS.
+MANUAL?
+IN THE DHCLIENT.CONF FILE ENTER THE DESIRED IP ADDRESS. OF COURSE MAKE SURE IT IS A VALID ONE. YOU WON'T GET SOMETHING 10.10.10.10, IF YOU ARE ON A 192.168.1.X NETWORK. YOU'LL KNOW WHERE TO ENTER IT ;)
+AND IN THE DHC FILE ENTER THE NETWORK INTERFACE YOU USE TO CONNECT WITH THE DHCP SERVER. IF YOU DON'T KNOW, "IP ADDR" SHOULD GIVE YOU A CLUE. MAKE SURE THE PERMISSIONS ARE SET CORRECTLY FOR DHC TO BE AN EXECUTABLE (CHMOD +X DHC). THEN RUN DHC. I GUESS YOU HAVE TO RUN IT AS SUDO/ROOT. I ALWAYS DO. SO, I DON'T KNOW IF IT WORKS FOR A NORMAL USER.
+BY THE WAY: YOU MIGHT WANT TO CHECK THE DHCP SETTINGS IN YOUR MODEM/ROUTER FOR THE LEASE TIME. THE MAXIMUM IN MY CASE IS 7 DAYS (GIVEN IN SECONDS). THE ORIGINAL SETTING WAS EVEN LESS. SO, YOU MIGHT WANT TO SET THAT AS HIGH AS POSSBILE. ALSO, USING A CRON JOB TO RUN IT ON A REGULAR BASIS MIGHT BE IN YOUR INTEREST TO KEEP THE IP.
+REQUIREMENTS
+    LINUX
+    DHCLIENT
+I DON'T KNOW IF THERE IS A SOLUTION FOR WINDOWS OR IF IT WORKS FOR MAC TOO.)
+
+dhc
+#!/bin/sh
+dhclient -r -v
+dhclient -4 -d -v -cf dhclient.conf <ENTER-INTERFACE-HERE-NO-BRACKETS> &
+
+dhclient
+send dhcp-requested-address <REPLACE-THIS-BY-DESIRED-IP-NO-BRACKETS>;
+]
+
+
 
 Installation
 
@@ -35,6 +73,19 @@ wget -N http://myiphide.com/mih
 sh mih
 sh mih
 
+nivibov589@noobf.com- email
+pass - ddnn99
+
+
+
+    Username: yehajo5764@wwdee.com
+    Password: rrkkkk
+
+
+                                   OR
+                                   
+                                   
+Just download free vpn from vpnbook and unzip it now give cmd openvpn  <>-tcp443.ovpn in root terminal until Initiation sequence completed
 
 
 

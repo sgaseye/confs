@@ -1,0 +1,42 @@
+## Packaging with [fpm](https://github.com/jordansissel/fpm)
+
+Note: remove `.git` reference prior to putting files in a package.
+Note: `-e` option allows specification of metadata.
+
+`bundle exec fpm -s dir -t deb -n packageName -v 1.0.0 -C /path/to/code .`
+
+On the target system:
+
+*  Info: `dpkg -I packageName.deb`
+*  List files in the package: `dpkg -c packageName.deb`
+*  Install: `sudo dpkg -i packageName.deb`
+*  List installed files: `dpkg-query -L packageName`
+*  Remove: `dpkg -r packageName`
+   *  Purge: `dpkg -P packageName`
+
+
+### References
+
+*  https://github.com/jordansissel/fpm/wiki/PackageSimpleFiles
+*  http://www.ducea.com/2011/08/31/build-your-own-packages-easily-with-fpm
+*  http://www.tuxz.net/blog/archives/2012/09/08/how_to_easily_build_native_packages_of_everything
+*  misc
+   *  [--exclude](https://github.com/jordansissel/fpm/pull/186)
+*  http://serverfault.com/questions/90400/how-to-check-for-modified-config-files-on-a-debian-system
+
+### Other tools
+
+*  https://github.com/bernd/fpm-cookery
+
+
+-----
+
+### Example
+
+```sh
+bundle exec fpm -s dir -t deb -a all -n packageName -v 1.0.7 -d 'libapache2-mod-php5' ~/code/packageName=/srv/org ./sites-enabled=/etc/apache2/sites-enabled
+# or
+bundle exec fpm -s dir -t deb -a all -n packageName -v 1.0.7 -d 'libapache2-mod-php5' --prefix=/srv/org/packageName -C ~/code/org/packageName .
+```
+
+See: [Using apt to install one or more .deb files+deps](http://wiki.clug.org.za/wiki/How_do_I_install_a_.deb_file_I_downloaded_without_compromising_dependencies%3F).

@@ -1,0 +1,123 @@
+How to connect to Bluetooth headset/soundbar/speaker
+
+
+
+
+Commands to install Bluetooth on Kali Linux 2020
+
+Become root before running these cmds
+
+apt-get install bluetooth bluez bluez-tools rfkill
+rfkill list
+rfkill unblock bluetooth
+service bluetooth start
+apt-get install blueman
+
+
+
+
+
+
+
+
+
+Most modern laptops are equipped with the Bluetooth radio. It means that you can use a Bluetooth mouse and keyboard as your input device, and a Bluetooth headset, soundbar, or speaker for your sound output. This article gives an example of how to connect your Linux laptop to a Bluetooth soundbar.
+Device model
+
+My laptop is a DELL Vostro 1015 running Ubuntu 12.04.3 LTS ("precise"). The bluez Bluetooth stack is of version 4.98.
+
+My soundbar is the Panasonic HTB450. According to the Owner's Manual, this model features Bluetooth V2.1 + EDR. Note that this model is not a Bluetooth Low Energy device. The method in this blog post has only been tested on non-Low-Energy Bluetooth devices.
+Getting ready
+
+    Install the bluez-tools package on your Linux computer (assuming it is Debian-based):
+
+    $ sudo apt-get install bluez-tools
+
+    Power up the Panasonic soundbar. Make sure that Bluetooth is selected as the audio source, and that the device is configured to be discoverable to other Bluetooth devices.
+    The soundbar and the Linux laptop must be within a "short" distance of each other (10 feet to be safe). 
+
+Connection procedure
+
+The following assumes you have only one Bluetooth adapter in your Linux computer. If you have more than 1, use the hciconfig command to find out the name of the Bluetooth adapter to use for connection, and specify that device name as a parameter to the commands below.
+
+    Discover the soundbar.
+
+    Run the following command on Linux to scan for the soundbar. The key piece of data to jot down is the Bluetooth address of the soundbar (e.g., 00:0B:97:0F:C5:2D).
+
+    $ bt-adapter -d
+    Searching...
+    [00:0B:97:0F:C5:2A]
+      Name: SC-HTB450
+      Alias: SC-HTB450
+      Address: 00:0B:97:0F:C5:2D
+      Icon: audio-card
+      Class: 0x240404
+      LegacyPairing: 0
+      Paired: 0
+      RSSI: -56
+    Done
+
+    You can also scan using the hcitool command:
+
+    $ hcitool scan
+    Scanning ...
+     00:0B:97:0F:C5:2D    SC-HTB450
+
+    Pair with the soundbar.
+
+    This step is only necessary if the 2 devices have never been "paired" before.
+
+    To pair, run the bt-device command with the Bluetooth address from step 1 as the parameter.
+
+    $ bt-device -c 00:0B:97:0F:C5:2D
+    Connecting to: 00:0B:97:0F:C5:2D
+    Agent registered
+    Agent released
+    Done
+
+    You can verify the result by listing the paired devices:
+
+    $ bt-device -l
+    Added devices:
+    SC-HTB450 (00:0B:97:0F:C5:2D)
+
+    Connect audio output to soundbar.
+
+    $ bt-audio -c 00:0B:97:0F:C5:2D
+    Connecting to an audio service
+    Audio service is connected
+
+    You can verify the connection by querying information about the Bluetooth device name (SC-HTB450). Note that the output contains a line with Connected equals 1 (meaning success!)
+
+    $ bt-device -i SC-HTB450
+    [00:0B:97:0F:C5:2A]
+      Name: SC-HTB450
+      Alias: SC-HTB450 [rw]
+      Address: 00:0B:97:0F:C5:2D
+      Icon: audio-card
+      Class: 0x240404
+      Paired: 1
+      Trusted: 0 [rw]
+      Blocked: 0 [rw]
+      Connected: 1
+      UUIDs: [AudioSink, AVRemoteControl]
+
+    Make soundbar a trusted device.
+
+    After the soundbar is turned off and then on again, the Bluetooth audio connection is NOT automatically reconnected. To make re-connection automatic, run the following command to designate the soundbar as a trusted device.
+
+    $ bt-device --set  SC-HTB450 Trusted 1
+    Trusted: 0 -> 1
+
+    Note that if you reboot your laptop, you need to manually re-connect using bt-audio -c as shown above (but pairing can be skipped). This is true even when the Bluetooth device is designated as trusted. 
+
+Playback sound
+
+The audio connection is now made between your laptop and the soundbar.
+
+You can play your favourite sound track and the sound will come from the soundbar, instead of the built-in laptop speakers.
+
+p.s. You may be interested in my 2 earlier posts on Bluetooth:
+
+    How to modify the user-friendly Bluetooth local name
+    Verify if a Linux computer has the Bluetooth hardware 

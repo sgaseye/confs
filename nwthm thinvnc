@@ -1,0 +1,118 @@
+nmap -A -sC -sV -Pn 10.10.124.142
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-03-12 12:58 IST
+Stats: 0:00:42 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 69.90% done; ETC: 12:59 (0:00:18 remaining)
+Stats: 0:01:21 elapsed; 0 hosts completed (1 up), 1 undergoing Service Scan
+Service scan Timing: About 50.00% done; ETC: 13:00 (0:00:24 remaining)
+Stats: 0:01:58 elapsed; 0 hosts completed (1 up), 1 undergoing Service Scan
+Service scan Timing: About 50.00% done; ETC: 13:01 (0:01:01 remaining)
+Stats: 0:02:25 elapsed; 0 hosts completed (1 up), 1 undergoing Service Scan
+Service scan Timing: About 50.00% done; ETC: 13:02 (0:01:28 remaining)
+Stats: 0:03:24 elapsed; 0 hosts completed (1 up), 1 undergoing Traceroute
+Traceroute Timing: About 32.26% done; ETC: 13:01 (0:00:00 remaining)
+Nmap scan report for 10.10.124.142
+Host is up (0.65s latency).
+Not shown: 998 filtered tcp ports (no-response)
+PORT     STATE SERVICE       VERSION
+3389/tcp open  ms-wbt-server Microsoft Terminal Services
+| rdp-ntlm-info: 
+|   Target_Name: GAIA
+|   NetBIOS_Domain_Name: GAIA
+|   NetBIOS_Computer_Name: GAIA
+|   DNS_Domain_Name: GAIA
+|   DNS_Computer_Name: GAIA
+|   Product_Version: 10.0.17763
+|_  System_Time: 2022-03-12T07:32:01+00:00
+| ssl-cert: Subject: commonName=GAIA
+| Not valid before: 2022-03-11T07:18:05
+|_Not valid after:  2022-09-10T07:18:05
+|_ssl-date: 2022-03-12T07:32:26+00:00; +4s from scanner time.
+8080/tcp open  http-proxy
+| http-auth: 
+| HTTP/1.1 401 Access Denied\x0D
+|_  Digest opaque=5gjXNN45SRrLEQjSIChYr56qTmlbUx1oUl nonce=c7BMDArL5UAI2jgCCsvlQA== qop=auth realm=ThinVNC
+| fingerprint-strings: 
+|   FourOhFourRequest: 
+|     HTTP/1.1 404 Not Found
+|     Content-Type: text/html
+|     Content-Length: 177
+|     Connection: Keep-Alive
+|     <HTML><HEAD><TITLE>404 Not Found</TITLE></HEAD><BODY><H1>404 Not Found</H1>The requested URL nice%20ports%2C/Tri%6Eity.txt%2ebak was not found on this server.<P></BODY></HTML>
+|   GetRequest: 
+|     HTTP/1.1 401 Access Denied
+|     Content-Type: text/html
+|     Content-Length: 144
+|     Connection: Keep-Alive
+|     WWW-Authenticate: Digest realm="ThinVNC", qop="auth", nonce="n3iT/QnL5UCI1zgCCcvlQA==", opaque="ZImSS7p2hfG38P8dZcWnFLdYJL4W19RXNh"
+|_    <HTML><HEAD><TITLE>401 Access Denied</TITLE></HEAD><BODY><H1>401 Access Denied</H1>The requested URL requires authorization.<P></BODY></HTML>
+|_http-title: 401 Access Denied
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port8080-TCP:V=7.92%I=7%D=3/12%Time=622C4BDE%P=x86_64-pc-linux-gnu%r(Ge
+SF:tRequest,179,"HTTP/1\.1\x20401\x20Access\x20Denied\r\nContent-Type:\x20
+SF:text/html\r\nContent-Length:\x20144\r\nConnection:\x20Keep-Alive\r\nWWW
+SF:-Authenticate:\x20Digest\x20realm=\"ThinVNC\",\x20qop=\"auth\",\x20nonc
+SF:e=\"n3iT/QnL5UCI1zgCCcvlQA==\",\x20opaque=\"ZImSS7p2hfG38P8dZcWnFLdYJL4
+SF:W19RXNh\"\r\n\r\n<HTML><HEAD><TITLE>401\x20Access\x20Denied</TITLE></HE
+SF:AD><BODY><H1>401\x20Access\x20Denied</H1>The\x20requested\x20URL\x20\x2
+SF:0requires\x20authorization\.<P></BODY></HTML>\r\n")%r(FourOhFourRequest
+SF:,111,"HTTP/1\.1\x20404\x20Not\x20Found\r\nContent-Type:\x20text/html\r\
+SF:nContent-Length:\x20177\r\nConnection:\x20Keep-Alive\r\n\r\n<HTML><HEAD
+SF:><TITLE>404\x20Not\x20Found</TITLE></HEAD><BODY><H1>404\x20Not\x20Found
+SF:</H1>The\x20requested\x20URL\x20nice%20ports%2C/Tri%6Eity\.txt%2ebak\x2
+SF:0was\x20not\x20found\x20on\x20this\x20server\.<P></BODY></HTML>\r\n");
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: specialized
+Running (JUST GUESSING): AVtech embedded (87%)
+Aggressive OS guesses: AVtech Room Alert 26W environmental monitor (87%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 4 hops
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_clock-skew: mean: 3s, deviation: 0s, median: 3s
+
+TRACEROUTE (using port 3389/tcp)
+HOP RTT       ADDRESS
+1   699.01 ms 10.4.0.1
+2   ... 3
+4   699.45 ms 10.10.124.142
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 238.07 seconds
+                                                                                               
+┌──(root💀kali)-[~]
+└─# searchsploit thinVNC    
+------------------------------------------------------------- ---------------------------------
+ Exploit Title                                               |  Path
+------------------------------------------------------------- ---------------------------------
+ThinVNC 1.0b1 - Authentication Bypass                        | windows/remote/47519.py
+------------------------------------------------------------- ---------------------------------
+Shellcodes: No Results
+                                                                                               
+┌──(root💀kali)-[~]
+└─# searchsploit -p thinVNC 
+[!] Could not find EDB-ID #
+
+
+                                                                                               
+┌──(root💀kali)-[~]
+└─# searchsploit -p 47519   
+  Exploit: ThinVNC 1.0b1 - Authentication Bypass
+      URL: https://www.exploit-db.com/exploits/47519
+     Path: /usr/share/exploitdb/exploits/windows/remote/47519.py
+File Type: Python script, ASCII text executable
+
+                                                                                               
+┌──(root💀kali)-[~]
+└─# cp /usr/share/exploitdb/exploits/windows/remote/47519.py 
+cp: missing destination file operand after '/usr/share/exploitdb/exploits/windows/remote/47519.py'
+Try 'cp --help' for more information.
+                                                                                               
+┌──(root💀kali)-[~]
+└─# cp /usr/share/exploitdb/exploits/windows/remote/47519.py . 
+
+
+this exploit not working 
+lets search on internet for path traversal thinvnc cve 2019 17662
+and we got a github repo
+

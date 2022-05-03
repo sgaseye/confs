@@ -1,0 +1,73 @@
+ nmap -A -sC -sV 10.10.189.92                                                                      130 ⨯
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-02-24 10:27 IST
+Stats: 0:00:04 elapsed; 0 hosts completed (0 up), 1 undergoing Ping Scan
+Parallel DNS resolution of 1 host. Timing: About 0.00% done
+Stats: 0:00:15 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 41.08% done; ETC: 10:27 (0:00:11 remaining)
+Stats: 0:00:27 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 99.99% done; ETC: 10:27 (0:00:00 remaining)
+Nmap scan report for 10.10.189.92
+Host is up (0.59s latency).
+Not shown: 997 closed tcp ports (reset)
+PORT     STATE SERVICE VERSION
+22/tcp   open  ssh     OpenSSH 7.4 (protocol 2.0)                 --exploit enum
+| ssh-hostkey: 
+|   2048 68:ed:7b:19:7f:ed:14:e6:18:98:6d:c5:88:30:aa:e9 (RSA)
+|   256 5c:d6:82:da:b2:19:e3:37:99:fb:96:82:08:70:ee:9d (ECDSA)
+|_  256 d2:a9:75:cf:2f:1e:f5:44:4f:0b:13:c2:0f:d7:37:cc (ED25519)
+
+
+80/Tcp   Open  Http    Apache Httpd 2.4.6 ((Centos) Php/5.6.40)  --Exploit Enum 
+|_Http-Title: Home
+|_Http-Generator: Joomla! - Open Source Content Management       --search
+| Http-Robots.Txt: 15 Disallowed Entries                         --imp
+| /Joomla/Administrator/ /Administrator/ /Bin/ /Cache/ 
+| /Cli/ /Components/ /Includes/ /Installation/ /Language/ 
+|_/Layouts/ /Libraries/ /Logs/ /Modules/ /Plugins/ /Tmp/
+|_Http-Server-Header: Apache/2.4.6 (Centos) Php/5.6.40
+
+
+3306/tcp open  mysql   MariaDB (unauthorized)
+Aggressive OS guesses: Linux 3.10 - 3.13 (95%), ASUS RT-N56U WAP (Linux 3.4) (95%), Linux 3.16 (95%), Linux 3.1 (93%), Linux 3.2 (93%), Linux 5.4 (93%), AXIS 210A or 211 Network Camera (Linux 2.6.17) (92%), Linux 3.10 (92%), Linux 3.18 (92%), Linux 3.2 - 4.9 (92%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 4 hops
+
+TRACEROUTE (using port 443/tcp)
+HOP RTT       ADDRESS
+1   345.86 ms 10.4.0.1
+2   ... 3
+4   639.32 ms 10.10.189.92
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 97.78 seconds
+
+
+
+<metafile version="3.7" client="site">
+<name>English (en-GB)</name>
+<version>3.7.0</version>
+<creationDate>April 2017</creationDate>
+<author>Joomla! Project</author>
+<authorEmail>admin@joomla.org</authorEmail>
+<authorUrl>www.joomla.org</authorUrl>
+<copyright>
+Copyright (C) 2005 - 2017 Open Source Matters. All rights reserved.
+</copyright>
+<license>
+GNU General Public License version 2 or later; see LICENSE.txt
+</license>
+<description>en-GB site language</description>
+<metadata>
+<name>English (en-GB)</name>
+<nativeName>English (United Kingdom)</nativeName>
+<tag>en-GB</tag>
+<rtl>0</rtl>
+<locale>
+en_GB.utf8, en_GB.UTF-8, en_GB, eng_GB, en, english, english-uk, uk, gbr, britain, england, great britain, uk, united kingdom, united-kingdom
+</locale>
+<firstDay>0</firstDay>
+<weekEnd>0,6</weekEnd>
+<calendar>gregorian</calendar>
+</metadata>
+<params/>
+</metafile>

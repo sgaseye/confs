@@ -1,0 +1,152 @@
+Get:1 http://http.kali.org/kali kali-rolling/main amd64 node-babel7-runtime all 7.17.9+~cs214.260.191-2 [139 kB]
+Err:1 http://http.kali.org/kali kali-rolling/main amd64 node-babel7-runtime all 7.17.9+~cs214.260.191-2
+  Hash Sum mismatch
+  Hashes of expected file:
+   - SHA256:1d7c428da87623b873c059c62492566a01b0899cce57960c27753b3c75751479
+   - SHA1:d0df979098623a0b74eb00bc30fff65ae17da0ec [weak]
+   - MD5Sum:b18811c487c9fc39213eb8dd1c9a82b2 [weak]
+   - Filesize:138728 [weak]
+  Hashes of received file:
+   - SHA256:a04264fed9e33e78837f6f9bb609e822d136ab8d715fb01cc079ac8574c07baf
+   - SHA1:99740cc77492498319271489aa3a73dd5411cc9d [weak]
+   - MD5Sum:58390399df1249b86d6a5899fa1bed3f [weak]
+   - Filesize:138728 [weak]
+  Last modification reported: Tue, 26 Apr 2022 13:08:35 +0000
+Get:2 http://http.kali.org/kali kali-rolling/main amd64 npm all 8.7.0~ds1-2 [1,088 kB]
+Err:2 http://http.kali.org/kali kali-rolling/main amd64 npm all 8.7.0~ds1-2
+  Hash Sum mismatch
+  Hashes of expected file:
+   - SHA256:f8d63ecfb184cec390b9dc882c0f5d4c116cb6224cb2637bafe6a811650bdb4a
+   - SHA1:99e90721497a906b1b643ca4aa3fddcce340dec2 [weak]
+   - MD5Sum:84d0331417189469ec175cebc8f2afda [weak]
+   - Filesize:1088268 [weak]
+  Hashes of received file:
+   - SHA256:c3967e6bd8598d540f86a7ec5e2f11905b5a5128309ca5b9682b21578fb28dbf
+   - SHA1:8cd3cb20de2a3059541ca5209f9f59b96c4066be [weak]
+   - MD5Sum:78a0d91a496cec4c97eebf7491043a20 [weak]
+   - Filesize:1088268 [weak]
+
+
+
+Setting up fwupd (1.7.7-1) ...
+fwupd-offline-update.service is a disabled or a static unit not running, not starting it.
+fwupd-refresh.service is a disabled or a static unit not running, not starting it.
+fwupd.service is a disabled or a static unit not running, not starting it.
+
+
+
+
+
+Setting up python3 (3.10.4-1) ...
+running python rtupdate hooks for python3.10...
+/usr/share/legion/ui/models/cvemodels.py:55: SyntaxWarning: "is not" with a literal. Did you mean "!="?
+  if not len(self.__cves) is 0:
+/usr/share/legion/ui/models/hostmodels.py:43: SyntaxWarning: "is not" with a literal. Did you mean "!="?
+  if not len(self.__hosts) is 0:
+/usr/share/legion/ui/models/processmodels.py:43: SyntaxWarning: "is not" with a literal. Did you mean "!="?
+  if not len(self.__processes) is 0:
+/usr/share/legion/ui/models/scriptmodels.py:44: SyntaxWarning: "is not" with a literal. Did you mean "!="?
+  if not len(self.__scripts) is 0:
+/usr/share/legion/ui/models/servicemodels.py:40: SyntaxWarning: "is not" with a literal. Did you mean "!="?
+  if not len(self.__services) is 0:
+/usr/share/legion/ui/models/servicemodels.py:184: SyntaxWarning: "is not" with a literal. Did you mean "!="?
+  if not len(self.__serviceNames) is 0:
+running python post-rtupdate hooks for python3.10...
+
+
+
+
+
+
+Setting up powershell-empire (4.5.4-kali-0kali1) ...
+Traceback (most recent call last):
+  File "/usr/share/powershell-empire/empire.py", line 11, in <module>
+    import empire.server.server as server
+  File "/usr/share/powershell-empire/empire/server/server.py", line 23, in <module>
+    import flask
+  File "/usr/lib/python3/dist-packages/flask/__init__.py", line 7, in <module>
+    from .app import Flask as Flask
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 28, in <module>
+    from . import cli
+  File "/usr/lib/python3/dist-packages/flask/cli.py", line 14, in <module>
+    import click
+ModuleNotFoundError: No module named 'click'
+dpkg: error processing package powershell-empire (--configure):
+ installed powershell-empire package post-installation script subprocess returned error exit status 1
+Setting up python3-talloc:amd64 (2.3.3-3+b1) ...
+
+
+
+
+
+Setting up blueman (2.2.4-1+b1) ...
+Installing new version of config file /etc/xdg/autostart/blueman.desktop ...
+blueman-mechanism.service is a disabled or a static unit not running, not starting it.
+Setting up legion (0.3.8-0kali4) ...
+/usr/share/legion/ui/models/cvemodels.py:55: SyntaxWarning: "is not" with a literal. Did you mean "!="?
+  if not len(self.__cves) is 0:
+/usr/share/legion/ui/models/hostmodels.py:43: SyntaxWarning: "is not" with a literal. Did you mean "!="?
+  if not len(self.__hosts) is 0:
+/usr/share/legion/ui/models/processmodels.py:43: SyntaxWarning: "is not" with a literal. Did you mean "!="?
+  if not len(self.__processes) is 0:
+/usr/share/legion/ui/models/scriptmodels.py:44: SyntaxWarning: "is not" with a literal. Did you mean "!="?
+  if not len(self.__scripts) is 0:
+/usr/share/legion/ui/models/servicemodels.py:40: SyntaxWarning: "is not" with a literal. Did you mean "!="?
+  if not len(self.__services) is 0:
+/usr/share/legion/ui/models/servicemodels.py:184: SyntaxWarning: "is not" with a literal. Did you mean "!="?
+  if not len(self.__serviceNames) is 0:
+Setting up samba-common-bin (2:4.16.0+dfsg-7) ...
+Checking smb.conf with testparm
+Load smb config files from /etc/samba/smb.conf
+Loaded services file OK.
+Weak crypto is allowed by gnutls library
+
+Server role: ROLE_STANDALONE
+
+Done
+Setting up ure (1:7.3.3~rc1-2+b1) ...
+
+
+
+
+ocessing triggers for postgresql-common (240) ...
+supported-versions: WARNING! Unknown distribution: kali
+debian found in ID_LIKE, treating as Debian
+supported-versions: WARNING: Unknown Debian release: 2022.2
+Building PostgreSQL dictionaries from installed myspell/hunspell packages...
+  en_us
+Removing obsolete dictionary files:
+
+
+
+
+Processing triggers for libc-bin (2.33-6) ...
+Errors were encountered while processing:
+ powershell-empire
+E: Failed to fetch http://ftp.harukasan.org/kali/pool/main/n/node-babel7/node-babel7-runtime_7.17.9+~cs214.260.191-2_all.deb  Hash Sum mismatch
+   Hashes of expected file:
+    - SHA256:1d7c428da87623b873c059c62492566a01b0899cce57960c27753b3c75751479
+    - SHA1:d0df979098623a0b74eb00bc30fff65ae17da0ec [weak]
+    - MD5Sum:b18811c487c9fc39213eb8dd1c9a82b2 [weak]
+    - Filesize:138728 [weak]
+   Hashes of received file:
+    - SHA256:a04264fed9e33e78837f6f9bb609e822d136ab8d715fb01cc079ac8574c07baf
+    - SHA1:99740cc77492498319271489aa3a73dd5411cc9d [weak]
+    - MD5Sum:58390399df1249b86d6a5899fa1bed3f [weak]
+    - Filesize:138728 [weak]
+   Last modification reported: Tue, 26 Apr 2022 13:08:35 +0000
+E: Failed to fetch http://ftp.harukasan.org/kali/pool/main/n/npm/npm_8.7.0~ds1-2_all.deb  Hash Sum mismatch
+   Hashes of expected file:
+    - SHA256:f8d63ecfb184cec390b9dc882c0f5d4c116cb6224cb2637bafe6a811650bdb4a
+    - SHA1:99e90721497a906b1b643ca4aa3fddcce340dec2 [weak]
+    - MD5Sum:84d0331417189469ec175cebc8f2afda [weak]
+    - Filesize:1088268 [weak]
+   Hashes of received file:
+    - SHA256:c3967e6bd8598d540f86a7ec5e2f11905b5a5128309ca5b9682b21578fb28dbf
+    - SHA1:8cd3cb20de2a3059541ca5209f9f59b96c4066be [weak]
+    - MD5Sum:78a0d91a496cec4c97eebf7491043a20 [weak]
+    - Filesize:1088268 [weak]
+   Last modification reported: Mon, 25 Apr 2022 11:29:12 +0000
+E: Sub-process /usr/bin/dpkg returned an error code (1)
+
+

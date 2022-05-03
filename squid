@@ -1,0 +1,25 @@
+apt-get install squid -y
+
+nano /etc/squid/squid.conf
+
+Add below lines in the file
+1. Search for acl localnet src 192.168.0.0/16 uncommon this line
+2. http_access allow localnet uncommon this line and all simultaneous other lines also
+3. Search #squid normally listen on 3128 --> Add a line below --> http_port 3128 transparent
+
+4. url_rewrite_program/PATH_TO/asciiImages.pl
+
+Ubuntu
+ 
+blocking site
+
+#Insert your own rules to allow access rules for clients
+acl localnet src 192.168.1.39
+acl blocksite dstdomain "etc/squid/blocksite"
+http_access deny blocksite
+http_access allow localnet --->uncommon
+http_access allow all --->remove deny and replace it with allow
+
+
+/etc/init.d/squid stop
+

